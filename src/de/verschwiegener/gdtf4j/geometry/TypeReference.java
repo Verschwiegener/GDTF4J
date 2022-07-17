@@ -10,11 +10,15 @@ import de.verschwiegener.gdtf4j.GDTFClass;
 import de.verschwiegener.gdtf4j.util.GenericNameNode;
 import de.verschwiegener.gdtf4j.util.math.GDTFMatrix4f;
 
-public class TypeReference extends GenericNameNode {
+public class TypeReference extends BaseGeometry {
 
 	private String model;
 	private GDTFMatrix4f position;
 	private String geometry;
+	
+	public TypeReference(GeometryTypes type) {
+		super(type);
+	}
 
 	@Override
 	public Class<? extends GDTFClass> fromXML(Node node, GDTF gdtf) {

@@ -35,7 +35,7 @@ public class AttributeDefinition {
 	public AttributeDefinition(Node node, GDTF gdtf) {
 		addChildrenToArrayList(GenericNameNode.class, activationGroup, node, "ActivationGroups", "ActivationGroup",
 				gdtf);
-		addChildrenToArrayList(FeatureGroup.class, featureGroup, node, "FEatureGroups", "FeatureGroup",
+		addChildrenToArrayList(FeatureGroup.class, featureGroup, node, "FeatureGroups", "FeatureGroup",
 				gdtf);
 		addChildrenToArrayList(Attribute.class, attributes, node, "Attributes", "Attribute",
 				gdtf);

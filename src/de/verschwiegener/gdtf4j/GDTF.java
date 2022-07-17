@@ -23,7 +23,10 @@ import de.verschwiegener.gdtf4j.attribute.AttributeDefinition;
 import de.verschwiegener.gdtf4j.dmx.DMXChannel;
 import de.verschwiegener.gdtf4j.dmx.DMXMode;
 import de.verschwiegener.gdtf4j.funktion.Wheel;
-import de.verschwiegener.gdtf4j.geometry.Geometry;
+import de.verschwiegener.gdtf4j.geometry.BaseGeometry;
+import de.verschwiegener.gdtf4j.geometry.GenericGeometry2;
+import de.verschwiegener.gdtf4j.geometry.GeometryCollect;
+import de.verschwiegener.gdtf4j.geometry.GeometryTypes;
 import de.verschwiegener.gdtf4j.model.Model;
 import de.verschwiegener.gdtf4j.physical.Emitter;
 import de.verschwiegener.gdtf4j.physical.Filter;
@@ -62,7 +65,7 @@ public class GDTF {
 
 	private ArrayList<Wheel> wheels = new ArrayList<Wheel>();
 	private ArrayList<Model> models = new ArrayList<Model>();
-	private ArrayList<Geometry> geometries = new ArrayList<Geometry>();
+	private GeometryCollect geometry;
 	private ArrayList<DMXMode> dmxModes = new ArrayList<DMXMode>();
 	private ArrayList<Revision> revisions = new ArrayList<Revision>();
 
@@ -89,7 +92,10 @@ public class GDTF {
 		physicalDescription = new PhysicalDescription(fixtureType.getElementsByTagName("PhysicalDescriptions").item(0),
 				this);
 		addChildrenToArrayList(Model.class, models, fixtureType, "Models", "Model", this);
-		addChildrenToArrayList(Wheel.class, wheels, fixtureType, "Geometries", "Geometry", this);
+		
+		geometry = new GeometryCollect(GeometryTypes.Collect);
+		geometry.fromXML(fixtureType.getElementsByTagName("Geometries").item(0), this);
+		
 		addChildrenToArrayList(DMXMode.class, dmxModes, fixtureType, "DMXModes", "DMXMode", this);
 		addChildrenToArrayList(Revision.class, revisions, fixtureType, "Revisions", "Revision", this);
 	}
@@ -108,15 +114,6 @@ public class GDTF {
 		thumbnail = GDTFUtil.loadImage(new File(gdtfFolder, map.getNamedItem("Thumbnail").getNodeValue() + ".png"));
 	}
 
-	public Geometry getGeometryByName(String name) {
-		for (Geometry geo : geometries) {
-			Geometry child = geo.getGeometryByName(name);
-			if (child != null)
-				return child;
-		}
-		return null;
-	}
-
 	public Wheel getWheelByName(String name) {
 		return wheels.stream().filter(wheel -> wheel.getName().equals(name)).findFirst().orElse(null);
 	}
@@ -129,6 +126,9 @@ public class GDTF {
 	public Filter getFilterByName(String Filter) {
 		return physicalDescription.filters.stream().filter(filter -> filter.getName().equals(Filter)).findFirst()
 				.orElse(null);
+	}
+	public GeometryCollect getGeometry() {
+		return geometry;
 	}
 
 }

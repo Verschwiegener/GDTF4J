@@ -163,7 +163,9 @@ public class GDTFUtil {
 		try {
 			NodeList list = GDTFUtil.getChildren((Element) node, parentName, name);
 			for (int i = 0; i < list.getLength(); i++) {
-				target.add((T) ((GDTFClass) childClass.getDeclaredConstructor().newInstance()).fromXML(list.item(i), gdtf));
+				T child = childClass.getDeclaredConstructor().newInstance();
+				target.add(child);
+				((GDTFClass)child).fromXML(list.item(i), gdtf);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -173,7 +175,9 @@ public class GDTFUtil {
 		try {
 			NodeList list = ((Element) node).getElementsByTagName(name);
 			for (int i = 0; i < list.getLength(); i++) {
-				target.add((T) ((GDTFClass) childClass.getDeclaredConstructor().newInstance()).fromXML(list.item(i), gdtf));
+				T child = childClass.getDeclaredConstructor().newInstance();
+				target.add(child);
+				((GDTFClass)child).fromXML(list.item(i), gdtf);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

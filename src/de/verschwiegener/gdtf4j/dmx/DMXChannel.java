@@ -7,7 +7,8 @@ import de.verschwiegener.gdtf4j.GDTF;
 import de.verschwiegener.gdtf4j.GDTFClass;
 import de.verschwiegener.gdtf4j.attribute.Attribute;
 import de.verschwiegener.gdtf4j.funktion.Wheel;
-import de.verschwiegener.gdtf4j.geometry.Geometry;
+import de.verschwiegener.gdtf4j.geometry.BaseGeometry;
+import de.verschwiegener.gdtf4j.geometry.GeometryCollect;
 import de.verschwiegener.gdtf4j.physical.Emitter;
 import de.verschwiegener.gdtf4j.physical.Filter;
 import de.verschwiegener.gdtf4j.util.DMXValue;
@@ -29,14 +30,14 @@ public class DMXChannel extends GDTFClass {
 	private int[] offset;
 	private String initialFunktion;
 	private DMXValue highlight;
-	private Geometry geometry;
+	private BaseGeometry geometry;
 	private ArrayList<LogicalChannel> logicChannel = new ArrayList<DMXChannel.LogicalChannel>();
 
 	@Override
 	public Class<? extends GDTFClass> fromXML(Node node, GDTF gdtf) {
 		NamedNodeMap map = node.getAttributes();
 		initialFunktion = getItemNullSave(map, "InitialFunktion");
-		geometry = gdtf.getGeometryByName(getItemNullSave(map, "Geometry"));
+		geometry = gdtf.getGeometry().getGeometryRecursive(getItemNullSave(map, "Geometry"));
 		String DMXBreak = getItemNullSave(map, "DMXBreak");
 		offset = toIntArray(getItemNullSave(map, "Offset"));
 		String hightlight = getItemNullSave(map, "Highlight");

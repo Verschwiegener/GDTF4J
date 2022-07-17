@@ -9,8 +9,12 @@ import de.verschwiegener.gdtf4j.GDTFClass;
 import static de.verschwiegener.gdtf4j.util.GDTFUtil.getItemNullSave;
 
 public class TypeDisplay extends GenericGeometry2{
-	
+
 	private String texture;
+
+	public TypeDisplay(GeometryTypes type) {
+		super(type);
+	}
 
 	
 	@Override

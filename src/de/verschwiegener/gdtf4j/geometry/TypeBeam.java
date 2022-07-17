@@ -25,6 +25,11 @@ public class TypeBeam extends GenericGeometry2 {
 	private BeamType beamType = BeamType.WASH;
 	private byte colorRenderingIndex = 100;
 	
+
+	public TypeBeam(GeometryTypes type) {
+		super(type);
+	}
+	
 	@Override
 	public Class<? extends GDTFClass> fromXML(Node node, GDTF gdtf) {
 		super.fromXML(node, gdtf);

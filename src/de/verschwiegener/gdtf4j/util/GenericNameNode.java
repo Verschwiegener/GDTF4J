@@ -34,10 +34,12 @@ public class GenericNameNode extends GDTFClass{
 	
 	@Override
 	public Class<? extends GDTFClass> fromXML(Node node, GDTF gdtf) {
-		System.out.println("From2");
 		if(node != null)
 			name = GDTFUtil.getItemNullSave(node.getAttributes(), "Name");
-		else name = "";
+		else {
+			System.out.println("From2: " + node);
+			name = "";
+		}
 		return this.getClass();
 	}
 
