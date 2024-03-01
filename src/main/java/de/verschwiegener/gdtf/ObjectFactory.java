@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.2 generiert 
 // Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2022.07.22 um 09:22:55 PM CEST 
+// Generiert: 2024.03.01 um 02:31:37 PM CET 
 //
 
 
@@ -12,6 +12,76 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
+
+import de.verschwiegener.gdtf.fixtureType.FTPreset;
+import de.verschwiegener.gdtf.fixtureType.FTPresets;
+import de.verschwiegener.gdtf.fixtureType.FixtureType;
+import de.verschwiegener.gdtf.fixtureType.PhysicalDescriptions;
+import de.verschwiegener.gdtf.fixtureType.attributeDefinition.AttributeDefinitions;
+import de.verschwiegener.gdtf.fixtureType.attributeDefinition.activationGroup.ActivationGroup;
+import de.verschwiegener.gdtf.fixtureType.attributeDefinition.activationGroup.ActivationGroups;
+import de.verschwiegener.gdtf.fixtureType.attributeDefinition.attribute.Attribute;
+import de.verschwiegener.gdtf.fixtureType.attributeDefinition.attribute.Attributes;
+import de.verschwiegener.gdtf.fixtureType.attributeDefinition.featureGroup.Feature;
+import de.verschwiegener.gdtf.fixtureType.attributeDefinition.featureGroup.FeatureGroup;
+import de.verschwiegener.gdtf.fixtureType.attributeDefinition.featureGroup.FeatureGroups;
+import de.verschwiegener.gdtf.fixtureType.dmxmodes.ChannelFunction;
+import de.verschwiegener.gdtf.fixtureType.dmxmodes.ChannelSet;
+import de.verschwiegener.gdtf.fixtureType.dmxmodes.DMXChannel;
+import de.verschwiegener.gdtf.fixtureType.dmxmodes.DMXChannels;
+import de.verschwiegener.gdtf.fixtureType.dmxmodes.DMXMode;
+import de.verschwiegener.gdtf.fixtureType.dmxmodes.DMXModes;
+import de.verschwiegener.gdtf.fixtureType.dmxmodes.FTMacro;
+import de.verschwiegener.gdtf.fixtureType.dmxmodes.FTMacros;
+import de.verschwiegener.gdtf.fixtureType.dmxmodes.LogicalChannel;
+import de.verschwiegener.gdtf.fixtureType.dmxmodes.MacroDMX;
+import de.verschwiegener.gdtf.fixtureType.dmxmodes.MacroDMXStep;
+import de.verschwiegener.gdtf.fixtureType.dmxmodes.MacroDMXValue;
+import de.verschwiegener.gdtf.fixtureType.dmxmodes.Relation;
+import de.verschwiegener.gdtf.fixtureType.dmxmodes.Relations;
+import de.verschwiegener.gdtf.fixtureType.geometries.BasicGeometryAttributes;
+import de.verschwiegener.gdtf.fixtureType.geometries.BasicGeometryType;
+import de.verschwiegener.gdtf.fixtureType.geometries.Beam;
+import de.verschwiegener.gdtf.fixtureType.geometries.Break;
+import de.verschwiegener.gdtf.fixtureType.geometries.Display;
+import de.verschwiegener.gdtf.fixtureType.geometries.Geometries;
+import de.verschwiegener.gdtf.fixtureType.geometries.GeometryReference;
+import de.verschwiegener.gdtf.fixtureType.models.Model;
+import de.verschwiegener.gdtf.fixtureType.models.Models;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.CRI;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.CRIGroup;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.CRIs;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.ColorSpace;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.Connector;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.Connectors;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.DMXProfile;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.DMXProfiles;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.Emitter;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.Emitters;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.Filter;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.Filters;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.LegHeight;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.MeasurementPoint;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.OperatingTemperature;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.PowerConsumption;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.Properties;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.Weight;
+import de.verschwiegener.gdtf.fixtureType.protocols.ArtNet;
+import de.verschwiegener.gdtf.fixtureType.protocols.CITP;
+import de.verschwiegener.gdtf.fixtureType.protocols.FTRDM;
+import de.verschwiegener.gdtf.fixtureType.protocols.OpenSoundControl;
+import de.verschwiegener.gdtf.fixtureType.protocols.PosiStageNet;
+import de.verschwiegener.gdtf.fixtureType.protocols.Protocols;
+import de.verschwiegener.gdtf.fixtureType.protocols.SACN;
+import de.verschwiegener.gdtf.fixtureType.protocols.rdm.DMXPersonality;
+import de.verschwiegener.gdtf.fixtureType.protocols.rdm.SoftwareVersionID;
+import de.verschwiegener.gdtf.fixtureType.revisions.Revision;
+import de.verschwiegener.gdtf.fixtureType.revisions.Revisions;
+import de.verschwiegener.gdtf.fixtureType.wheel.AnimationSystem;
+import de.verschwiegener.gdtf.fixtureType.wheel.Facet;
+import de.verschwiegener.gdtf.fixtureType.wheel.Slot;
+import de.verschwiegener.gdtf.fixtureType.wheel.Wheel;
+import de.verschwiegener.gdtf.fixtureType.wheel.Wheels;
 
 
 /**

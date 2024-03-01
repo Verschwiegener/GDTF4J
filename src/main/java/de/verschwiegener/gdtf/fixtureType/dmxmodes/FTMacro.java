@@ -6,31 +6,28 @@
 //
 
 
-package de.verschwiegener.gdtf;
+package de.verschwiegener.gdtf.fixtureType.dmxmodes;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import de.verschwiegener.gdtf.fixtureType.FixtureType;
 
 
 /**
- * <p>Java-Klasse für anonymous complex type.
+ * <p>Java-Klasse für FTMacro complex type.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
- * &lt;complexType&gt;
+ * &lt;complexType name="FTMacro"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="FixtureType" type="{}FixtureType"/&gt;
+ *         &lt;element name="MacroDMX" type="{}MacroDMX" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
- *       &lt;attribute name="DataVersion" use="required" type="{}dataversion" /&gt;
+ *       &lt;attribute name="Name" use="required" type="{}nametype" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -39,55 +36,62 @@ import de.verschwiegener.gdtf.fixtureType.FixtureType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "fixtureType"
+@XmlType(name = "FTMacro", propOrder = {
+    "macroDMX"
 })
-@XmlRootElement(name = "GDTF")
-public class GDTF {
+public class FTMacro {
 
-    @XmlElement(name = "FixtureType", required = true)
-    protected FixtureType fixtureType;
-    @XmlAttribute(name = "DataVersion", required = true)
-    protected float dataVersion;
+    @XmlElement(name = "MacroDMX")
+    protected MacroDMX macroDMX;
+    @XmlAttribute(name = "Name", required = true)
+    protected String name;
 
     /**
-     * Ruft den Wert der fixtureType-Eigenschaft ab.
+     * Ruft den Wert der macroDMX-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link FixtureType }
+     *     {@link MacroDMX }
      *     
      */
-    public FixtureType getFixtureType() {
-        return fixtureType;
+    public MacroDMX getMacroDMX() {
+        return macroDMX;
     }
 
     /**
-     * Legt den Wert der fixtureType-Eigenschaft fest.
+     * Legt den Wert der macroDMX-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
-     *     {@link FixtureType }
+     *     {@link MacroDMX }
      *     
      */
-    public void setFixtureType(FixtureType value) {
-        this.fixtureType = value;
+    public void setMacroDMX(MacroDMX value) {
+        this.macroDMX = value;
     }
 
     /**
-     * Ruft den Wert der dataVersion-Eigenschaft ab.
+     * Ruft den Wert der name-Eigenschaft ab.
      * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
-    public float getDataVersion() {
-        return dataVersion;
+    public String getName() {
+        return name;
     }
 
     /**
-     * Legt den Wert der dataVersion-Eigenschaft fest.
+     * Legt den Wert der name-Eigenschaft fest.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
-    public void setDataVersion(float value) {
-        this.dataVersion = value;
+    public void setName(String value) {
+        this.name = value;
     }
 
 }
