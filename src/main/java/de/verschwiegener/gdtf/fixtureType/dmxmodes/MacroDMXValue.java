@@ -5,7 +5,6 @@
 // Generiert: 2024.03.01 um 02:31:37 PM CET 
 //
 
-
 package de.verschwiegener.gdtf.fixtureType.dmxmodes;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,11 +12,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java-Klasse für MacroDMXValue complex type.
+ * <p>
+ * Java-Klasse für MacroDMXValue complex type.
  * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+ * <p>
+ * Das folgende Schemafragment gibt den erwarteten Content an, der in dieser
+ * Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="MacroDMXValue"&gt;
@@ -36,57 +37,56 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "MacroDMXValue")
 public class MacroDMXValue {
 
-    @XmlAttribute(name = "Value", required = true)
-    protected String value;
-    @XmlAttribute(name = "DMXChannel", required = true)
-    protected String dmxChannel;
+	/**
+	 * Value of the DMX channel
+	 */
+	@XmlAttribute(name = "Value", required = true)
+	protected String value;
 
-    /**
-     * Ruft den Wert der value-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getValue() {
-        return value;
-    }
+	/**
+	 * Link to a DMX channel. Starting node DMX Channel collect
+	 */
+	@XmlAttribute(name = "DMXChannel", required = true)
+	protected String dmxChannel;
 
-    /**
-     * Legt den Wert der value-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setValue(String value) {
-        this.value = value;
-    }
+	/**
+	 * Ruft den Wert der value-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getValue() {
+		return value;
+	}
 
-    /**
-     * Ruft den Wert der dmxChannel-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDMXChannel() {
-        return dmxChannel;
-    }
+	/**
+	 * Legt den Wert der value-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setValue(String value) {
+		this.value = value;
+	}
 
-    /**
-     * Legt den Wert der dmxChannel-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDMXChannel(String value) {
-        this.dmxChannel = value;
-    }
+	/**
+	 * Ruft den Wert der dmxChannel-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDMXChannel() {
+		return dmxChannel;
+	}
+
+	/**
+	 * Legt den Wert der dmxChannel-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setDMXChannel(String value) {
+		this.dmxChannel = value;
+	}
 
 }

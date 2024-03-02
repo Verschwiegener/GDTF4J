@@ -5,7 +5,6 @@
 // Generiert: 2024.03.01 um 02:31:37 PM CET 
 //
 
-
 package de.verschwiegener.gdtf.fixtureType.dmxmodes;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,11 +13,13 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java-Klasse für FTMacro complex type.
+ * <p>
+ * Java-Klasse für FTMacro complex type.
  * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+ * <p>
+ * Das folgende Schemafragment gibt den erwarteten Content an, der in dieser
+ * Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="FTMacro"&gt;
@@ -36,62 +37,59 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "FTMacro", propOrder = {
-    "macroDMX"
-})
+@XmlType(name = "FTMacro", propOrder = { "macroDMX" })
 public class FTMacro {
 
-    @XmlElement(name = "MacroDMX")
-    protected MacroDMX macroDMX;
-    @XmlAttribute(name = "Name", required = true)
-    protected String name;
+	/**
+	 * Optional. Link to channel function; Starting point DMX Mode
+	 */
+	@XmlElement(name = "MacroDMX")
+	protected MacroDMX macroDMX;
 
-    /**
-     * Ruft den Wert der macroDMX-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link MacroDMX }
-     *     
-     */
-    public MacroDMX getMacroDMX() {
-        return macroDMX;
-    }
+	/**
+	 * The unique name of the macro.
+	 */
+	@XmlAttribute(name = "Name", required = true)
+	protected String name;
 
-    /**
-     * Legt den Wert der macroDMX-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link MacroDMX }
-     *     
-     */
-    public void setMacroDMX(MacroDMX value) {
-        this.macroDMX = value;
-    }
+	/**
+	 * Ruft den Wert der macroDMX-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link MacroDMX }
+	 * 
+	 */
+	public MacroDMX getMacroDMX() {
+		return macroDMX;
+	}
 
-    /**
-     * Ruft den Wert der name-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getName() {
-        return name;
-    }
+	/**
+	 * Legt den Wert der macroDMX-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link MacroDMX }
+	 * 
+	 */
+	public void setMacroDMX(MacroDMX value) {
+		this.macroDMX = value;
+	}
 
-    /**
-     * Legt den Wert der name-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setName(String value) {
-        this.name = value;
-    }
+	/**
+	 * Ruft den Wert der name-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Legt den Wert der name-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setName(String value) {
+		this.name = value;
+	}
 
 }

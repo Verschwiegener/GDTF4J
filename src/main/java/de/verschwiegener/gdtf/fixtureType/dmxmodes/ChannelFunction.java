@@ -5,7 +5,6 @@
 // Generiert: 2024.03.01 um 02:31:37 PM CET 
 //
 
-
 package de.verschwiegener.gdtf.fixtureType.dmxmodes;
 
 import java.util.ArrayList;
@@ -16,11 +15,13 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java-Klasse für ChannelFunction complex type.
+ * <p>
+ * Java-Klasse für ChannelFunction complex type.
  * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+ * <p>
+ * Das folgende Schemafragment gibt den erwarteten Content an, der in dieser
+ * Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="ChannelFunction"&gt;
@@ -52,451 +53,463 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ChannelFunction", propOrder = {
-    "channelSet"
-})
+@XmlType(name = "ChannelFunction", propOrder = { "channelSet" })
+//TODO new ChannelFunctionValues https://github.com/mvrdevelopment/spec/blob/main/gdtf-spec.md#table-60-channel-function-attributes
 public class ChannelFunction {
 
-    @XmlElement(name = "ChannelSet")
-    protected List<ChannelSet> channelSet;
-    @XmlAttribute(name = "Name")
-    protected String name;
-    @XmlAttribute(name = "Attribute")
-    protected String attribute;
-    @XmlAttribute(name = "OriginalAttribute")
-    protected String originalAttribute;
-    @XmlAttribute(name = "DMXFrom")
-    protected String dmxFrom;
-    @XmlAttribute(name = "Default", required = true)
-    protected String _default;
-    @XmlAttribute(name = "PhysicalFrom")
-    protected Float physicalFrom;
-    @XmlAttribute(name = "PhysicalTo")
-    protected Float physicalTo;
-    @XmlAttribute(name = "RealFade")
-    protected Float realFade;
-    @XmlAttribute(name = "RealAcceleration")
-    protected Float realAcceleration;
-    @XmlAttribute(name = "Wheel")
-    protected String wheel;
-    @XmlAttribute(name = "Emitter")
-    protected String emitter;
-    @XmlAttribute(name = "Filter")
-    protected String filter;
-    @XmlAttribute(name = "ModeMaster")
-    protected String modeMaster;
-    @XmlAttribute(name = "ModeFrom")
-    protected String modeFrom;
-    @XmlAttribute(name = "ModeTo")
-    protected String modeTo;
+	@XmlElement(name = "ChannelSet")
+	protected List<ChannelSet> channelSet;
 
-    /**
-     * Gets the value of the channelSet property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the channelSet property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getChannelSet().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link ChannelSet }
-     * 
-     * 
-     */
-    public List<ChannelSet> getChannelSet() {
-        if (channelSet == null) {
-            channelSet = new ArrayList<ChannelSet>();
-        }
-        return this.channelSet;
-    }
+	/**
+	 * Unique name; Default value: Name of attribute and number of channel function.
+	 */
+	@XmlAttribute(name = "Name")
+	protected String name;
 
-    /**
-     * Ruft den Wert der name-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getName() {
-        return name;
-    }
+	/**
+	 * Link to attribute; Starting point is the attributes node. Default value:
+	 * “NoFeature”.
+	 */
+	@XmlAttribute(name = "Attribute")
+	protected String attribute;
 
-    /**
-     * Legt den Wert der name-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setName(String value) {
-        this.name = value;
-    }
+	/**
+	 * The manufacturer's original name of the attribute; Default: empty
+	 */
+	@XmlAttribute(name = "OriginalAttribute")
+	protected String originalAttribute;
 
-    /**
-     * Ruft den Wert der attribute-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getAttribute() {
-        if (attribute == null) {
-            return "NoFeature";
-        } else {
-            return attribute;
-        }
-    }
+	/**
+	 * Start DMX value; The end DMX value is calculated as a DMXFrom of the next
+	 * channel function – 1 or the maximum value of the DMX channel. Default value:
+	 * "0/1".
+	 */
+	@XmlAttribute(name = "DMXFrom")
+	protected String dmxFrom;
 
-    /**
-     * Legt den Wert der attribute-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setAttribute(String value) {
-        this.attribute = value;
-    }
+	/**
+	 * Default DMX value of channel function when activated by the control system.
+	 */
+	@XmlAttribute(name = "Default", required = true)
+	protected String _default;
 
-    /**
-     * Ruft den Wert der originalAttribute-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getOriginalAttribute() {
-        if (originalAttribute == null) {
-            return "";
-        } else {
-            return originalAttribute;
-        }
-    }
+	/**
+	 * Physical start value; Default value: 0
+	 */
+	@XmlAttribute(name = "PhysicalFrom")
+	protected Float physicalFrom;
 
-    /**
-     * Legt den Wert der originalAttribute-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setOriginalAttribute(String value) {
-        this.originalAttribute = value;
-    }
+	/**
+	 * Physical end value; Default value: 1
+	 */
+	@XmlAttribute(name = "PhysicalTo")
+	protected Float physicalTo;
 
-    /**
-     * Ruft den Wert der dmxFrom-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDMXFrom() {
-        if (dmxFrom == null) {
-            return "0/1";
-        } else {
-            return dmxFrom;
-        }
-    }
+	/**
+	 * Time in seconds to move from min to max of the Channel Function; Default
+	 * value: 0
+	 */
+	@XmlAttribute(name = "RealFade")
+	protected Float realFade;
 
-    /**
-     * Legt den Wert der dmxFrom-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDMXFrom(String value) {
-        this.dmxFrom = value;
-    }
+	/**
+	 * Time in seconds to accelerate from stop to maximum velocity; Default value: 0
+	 */
+	@XmlAttribute(name = "RealAcceleration")
+	protected Float realAcceleration;
 
-    /**
-     * Ruft den Wert der default-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDefault() {
-        return _default;
-    }
+	/**
+	 * Optional. Link to a wheel; Starting point: Wheel Collect
+	 */
+	@XmlAttribute(name = "Wheel")
+	protected String wheel;
 
-    /**
-     * Legt den Wert der default-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDefault(String value) {
-        this._default = value;
-    }
+	/**
+	 * Optional. Link to an emitter in the physical description; Starting point:
+	 * Emitter Collect
+	 */
+	@XmlAttribute(name = "Emitter")
+	protected String emitter;
 
-    /**
-     * Ruft den Wert der physicalFrom-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Float }
-     *     
-     */
-    public Float getPhysicalFrom() {
-        return physicalFrom;
-    }
+	/**
+	 * Optional. Link to a filter in the physical description; Starting point:
+	 * Filter Collect
+	 */
+	@XmlAttribute(name = "Filter")
+	protected String filter;
 
-    /**
-     * Legt den Wert der physicalFrom-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Float }
-     *     
-     */
-    public void setPhysicalFrom(Float value) {
-        this.physicalFrom = value;
-    }
+	/**
+	 * Optional. Link to DMX Channel or Channel Function; Starting point DMX mode.
+	 */
+	@XmlAttribute(name = "ModeMaster")
+	protected String modeMaster;
+	/**
+	 * Only used together with ModeMaster; DMX start value; Default value: 0/1
+	 */
+	@XmlAttribute(name = "ModeFrom")
+	protected String modeFrom;
 
-    /**
-     * Ruft den Wert der physicalTo-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Float }
-     *     
-     */
-    public Float getPhysicalTo() {
-        return physicalTo;
-    }
+	/**
+	 * Only used together with ModeMaster; DMX end value; Default value: 0/1
+	 */
+	@XmlAttribute(name = "ModeTo")
+	protected String modeTo;
 
-    /**
-     * Legt den Wert der physicalTo-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Float }
-     *     
-     */
-    public void setPhysicalTo(Float value) {
-        this.physicalTo = value;
-    }
+	/**
+	 * Gets the value of the channelSet property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a snapshot.
+	 * Therefore any modification you make to the returned list will be present
+	 * inside the JAXB object. This is why there is not a <CODE>set</CODE> method
+	 * for the channelSet property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getChannelSet().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list {@link ChannelSet }
+	 * 
+	 * 
+	 */
+	public List<ChannelSet> getChannelSet() {
+		if (channelSet == null) {
+			channelSet = new ArrayList<ChannelSet>();
+		}
+		return this.channelSet;
+	}
 
-    /**
-     * Ruft den Wert der realFade-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Float }
-     *     
-     */
-    public Float getRealFade() {
-        return realFade;
-    }
+	/**
+	 * Ruft den Wert der name-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * Legt den Wert der realFade-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Float }
-     *     
-     */
-    public void setRealFade(Float value) {
-        this.realFade = value;
-    }
+	/**
+	 * Legt den Wert der name-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setName(String value) {
+		this.name = value;
+	}
 
-    /**
-     * Ruft den Wert der realAcceleration-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Float }
-     *     
-     */
-    public Float getRealAcceleration() {
-        return realAcceleration;
-    }
+	/**
+	 * Ruft den Wert der attribute-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getAttribute() {
+		if (attribute == null) {
+			return "NoFeature";
+		} else {
+			return attribute;
+		}
+	}
 
-    /**
-     * Legt den Wert der realAcceleration-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Float }
-     *     
-     */
-    public void setRealAcceleration(Float value) {
-        this.realAcceleration = value;
-    }
+	/**
+	 * Legt den Wert der attribute-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setAttribute(String value) {
+		this.attribute = value;
+	}
 
-    /**
-     * Ruft den Wert der wheel-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getWheel() {
-        return wheel;
-    }
+	/**
+	 * Ruft den Wert der originalAttribute-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getOriginalAttribute() {
+		if (originalAttribute == null) {
+			return "";
+		} else {
+			return originalAttribute;
+		}
+	}
 
-    /**
-     * Legt den Wert der wheel-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setWheel(String value) {
-        this.wheel = value;
-    }
+	/**
+	 * Legt den Wert der originalAttribute-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setOriginalAttribute(String value) {
+		this.originalAttribute = value;
+	}
 
-    /**
-     * Ruft den Wert der emitter-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getEmitter() {
-        return emitter;
-    }
+	/**
+	 * Ruft den Wert der dmxFrom-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDMXFrom() {
+		if (dmxFrom == null) {
+			return "0/1";
+		} else {
+			return dmxFrom;
+		}
+	}
 
-    /**
-     * Legt den Wert der emitter-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setEmitter(String value) {
-        this.emitter = value;
-    }
+	/**
+	 * Legt den Wert der dmxFrom-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setDMXFrom(String value) {
+		this.dmxFrom = value;
+	}
 
-    /**
-     * Ruft den Wert der filter-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getFilter() {
-        return filter;
-    }
+	/**
+	 * Ruft den Wert der default-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDefault() {
+		return _default;
+	}
 
-    /**
-     * Legt den Wert der filter-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setFilter(String value) {
-        this.filter = value;
-    }
+	/**
+	 * Legt den Wert der default-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setDefault(String value) {
+		this._default = value;
+	}
 
-    /**
-     * Ruft den Wert der modeMaster-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getModeMaster() {
-        return modeMaster;
-    }
+	/**
+	 * Ruft den Wert der physicalFrom-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link Float }
+	 * 
+	 */
+	public Float getPhysicalFrom() {
+		if (physicalFrom == null)
+			return 0f;
+		return physicalFrom;
+	}
 
-    /**
-     * Legt den Wert der modeMaster-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setModeMaster(String value) {
-        this.modeMaster = value;
-    }
+	/**
+	 * Legt den Wert der physicalFrom-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link Float }
+	 * 
+	 */
+	public void setPhysicalFrom(Float value) {
+		this.physicalFrom = value;
+	}
 
-    /**
-     * Ruft den Wert der modeFrom-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getModeFrom() {
-        if (modeFrom == null) {
-            return "0/1";
-        } else {
-            return modeFrom;
-        }
-    }
+	/**
+	 * Ruft den Wert der physicalTo-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link Float }
+	 * 
+	 */
+	public Float getPhysicalTo() {
+		if (physicalTo == null)
+			return 1f;
+		return physicalTo;
+	}
 
-    /**
-     * Legt den Wert der modeFrom-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setModeFrom(String value) {
-        this.modeFrom = value;
-    }
+	/**
+	 * Legt den Wert der physicalTo-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link Float }
+	 * 
+	 */
+	public void setPhysicalTo(Float value) {
+		this.physicalTo = value;
+	}
 
-    /**
-     * Ruft den Wert der modeTo-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getModeTo() {
-        if (modeTo == null) {
-            return "0/1";
-        } else {
-            return modeTo;
-        }
-    }
+	/**
+	 * Ruft den Wert der realFade-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link Float }
+	 * 
+	 */
+	public Float getRealFade() {
+		if (realFade == null)
+			return 0f;
+		return realFade;
+	}
 
-    /**
-     * Legt den Wert der modeTo-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setModeTo(String value) {
-        this.modeTo = value;
-    }
+	/**
+	 * Legt den Wert der realFade-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link Float }
+	 * 
+	 */
+	public void setRealFade(Float value) {
+		this.realFade = value;
+	}
+
+	/**
+	 * Ruft den Wert der realAcceleration-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link Float }
+	 * 
+	 */
+	public Float getRealAcceleration() {
+		if (realAcceleration == null)
+			return 0f;
+		return realAcceleration;
+	}
+
+	/**
+	 * Legt den Wert der realAcceleration-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link Float }
+	 * 
+	 */
+	public void setRealAcceleration(Float value) {
+		this.realAcceleration = value;
+	}
+
+	/**
+	 * Ruft den Wert der wheel-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getWheel() {
+		return wheel;
+	}
+
+	/**
+	 * Legt den Wert der wheel-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setWheel(String value) {
+		this.wheel = value;
+	}
+
+	/**
+	 * Ruft den Wert der emitter-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getEmitter() {
+		return emitter;
+	}
+
+	/**
+	 * Legt den Wert der emitter-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setEmitter(String value) {
+		this.emitter = value;
+	}
+
+	/**
+	 * Ruft den Wert der filter-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getFilter() {
+		return filter;
+	}
+
+	/**
+	 * Legt den Wert der filter-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setFilter(String value) {
+		this.filter = value;
+	}
+
+	/**
+	 * Ruft den Wert der modeMaster-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getModeMaster() {
+		return modeMaster;
+	}
+
+	/**
+	 * Legt den Wert der modeMaster-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setModeMaster(String value) {
+		this.modeMaster = value;
+	}
+
+	/**
+	 * Ruft den Wert der modeFrom-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getModeFrom() {
+		if (modeFrom == null) {
+			return "0/1";
+		} else {
+			return modeFrom;
+		}
+	}
+
+	/**
+	 * Legt den Wert der modeFrom-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setModeFrom(String value) {
+		this.modeFrom = value;
+	}
+
+	/**
+	 * Ruft den Wert der modeTo-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getModeTo() {
+		if (modeTo == null) {
+			return "0/1";
+		} else {
+			return modeTo;
+		}
+	}
+
+	/**
+	 * Legt den Wert der modeTo-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setModeTo(String value) {
+		this.modeTo = value;
+	}
 
 }

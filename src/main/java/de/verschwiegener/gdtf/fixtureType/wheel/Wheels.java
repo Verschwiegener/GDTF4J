@@ -72,5 +72,13 @@ public class Wheels {
         }
         return this.wheel;
     }
+    
+    /**
+     * Returns the first Wheel with the given name, or null if nothing was found
+     * @param name String to search for
+     */
+    public Wheel getWheelByName(String name) {
+    	return getWheel().stream().filter(wheel -> wheel.getName().equals(name)).findFirst().orElse(null);
+    }
 
 }

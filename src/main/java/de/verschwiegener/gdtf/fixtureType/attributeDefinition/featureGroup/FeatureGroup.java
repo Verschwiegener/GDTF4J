@@ -46,8 +46,16 @@ public class FeatureGroup {
 
     @XmlElement(name = "Feature")
     protected List<Feature> feature;
+    
+    /**
+     * The unique name of the feature group.
+     */
     @XmlAttribute(name = "Name", required = true)
     protected String name;
+    
+    /**
+     * The pretty name of the feature group.
+     */
     @XmlAttribute(name = "Pretty", required = true)
     protected String pretty;
 

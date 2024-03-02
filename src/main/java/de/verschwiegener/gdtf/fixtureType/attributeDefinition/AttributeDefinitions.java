@@ -5,7 +5,6 @@
 // Generiert: 2024.03.01 um 02:31:37 PM CET 
 //
 
-
 package de.verschwiegener.gdtf.fixtureType.attributeDefinition;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -17,11 +16,13 @@ import de.verschwiegener.gdtf.fixtureType.attributeDefinition.activationGroup.Ac
 import de.verschwiegener.gdtf.fixtureType.attributeDefinition.attribute.Attributes;
 import de.verschwiegener.gdtf.fixtureType.attributeDefinition.featureGroup.FeatureGroups;
 
-
 /**
- * <p>Java-Klasse für AttributeDefinitions complex type.
+ * <p>
+ * Java-Klasse für AttributeDefinitions complex type.
  * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+ * <p>
+ * Das folgende Schemafragment gibt den erwarteten Content an, der in dieser
+ * Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="AttributeDefinitions"&gt;
@@ -45,83 +46,85 @@ import de.verschwiegener.gdtf.fixtureType.attributeDefinition.featureGroup.Featu
 })
 public class AttributeDefinitions {
 
-    @XmlElement(name = "ActivationGroups")
-    protected ActivationGroups activationGroups;
-    @XmlElement(name = "FeatureGroups", required = true)
-    protected FeatureGroups featureGroups;
-    @XmlElement(name = "Attributes", required = true)
-    protected Attributes attributes;
+	/**
+	 * Defines which attributes are to be activated together. For example, Pan and
+	 * Tilt are in the same activation group.
+	 */
+	@XmlElement(name = "ActivationGroups")
+	protected ActivationGroups activationGroups;
 
-    /**
-     * Ruft den Wert der activationGroups-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ActivationGroups }
-     *     
-     */
-    public ActivationGroups getActivationGroups() {
-        return activationGroups;
-    }
+	/**
+	 * Describes the logical grouping of attributes. For example, Gobo 1 and Gobo 2
+	 * are grouped in the feature Gobo of the feature group Gobo.
+	 */
+	@XmlElement(name = "FeatureGroups", required = true)
+	protected FeatureGroups featureGroups;
 
-    /**
-     * Legt den Wert der activationGroups-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ActivationGroups }
-     *     
-     */
-    public void setActivationGroups(ActivationGroups value) {
-        this.activationGroups = value;
-    }
+	/**
+	 * List of Fixture Type Attributes that are used. Predefindes fixtury type
+	 * attributes can be found in Annex A.
+	 */
+	@XmlElement(name = "Attributes", required = true)
+	protected Attributes attributes;
 
-    /**
-     * Ruft den Wert der featureGroups-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link FeatureGroups }
-     *     
-     */
-    public FeatureGroups getFeatureGroups() {
-        return featureGroups;
-    }
+	/**
+	 * Ruft den Wert der activationGroups-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link ActivationGroups }
+	 * 
+	 */
+	public ActivationGroups getActivationGroups() {
+		return activationGroups;
+	}
 
-    /**
-     * Legt den Wert der featureGroups-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link FeatureGroups }
-     *     
-     */
-    public void setFeatureGroups(FeatureGroups value) {
-        this.featureGroups = value;
-    }
+	/**
+	 * Legt den Wert der activationGroups-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link ActivationGroups }
+	 * 
+	 */
+	public void setActivationGroups(ActivationGroups value) {
+		this.activationGroups = value;
+	}
 
-    /**
-     * Ruft den Wert der attributes-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Attributes }
-     *     
-     */
-    public Attributes getAttributes() {
-        return attributes;
-    }
+	/**
+	 * Ruft den Wert der featureGroups-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link FeatureGroups }
+	 * 
+	 */
+	public FeatureGroups getFeatureGroups() {
+		return featureGroups;
+	}
 
-    /**
-     * Legt den Wert der attributes-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Attributes }
-     *     
-     */
-    public void setAttributes(Attributes value) {
-        this.attributes = value;
-    }
+	/**
+	 * Legt den Wert der featureGroups-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link FeatureGroups }
+	 * 
+	 */
+	public void setFeatureGroups(FeatureGroups value) {
+		this.featureGroups = value;
+	}
+
+	/**
+	 * Ruft den Wert der attributes-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link Attributes }
+	 * 
+	 */
+	public Attributes getAttributes() {
+		return attributes;
+	}
+
+	/**
+	 * Legt den Wert der attributes-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link Attributes }
+	 * 
+	 */
+	public void setAttributes(Attributes value) {
+		this.attributes = value;
+	}
 
 }

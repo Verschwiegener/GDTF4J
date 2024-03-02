@@ -35,21 +35,26 @@ import javax.xml.bind.annotation.XmlType;
 public enum SnapEnum {
 
     @XmlEnumValue("Yes")
-    YES("Yes"),
+    YES("Yes", true),
     @XmlEnumValue("No")
-    NO("No"),
+    NO("No", false),
     @XmlEnumValue("On")
-    ON("On"),
+    ON("On", true),
     @XmlEnumValue("Off")
-    OFF("Off");
+    OFF("Off", false);
     private final String value;
+    private final boolean bool;
 
-    SnapEnum(String v) {
+    SnapEnum(String v, boolean bool) {
         value = v;
+        this.bool = bool;
     }
 
     public String value() {
         return value;
+    }
+    public boolean asBoolean() {
+    	return bool;
     }
 
     public static SnapEnum fromValue(String v) {

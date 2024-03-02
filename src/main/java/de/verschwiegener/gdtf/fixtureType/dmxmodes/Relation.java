@@ -38,12 +38,27 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "Relation")
 public class Relation {
 
+	/**
+	 * The unique name of the relation
+	 */
     @XmlAttribute(name = "Name", required = true)
     protected String name;
+    
+    /**
+     * Link to the master DMX channel; Starting point: DMX mode
+     */
     @XmlAttribute(name = "Master", required = true)
     protected String master;
+    
+    /**
+     * Link to the following channel function; Starting point: DMX mode
+     */
     @XmlAttribute(name = "Follower", required = true)
     protected String follower;
+    
+    /**
+     * Type of the relation; Values: “Multiply”, “Override”
+     */
     @XmlAttribute(name = "Type", required = true)
     protected RelationTypesEnum type;
 

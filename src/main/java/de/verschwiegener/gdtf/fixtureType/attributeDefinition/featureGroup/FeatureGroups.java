@@ -72,5 +72,52 @@ public class FeatureGroups {
         }
         return this.featureGroup;
     }
+    
+    /**
+     * Returns first FeatureGroup with given name, or null if nothing was found
+     * @param name String to Search for
+     */
+    public FeatureGroup getFeatureGroupByName(String name) {
+    	return getFeatureGroup().stream().filter(group -> group.getName().equals(name)).findFirst().orElse(null);
+    }
+    
+    /**
+     * Returns all Features of a given FeatureGroup as a String Array
+     * @param groupName String FeatureGroup Name to get Features from
+     */
+    public String[] getFeaturesFromGroup(String groupName) {
+    	FeatureGroup group = getFeatureGroupByName(groupName);
+    	String[] features = new String[group.getFeature().size()];
+    	for(int i = 0; i < group.getFeature().size();i++) {
+    		features[i] = group.getFeature().get(i).getName();
+    	}
+    	return features;
+    }
+    /**
+     * Returns Name and Pretty Name of all Feature groups as a 2D String Array
+     * @return String[][] {index, {Name, Pretty}}
+     */
+    public String[][] getFeatureGroupNameAndPretty() {
+    	String[][] featureGroupNameAndPretty = new String[getFeatureGroup().size()][2];
+    	for(int i = 0; i < getFeatureGroup().size();i++) {
+    		FeatureGroup group = getFeatureGroup().get(i);
+    		featureGroupNameAndPretty[i][0] = group.getName();
+    		featureGroupNameAndPretty[i][1] = group.getPretty();
+    	}
+    	return featureGroupNameAndPretty;
+    }
+    
+    /**
+     * Returns all Features in GDTF XML Node Representation (FeatureGroupName.FeatureName)
+     */
+    public ArrayList<String> getFeatures() {
+    	ArrayList<String> featureGroupFeatures = new ArrayList<String>();
+    	getFeatureGroup().forEach(featureG -> {
+    		featureG.feature.forEach(feature -> {
+    			featureGroupFeatures.add(featureG.getName() + "." + feature.getName());
+    		});
+    	});
+    	return featureGroupFeatures;
+    }
 
 }

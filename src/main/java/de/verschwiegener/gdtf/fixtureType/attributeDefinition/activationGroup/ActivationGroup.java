@@ -35,6 +35,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "ActivationGroup")
 public class ActivationGroup {
 
+	/**
+	 * The unique name of the activation group.
+	 */
     @XmlAttribute(name = "Name", required = true)
     protected String name;
 

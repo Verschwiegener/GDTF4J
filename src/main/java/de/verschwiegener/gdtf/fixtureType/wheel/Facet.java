@@ -5,7 +5,6 @@
 // Generiert: 2024.03.01 um 02:31:37 PM CET 
 //
 
-
 package de.verschwiegener.gdtf.fixtureType.wheel;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,11 +12,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java-Klasse für Facet complex type.
+ * <p>
+ * Java-Klasse für Facet complex type.
  * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+ * <p>
+ * Das folgende Schemafragment gibt den erwarteten Content an, der in dieser
+ * Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Facet"&gt;
@@ -36,57 +37,58 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "Facet")
 public class Facet {
 
-    @XmlAttribute(name = "Color")
-    protected String color;
-    @XmlAttribute(name = "Rotation", required = true)
-    protected String rotation;
+	/**
+	 * Color of prism facet, Default value: {0.3127, 0.3290, 100.0 } (white)
+	 */
+	@XmlAttribute(name = "Color")
+	protected String color;
+	
+	/**
+	 * Specify the rotation, translation and scaling for the facet.
+	 */
+	@XmlAttribute(name = "Rotation", required = true)
+	protected String rotation;
 
-    /**
-     * Ruft den Wert der color-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getColor() {
-        return color;
-    }
+	/**
+	 * Ruft den Wert der color-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getColor() {
+		if (color == null)
+			return "0.3127, 0.3290, 100.0";
+		return color;
+	}
 
-    /**
-     * Legt den Wert der color-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setColor(String value) {
-        this.color = value;
-    }
+	/**
+	 * Legt den Wert der color-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setColor(String value) {
+		this.color = value;
+	}
 
-    /**
-     * Ruft den Wert der rotation-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getRotation() {
-        return rotation;
-    }
+	/**
+	 * Ruft den Wert der rotation-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getRotation() {
+		return rotation;
+	}
 
-    /**
-     * Legt den Wert der rotation-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setRotation(String value) {
-        this.rotation = value;
-    }
+	/**
+	 * Legt den Wert der rotation-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setRotation(String value) {
+		this.rotation = value;
+	}
 
 }

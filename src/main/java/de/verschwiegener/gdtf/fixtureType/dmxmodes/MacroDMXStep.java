@@ -5,7 +5,6 @@
 // Generiert: 2024.03.01 um 02:31:37 PM CET 
 //
 
-
 package de.verschwiegener.gdtf.fixtureType.dmxmodes;
 
 import java.util.ArrayList;
@@ -16,11 +15,13 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java-Klasse für MacroDMXStep complex type.
+ * <p>
+ * Java-Klasse für MacroDMXStep complex type.
  * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+ * <p>
+ * Das folgende Schemafragment gibt den erwarteten Content an, der in dieser
+ * Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="MacroDMXStep"&gt;
@@ -38,67 +39,68 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "MacroDMXStep", propOrder = {
-    "macroDMXValue"
-})
+@XmlType(name = "MacroDMXStep", propOrder = { "macroDMXValue" })
 public class MacroDMXStep {
 
-    @XmlElement(name = "MacroDMXValue")
-    protected List<MacroDMXValue> macroDMXValue;
-    @XmlAttribute(name = "Duration")
-    protected Float duration;
+	@XmlElement(name = "MacroDMXValue")
+	protected List<MacroDMXValue> macroDMXValue;
 
-    /**
-     * Gets the value of the macroDMXValue property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the macroDMXValue property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getMacroDMXValue().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link MacroDMXValue }
-     * 
-     * 
-     */
-    public List<MacroDMXValue> getMacroDMXValue() {
-        if (macroDMXValue == null) {
-            macroDMXValue = new ArrayList<MacroDMXValue>();
-        }
-        return this.macroDMXValue;
-    }
+	/**
+	 * Duration of a step; Default value: 1; Unit: seconds.
+	 */
+	@XmlAttribute(name = "Duration")
+	protected Float duration;
 
-    /**
-     * Ruft den Wert der duration-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Float }
-     *     
-     */
-    public Float getDuration() {
-        return duration;
-    }
+	/**
+	 * Gets the value of the macroDMXValue property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a snapshot.
+	 * Therefore any modification you make to the returned list will be present
+	 * inside the JAXB object. This is why there is not a <CODE>set</CODE> method
+	 * for the macroDMXValue property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getMacroDMXValue().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list {@link MacroDMXValue
+	 * }
+	 * 
+	 * 
+	 */
+	public List<MacroDMXValue> getMacroDMXValue() {
+		if (macroDMXValue == null) {
+			macroDMXValue = new ArrayList<MacroDMXValue>();
+		}
+		return this.macroDMXValue;
+	}
 
-    /**
-     * Legt den Wert der duration-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Float }
-     *     
-     */
-    public void setDuration(Float value) {
-        this.duration = value;
-    }
+	/**
+	 * Ruft den Wert der duration-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link Float }
+	 * 
+	 */
+	public Float getDuration() {
+		if (duration == null)
+			return 1f;
+		return duration;
+	}
+
+	/**
+	 * Legt den Wert der duration-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link Float }
+	 * 
+	 */
+	public void setDuration(Float value) {
+		this.duration = value;
+	}
 
 }

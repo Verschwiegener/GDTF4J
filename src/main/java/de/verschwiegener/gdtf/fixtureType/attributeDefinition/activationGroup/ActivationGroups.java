@@ -72,5 +72,16 @@ public class ActivationGroups {
         }
         return this.activationGroup;
     }
-
+    
+    /**
+     * Returns the Name of all Activation Groups as String Array
+     */
+    public String[] getActivationGroupNames() {
+    	String[] names = new String[activationGroup.size()];
+    	for(int i = 0; i < activationGroup.size();i++) {
+    		names[i] = activationGroup.get(i).getName();
+    	}
+    	return names;
+    }
+ 
 }

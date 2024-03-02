@@ -35,6 +35,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "Feature")
 public class Feature {
 
+	/**
+	 * The unique name of the feature.
+	 */
     @XmlAttribute(name = "Name", required = true)
     protected String name;
 

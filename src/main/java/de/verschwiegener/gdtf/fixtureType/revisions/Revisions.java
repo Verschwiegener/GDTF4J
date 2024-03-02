@@ -72,5 +72,9 @@ public class Revisions {
         }
         return this.revision;
     }
+    
+    public Revision getLatest() {
+    	return getRevision().get(getRevision().size() - 1);
+    }
 
 }

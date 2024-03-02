@@ -45,6 +45,10 @@ public class Wheel {
 
     @XmlElement(name = "Slot")
     protected List<Slot> slot;
+    
+    /**
+     * The unique name of the wheel
+     */
     @XmlAttribute(name = "Name")
     protected String name;
 
@@ -75,6 +79,14 @@ public class Wheel {
             slot = new ArrayList<Slot>();
         }
         return this.slot;
+    }
+    
+    /**
+     * Returns the First Slot with the given name, or null if nothing was found
+     * @param name String to search for
+     */
+    public Slot getSlotByName(String name) {
+    	return getSlot().stream().filter(slot -> slot.getName().equals(name)).findFirst().orElse(null);
     }
 
     /**

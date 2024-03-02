@@ -5,7 +5,6 @@
 // Generiert: 2024.03.01 um 02:31:37 PM CET 
 //
 
-
 package de.verschwiegener.gdtf.fixtureType.wheel;
 
 import java.util.ArrayList;
@@ -16,11 +15,13 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java-Klasse für Slot complex type.
+ * <p>
+ * Java-Klasse für Slot complex type.
  * 
- * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+ * <p>
+ * Das folgende Schemafragment gibt den erwarteten Content an, der in dieser
+ * Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="Slot"&gt;
@@ -42,176 +43,180 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Slot", propOrder = {
-    "facet",
-    "animationSystem"
-})
+@XmlType(name = "Slot", propOrder = { "facet", "animationSystem" })
+
+//TODO New GDTF Attributes
 public class Slot {
 
-    @XmlElement(name = "Facet")
-    protected List<Facet> facet;
-    @XmlElement(name = "AnimationSystem")
-    protected AnimationSystem animationSystem;
-    @XmlAttribute(name = "Name", required = true)
-    protected String name;
-    @XmlAttribute(name = "Color")
-    protected String color;
-    @XmlAttribute(name = "Filter")
-    protected String filter;
-    @XmlAttribute(name = "MediaFileName")
-    protected String mediaFileName;
+	@XmlElement(name = "Facet")
+	protected List<Facet> facet;
+	@XmlElement(name = "AnimationSystem")
+	protected AnimationSystem animationSystem;
 
-    /**
-     * Gets the value of the facet property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the facet property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getFacet().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Facet }
-     * 
-     * 
-     */
-    public List<Facet> getFacet() {
-        if (facet == null) {
-            facet = new ArrayList<Facet>();
-        }
-        return this.facet;
-    }
+	/**
+	 * The unique name of the wheel slot
+	 */
+	@XmlAttribute(name = "Name", required = true)
+	protected String name;
 
-    /**
-     * Ruft den Wert der animationSystem-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link AnimationSystem }
-     *     
-     */
-    public AnimationSystem getAnimationSystem() {
-        return animationSystem;
-    }
+	/**
+	 * Color of the wheel slot, Default value: {0.3127, 0.3290, 100.0 } (white) For
+	 * Y give relative value compared to overall output defined in property Luminous
+	 * Flux of related Beam Geometry (transmissive case).
+	 */
+	@XmlAttribute(name = "Color")
+	protected String color;
 
-    /**
-     * Legt den Wert der animationSystem-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link AnimationSystem }
-     *     
-     */
-    public void setAnimationSystem(AnimationSystem value) {
-        this.animationSystem = value;
-    }
+	/**
+	 * Optional. Link to filter in the physical description; Do not define color if
+	 * filter is used; Starting point: Filter Collect
+	 */
+	@XmlAttribute(name = "Filter")
+	protected String filter;
 
-    /**
-     * Ruft den Wert der name-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getName() {
-        return name;
-    }
+	/**
+	 * Optional. PNG file name without extension containing image for specific gobos
+	 * etc. - Maximum resolution of picture: 1024x1024 - Recommended resolution of
+	 * gobo: 256x256 - Recommended resolution of animation wheel: 256x256 These
+	 * resource files are located in a folder called ./wheels in the zip archive.
+	 * Default value: empty.
+	 */
+	@XmlAttribute(name = "MediaFileName")
+	protected String mediaFileName;
 
-    /**
-     * Legt den Wert der name-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setName(String value) {
-        this.name = value;
-    }
+	/**
+	 * Gets the value of the facet property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a snapshot.
+	 * Therefore any modification you make to the returned list will be present
+	 * inside the JAXB object. This is why there is not a <CODE>set</CODE> method
+	 * for the facet property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getFacet().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list {@link Facet }
+	 * 
+	 * 
+	 */
+	public List<Facet> getFacet() {
+		if (facet == null) {
+			facet = new ArrayList<Facet>();
+		}
+		return this.facet;
+	}
 
-    /**
-     * Ruft den Wert der color-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getColor() {
-        return color;
-    }
+	/**
+	 * Ruft den Wert der animationSystem-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link AnimationSystem }
+	 * 
+	 */
+	public AnimationSystem getAnimationSystem() {
+		return animationSystem;
+	}
 
-    /**
-     * Legt den Wert der color-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setColor(String value) {
-        this.color = value;
-    }
+	/**
+	 * Legt den Wert der animationSystem-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link AnimationSystem }
+	 * 
+	 */
+	public void setAnimationSystem(AnimationSystem value) {
+		this.animationSystem = value;
+	}
 
-    /**
-     * Ruft den Wert der filter-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getFilter() {
-        return filter;
-    }
+	/**
+	 * Ruft den Wert der name-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * Legt den Wert der filter-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setFilter(String value) {
-        this.filter = value;
-    }
+	/**
+	 * Legt den Wert der name-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setName(String value) {
+		this.name = value;
+	}
 
-    /**
-     * Ruft den Wert der mediaFileName-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getMediaFileName() {
-        if (mediaFileName == null) {
-            return "";
-        } else {
-            return mediaFileName;
-        }
-    }
+	/**
+	 * Ruft den Wert der color-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getColor() {
+		if (color == null)
+			return "0.3127, 0.3290, 100.0";
+		return color;
+	}
 
-    /**
-     * Legt den Wert der mediaFileName-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setMediaFileName(String value) {
-        this.mediaFileName = value;
-    }
+	/**
+	 * Legt den Wert der color-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setColor(String value) {
+		this.color = value;
+	}
+
+	/**
+	 * Ruft den Wert der filter-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getFilter() {
+		return filter;
+	}
+
+	/**
+	 * Legt den Wert der filter-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setFilter(String value) {
+		this.filter = value;
+	}
+
+	/**
+	 * Ruft den Wert der mediaFileName-Eigenschaft ab.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getMediaFileName() {
+		if (mediaFileName == null) {
+			return "";
+		} else {
+			return mediaFileName;
+		}
+	}
+
+	/**
+	 * Legt den Wert der mediaFileName-Eigenschaft fest.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+	public void setMediaFileName(String value) {
+		this.mediaFileName = value;
+	}
 
 }
