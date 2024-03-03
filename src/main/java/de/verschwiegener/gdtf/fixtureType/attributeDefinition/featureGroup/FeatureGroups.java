@@ -15,6 +15,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.ValueHelper.NameHelper;
+
 
 /**
  * <p>Java-Klasse für FeatureGroups complex type.
@@ -94,15 +96,14 @@ public class FeatureGroups {
     	return features;
     }
     /**
-     * Returns Name and Pretty Name of all Feature groups as a 2D String Array
-     * @return String[][] {index, {Name, Pretty}}
+     * Returns Name and Pretty Name of all Feature groups as a NameHelper Array
+     * @return String[] {NameHelper}
      */
-    public String[][] getFeatureGroupNameAndPretty() {
-    	String[][] featureGroupNameAndPretty = new String[getFeatureGroup().size()][2];
+    public NameHelper[] getFeatureGroupNameAndPretty() {
+    	NameHelper[] featureGroupNameAndPretty = new NameHelper[getFeatureGroup().size()];
     	for(int i = 0; i < getFeatureGroup().size();i++) {
     		FeatureGroup group = getFeatureGroup().get(i);
-    		featureGroupNameAndPretty[i][0] = group.getName();
-    		featureGroupNameAndPretty[i][1] = group.getPretty();
+    		featureGroupNameAndPretty[i] = new NameHelper(group.getName(), group.getPretty());
     	}
     	return featureGroupNameAndPretty;
     }

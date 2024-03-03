@@ -2,6 +2,17 @@ package de.verschwiegener.gdtf;
 
 public class ValueHelper {
 	
+	
+	public static record NameHelper (String name, String pretty) {}
+	
+	public static record FeatureHelper (String feature, String pretty) {}
+	
+	/**
+	 * Holds the LogicalChannel Attribute and ChannelFunction Attribute
+	 */
+	public static record NodeHelper (String lcAttribute, String cfAttribute) {}
+	
+	
 	/**
 	 * Offsets the gives DMXValue by the given Offset Amount
 	 * 

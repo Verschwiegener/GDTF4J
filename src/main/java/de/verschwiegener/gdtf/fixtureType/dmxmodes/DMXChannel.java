@@ -15,6 +15,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.ValueHelper.NodeHelper;
+
 /**
  * <p>
  * Java-Klasse für DMXChannel complex type.
@@ -121,7 +123,7 @@ public class DMXChannel {
 	}
 
 	/**
-	 * Returns First LogicalChannel with gives Attribute, null if nothing was found
+	 * Returns First LogicalChannel with given Attribute, null if nothing was found
 	 * 
 	 * @param attribute String attribute to search for
 	 * @return First LogicalChannel with given attribute or null
@@ -142,6 +144,31 @@ public class DMXChannel {
 			channelFunctions.addAll(channel.getAllChannelFunctionNames());
 		});
 		return channelFunctions;
+	}
+
+	/**
+	 * Returns all usable Nodes of this DMX Channel in Format
+	 * LogicalChannel(Attribute).ChannelFunction(Attribute)
+	 * 
+	 * @return
+	 */
+	public ArrayList<NodeHelper> getAllUsableNodeIDs() {
+		ArrayList<NodeHelper> nodes = new ArrayList<NodeHelper>();
+		getLogicalChannel().forEach(lchannel -> {
+			lchannel.getAllChannelFunctionAttributes().forEach(attribute -> {
+				nodes.add(new NodeHelper(lchannel.getAttribute(), attribute));
+			});
+		});
+		return nodes;
+	}
+	
+	/**
+	 * Returns ChannelFunction by Node Path
+	 * 
+	 * @param helper NodeHelper Node Path
+	 */
+	public ChannelFunction getChannelFunction(NodeHelper helper) {
+		return getLogicalChannel(helper.lcAttribute()).getChannelFunctionByAttribute(helper.cfAttribute());
 	}
 
 	/**

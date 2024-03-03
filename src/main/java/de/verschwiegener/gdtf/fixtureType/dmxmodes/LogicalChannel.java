@@ -130,7 +130,7 @@ public class LogicalChannel {
 	}
 
 	/**
-	 * Returns all ChannelFunction Names of its Parents
+	 * Returns all ChannelFunction Names
 	 * 
 	 * @return ArrayList<String> containing Channel Function Names
 	 */
@@ -140,6 +140,19 @@ public class LogicalChannel {
 			channelFunctionNames.add(function.getName());
 		});
 		return channelFunctionNames;
+	}
+	
+	/**
+	 * Returns all ChannelFunction Attributes
+	 * 
+	 * @return ArrayList<String> containing Channel Function Names
+	 */
+	public ArrayList<String> getAllChannelFunctionAttributes() {
+		ArrayList<String> channelFunctionAttributes = new ArrayList<String>();
+		getChannelFunction().forEach(function -> {
+			channelFunctionAttributes.add(function.getAttribute());
+		});
+		return channelFunctionAttributes;
 	}
 
 	/**

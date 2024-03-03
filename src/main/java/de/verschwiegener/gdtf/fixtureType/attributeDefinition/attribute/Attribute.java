@@ -16,6 +16,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.ValueHelper.FeatureHelper;
+import de.verschwiegener.gdtf.ValueHelper.NameHelper;
+
 /**
  * <p>
  * Java-Klasse für Attribute complex type.
@@ -99,6 +102,16 @@ public class Attribute {
 	 */
 	@XmlAttribute(name = "MainAttribute")
 	protected String mainAttribute;
+	
+	
+	
+	public NameHelper getNameAndPretty() {
+		return new NameHelper(name, pretty);
+	}
+	
+	public FeatureHelper getFeatureAndPretty() {
+		return new FeatureHelper(feature, pretty);
+	}
 
 	public List<SubPhysicalUnit> getSubPhysicalUnit() {
 		if (subphysicalUnit == null) {

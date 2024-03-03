@@ -74,7 +74,7 @@ public class DMXChannels {
 	}
 
 	/**
-	 * Returns all ChannelFunction Names of its Parents
+	 * Returns all ChannelFunction Names
 	 * 
 	 * @return ArrayList<String> containing Channel Function Names
 	 */
@@ -98,5 +98,4 @@ public class DMXChannels {
 		});
 		return namesbygeo;
 	}
-
 }
