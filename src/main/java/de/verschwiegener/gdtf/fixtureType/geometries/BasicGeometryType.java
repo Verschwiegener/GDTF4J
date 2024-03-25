@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
+
 /**
  * <p>Java-Klasse für BasicGeometryType complex type.
  * 
@@ -42,7 +43,12 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlSeeAlso({
     Beam.class,
-    Display.class
+    Display.class,
+    Laser.class,
+    WiringObject.class,
+    Inventory.class,
+    Structure.class,
+    Support.class
 })
 public class BasicGeometryType
     extends BasicGeometryAttributes
@@ -60,7 +66,13 @@ public class BasicGeometryType
         @XmlElementRef(name = "MediaServerCamera", type = JAXBElement.class, required = false),
         @XmlElementRef(name = "MediaServerMaster", type = JAXBElement.class, required = false),
         @XmlElementRef(name = "Display", type = JAXBElement.class, required = false),
-        @XmlElementRef(name = "GeometryReference", type = JAXBElement.class, required = false)
+        @XmlElementRef(name = "GeometryReference", type = JAXBElement.class, required = false),
+        @XmlElementRef(name = "Laser", type = JAXBElement.class, required = false),
+        @XmlElementRef(name = "WiringObject", type = JAXBElement.class, required = false),
+        @XmlElementRef(name = "Inventory", type = JAXBElement.class, required = false),
+        @XmlElementRef(name = "Structure", type = JAXBElement.class, required = false),
+        @XmlElementRef(name = "Support", type = JAXBElement.class, required = false),
+        @XmlElementRef(name = "Magnet", type = JAXBElement.class, required = false)
     })
     protected List<JAXBElement<? extends BasicGeometryAttributes>> geometryOrAxisOrFilterBeam;
 
@@ -94,6 +106,12 @@ public class BasicGeometryType
      * {@link JAXBElement }{@code <}{@link BasicGeometryType }{@code >}
      * {@link JAXBElement }{@code <}{@link Display }{@code >}
      * {@link JAXBElement }{@code <}{@link GeometryReference }{@code >}
+     * {@link JAXBElement }{@code <}{@link Laser }{@code >}
+     * {@link JAXBElement }{@code <}{@link WiringObject }{@code >}
+     * {@link JAXBElement }{@code <}{@link Inventory }{@code >}
+     * {@link JAXBElement }{@code <}{@link Structure }{@code >}
+     * {@link JAXBElement }{@code <}{@link Support }{@code >}
+     * {@link JAXBElement }{@code <}{@link BasicGeometryType }{@code >}
      * 
      * 
      */

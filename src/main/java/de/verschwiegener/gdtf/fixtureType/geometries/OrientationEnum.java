@@ -14,36 +14,37 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java-Klasse für LampTypeEnum.
+ * <p>Java-Klasse für orientationEnum.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * <p>
  * <pre>
- * &lt;simpleType name="LampTypeEnum"&gt;
+ * &lt;simpleType name="orientationEnum"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
- *     &lt;enumeration value="Discharge"/&gt;
- *     &lt;enumeration value="Tungsten"/&gt;
- *     &lt;enumeration value="Halogen"/&gt;
- *     &lt;enumeration value="LED"/&gt;
+ *     &lt;enumeration value="Left"/&gt;
+ *     &lt;enumeration value="Right"/&gt;
+ *     &lt;enumeration value="Top"/&gt;
+ *     &lt;enumeration value="Bottom"/&gt;
  *   &lt;/restriction&gt;
  * &lt;/simpleType&gt;
  * </pre>
  * 
  */
-@XmlType(name = "LampTypeEnum")
+@XmlType(name = "orientationEnum")
 @XmlEnum
-public enum LampTypeEnum {
+public enum OrientationEnum {
 
-    @XmlEnumValue("Discharge")
-    DISCHARGE("Discharge"),
-    @XmlEnumValue("Tungsten")
-    TUNGSTEN("Tungsten"),
-    @XmlEnumValue("Halogen")
-    HALOGEN("Halogen"),
-    LED("LED");
+    @XmlEnumValue("Left")
+    LEFT("Left"),
+    @XmlEnumValue("Right")
+    RIGHT("Right"),
+    @XmlEnumValue("Top")
+    TOP("Top"),
+    @XmlEnumValue("Bottom")
+    BOTTOM("Bottom");
     private final String value;
 
-    LampTypeEnum(String v) {
+    OrientationEnum(String v) {
         value = v;
     }
 
@@ -51,8 +52,8 @@ public enum LampTypeEnum {
         return value;
     }
 
-    public static LampTypeEnum fromValue(String v) {
-        for (LampTypeEnum c: LampTypeEnum.values()) {
+    public static OrientationEnum fromValue(String v) {
+        for (OrientationEnum c: OrientationEnum.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

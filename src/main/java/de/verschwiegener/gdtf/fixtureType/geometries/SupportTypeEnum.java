@@ -14,36 +14,31 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java-Klasse für LampTypeEnum.
+ * <p>Java-Klasse für supportTypeEnum.
  * 
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * <p>
  * <pre>
- * &lt;simpleType name="LampTypeEnum"&gt;
+ * &lt;simpleType name="supportTypeEnum"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
- *     &lt;enumeration value="Discharge"/&gt;
- *     &lt;enumeration value="Tungsten"/&gt;
- *     &lt;enumeration value="Halogen"/&gt;
- *     &lt;enumeration value="LED"/&gt;
+ *     &lt;enumeration value="Rope"/&gt;
+ *     &lt;enumeration value="GroundSupport"/&gt;
  *   &lt;/restriction&gt;
  * &lt;/simpleType&gt;
  * </pre>
  * 
  */
-@XmlType(name = "LampTypeEnum")
+@XmlType(name = "supportTypeEnum")
 @XmlEnum
-public enum LampTypeEnum {
+public enum SupportTypeEnum {
 
-    @XmlEnumValue("Discharge")
-    DISCHARGE("Discharge"),
-    @XmlEnumValue("Tungsten")
-    TUNGSTEN("Tungsten"),
-    @XmlEnumValue("Halogen")
-    HALOGEN("Halogen"),
-    LED("LED");
+    @XmlEnumValue("Rope")
+    ROPE("Rope"),
+    @XmlEnumValue("GroundSupport")
+    GROUND_SUPPORT("GroundSupport");
     private final String value;
 
-    LampTypeEnum(String v) {
+    SupportTypeEnum(String v) {
         value = v;
     }
 
@@ -51,8 +46,8 @@ public enum LampTypeEnum {
         return value;
     }
 
-    public static LampTypeEnum fromValue(String v) {
-        for (LampTypeEnum c: LampTypeEnum.values()) {
+    public static SupportTypeEnum fromValue(String v) {
+        for (SupportTypeEnum c: SupportTypeEnum.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

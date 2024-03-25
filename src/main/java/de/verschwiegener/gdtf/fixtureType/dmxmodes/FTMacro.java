@@ -2,8 +2,9 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.2 generiert 
 // Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2024.03.01 um 02:31:37 PM CET 
+// Generiert: 2024.03.25 um 04:32:18 PM CET 
 //
+
 
 package de.verschwiegener.gdtf.fixtureType.dmxmodes;
 
@@ -13,13 +14,11 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+
 /**
- * <p>
- * Java-Klasse für FTMacro complex type.
+ * <p>Java-Klasse für FTMacro complex type.
  * 
- * <p>
- * Das folgende Schemafragment gibt den erwarteten Content an, der in dieser
- * Klasse enthalten ist.
+ * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * 
  * <pre>
  * &lt;complexType name="FTMacro"&gt;
@@ -29,6 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="MacroDMX" type="{}MacroDMX" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="Name" use="required" type="{}nametype" /&gt;
+ *       &lt;attribute name="ChannelFunction" type="{}nametype" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -37,59 +37,88 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "FTMacro", propOrder = { "macroDMX" })
+@XmlType(name = "FTMacro", propOrder = {
+    "macroDMX"
+})
 public class FTMacro {
 
-	/**
-	 * Optional. Link to channel function; Starting point DMX Mode
-	 */
-	@XmlElement(name = "MacroDMX")
-	protected MacroDMX macroDMX;
+    @XmlElement(name = "MacroDMX")
+    protected MacroDMX macroDMX;
+    @XmlAttribute(name = "Name", required = true)
+    protected String name;
+    @XmlAttribute(name = "ChannelFunction")
+    protected String channelFunction;
 
-	/**
-	 * The unique name of the macro.
-	 */
-	@XmlAttribute(name = "Name", required = true)
-	protected String name;
+    /**
+     * Ruft den Wert der macroDMX-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link MacroDMX }
+     *     
+     */
+    public MacroDMX getMacroDMX() {
+        return macroDMX;
+    }
 
-	/**
-	 * Ruft den Wert der macroDMX-Eigenschaft ab.
-	 * 
-	 * @return possible object is {@link MacroDMX }
-	 * 
-	 */
-	public MacroDMX getMacroDMX() {
-		return macroDMX;
-	}
+    /**
+     * Legt den Wert der macroDMX-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link MacroDMX }
+     *     
+     */
+    public void setMacroDMX(MacroDMX value) {
+        this.macroDMX = value;
+    }
 
-	/**
-	 * Legt den Wert der macroDMX-Eigenschaft fest.
-	 * 
-	 * @param value allowed object is {@link MacroDMX }
-	 * 
-	 */
-	public void setMacroDMX(MacroDMX value) {
-		this.macroDMX = value;
-	}
+    /**
+     * Ruft den Wert der name-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * Ruft den Wert der name-Eigenschaft ab.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * Legt den Wert der name-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setName(String value) {
+        this.name = value;
+    }
 
-	/**
-	 * Legt den Wert der name-Eigenschaft fest.
-	 * 
-	 * @param value allowed object is {@link String }
-	 * 
-	 */
-	public void setName(String value) {
-		this.name = value;
-	}
+    /**
+     * Ruft den Wert der channelFunction-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getChannelFunction() {
+        return channelFunction;
+    }
+
+    /**
+     * Legt den Wert der channelFunction-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setChannelFunction(String value) {
+        this.channelFunction = value;
+    }
 
 }

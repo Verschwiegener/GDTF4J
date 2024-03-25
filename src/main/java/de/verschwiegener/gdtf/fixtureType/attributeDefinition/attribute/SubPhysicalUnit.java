@@ -9,6 +9,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "SubPhysicalUnit")
 public class SubPhysicalUnit {
 
+	@XmlAttribute(name = "Type", required = true)
+	protected SubphysicalTypeEnum type;
+
 	/**
 	 * The currently defined unit values are: “None”, “Percent”, “Length” (m),
 	 * “Mass” (kg), “Time” (s), “Temperature” (K), “LuminousIntensity”(cd), “Angle”
@@ -40,6 +43,14 @@ public class SubPhysicalUnit {
 
 	public void setPhysicalUnit(PhysicalUnitEnum physicalUnit) {
 		this.physicalUnit = physicalUnit;
+	}
+	
+	public SubphysicalTypeEnum getType() {
+		return type;
+	}
+	
+	public void setType(SubphysicalTypeEnum type) {
+		this.type = type;
 	}
 
 	public float getPhysicalFrom() {

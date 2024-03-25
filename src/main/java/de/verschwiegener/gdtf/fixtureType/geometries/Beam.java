@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.2 generiert 
 // Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2024.03.01 um 02:31:37 PM CET 
+// Generiert: 2024.03.25 um 04:32:18 PM CET 
 //
 
 
@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;attribute name="BeamRadius" type="{http://www.w3.org/2001/XMLSchema}float" /&gt;
  *       &lt;attribute name="BeamType" type="{}BeamTypeEnum" /&gt;
  *       &lt;attribute name="ColorRenderingIndex" type="{http://www.w3.org/2001/XMLSchema}unsignedByte" /&gt;
+ *       &lt;attribute name="EmitterSpectrum" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *     &lt;/extension&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -71,6 +72,8 @@ public class Beam
     @XmlAttribute(name = "ColorRenderingIndex")
     @XmlSchemaType(name = "unsignedByte")
     protected Short colorRenderingIndex;
+    @XmlAttribute(name = "EmitterSpectrum")
+    protected String emitterSpectrum;
 
     /**
      * Ruft den Wert der lampType-Eigenschaft ab.
@@ -334,6 +337,30 @@ public class Beam
      */
     public void setColorRenderingIndex(Short value) {
         this.colorRenderingIndex = value;
+    }
+
+    /**
+     * Ruft den Wert der emitterSpectrum-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getEmitterSpectrum() {
+        return emitterSpectrum;
+    }
+
+    /**
+     * Legt den Wert der emitterSpectrum-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setEmitterSpectrum(String value) {
+        this.emitterSpectrum = value;
     }
 
 }

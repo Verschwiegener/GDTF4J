@@ -52,6 +52,18 @@ public class Model {
     protected PrimitiveTypeEnum primitiveType;
     @XmlAttribute(name = "File")
     protected String file;
+    @XmlAttribute(name = "SVGOffsetX")
+    protected Float svgOffsetX;
+    @XmlAttribute(name = "SVGOffsetY")
+    protected Float svgOffsetY;
+    @XmlAttribute(name = "SVGSideOffsetX")
+    protected Float svgSideOffsetX;
+    @XmlAttribute(name = "SVGSideOffsetY")
+    protected Float svgSideOffsetY;
+    @XmlAttribute(name = "SVGFrontOffsetX")
+    protected Float svgFrontOffsetX;
+    @XmlAttribute(name = "SVGFrontOffsetY")
+    protected Float svgFrontOffsetY;
 
     /**
      * Ruft den Wert der name-Eigenschaft ab.
@@ -215,6 +227,174 @@ public class Model {
      */
     public void setFile(String value) {
         this.file = value;
+    }
+
+    /**
+     * Ruft den Wert der svgOffsetX-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Float }
+     *     
+     */
+    public float getSVGOffsetX() {
+        if (svgOffsetX == null) {
+            return  0.0F;
+        } else {
+            return svgOffsetX;
+        }
+    }
+
+    /**
+     * Legt den Wert der svgOffsetX-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Float }
+     *     
+     */
+    public void setSVGOffsetX(Float value) {
+        this.svgOffsetX = value;
+    }
+
+    /**
+     * Ruft den Wert der svgOffsetY-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Float }
+     *     
+     */
+    public float getSVGOffsetY() {
+        if (svgOffsetY == null) {
+            return  0.0F;
+        } else {
+            return svgOffsetY;
+        }
+    }
+
+    /**
+     * Legt den Wert der svgOffsetY-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Float }
+     *     
+     */
+    public void setSVGOffsetY(Float value) {
+        this.svgOffsetY = value;
+    }
+
+    /**
+     * Ruft den Wert der svgSideOffsetX-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Float }
+     *     
+     */
+    public float getSVGSideOffsetX() {
+        if (svgSideOffsetX == null) {
+            return  0.0F;
+        } else {
+            return svgSideOffsetX;
+        }
+    }
+
+    /**
+     * Legt den Wert der svgSideOffsetX-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Float }
+     *     
+     */
+    public void setSVGSideOffsetX(Float value) {
+        this.svgSideOffsetX = value;
+    }
+
+    /**
+     * Ruft den Wert der svgSideOffsetY-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Float }
+     *     
+     */
+    public float getSVGSideOffsetY() {
+        if (svgSideOffsetY == null) {
+            return  0.0F;
+        } else {
+            return svgSideOffsetY;
+        }
+    }
+
+    /**
+     * Legt den Wert der svgSideOffsetY-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Float }
+     *     
+     */
+    public void setSVGSideOffsetY(Float value) {
+        this.svgSideOffsetY = value;
+    }
+
+    /**
+     * Ruft den Wert der svgFrontOffsetX-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Float }
+     *     
+     */
+    public float getSVGFrontOffsetX() {
+        if (svgFrontOffsetX == null) {
+            return  0.0F;
+        } else {
+            return svgFrontOffsetX;
+        }
+    }
+
+    /**
+     * Legt den Wert der svgFrontOffsetX-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Float }
+     *     
+     */
+    public void setSVGFrontOffsetX(Float value) {
+        this.svgFrontOffsetX = value;
+    }
+
+    /**
+     * Ruft den Wert der svgFrontOffsetY-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Float }
+     *     
+     */
+    public float getSVGFrontOffsetY() {
+        if (svgFrontOffsetY == null) {
+            return  0.0F;
+        } else {
+            return svgFrontOffsetY;
+        }
+    }
+
+    /**
+     * Legt den Wert der svgFrontOffsetY-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Float }
+     *     
+     */
+    public void setSVGFrontOffsetY(Float value) {
+        this.svgFrontOffsetY = value;
     }
 
 }

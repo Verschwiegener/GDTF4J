@@ -41,48 +41,121 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Properties", propOrder = {
-    "operatingTemperatureOrWeightOrPowerConsumption"
+    "operatingTemperature",
+    "weight",
+    "legHeight",
+    "powerConsumption"
 })
 public class Properties {
 
-    @XmlElements({
-        @XmlElement(name = "OperatingTemperature", type = OperatingTemperature.class),
-        @XmlElement(name = "Weight", type = Weight.class),
-        @XmlElement(name = "PowerConsumption", type = PowerConsumption.class),
-        @XmlElement(name = "LegHeight", type = LegHeight.class)
-    })
-    protected List<Object> operatingTemperatureOrWeightOrPowerConsumption;
+    @XmlElement(name = "OperatingTemperature")
+    protected OperatingTemperature operatingTemperature;
+    @XmlElement(name = "Weight")
+    protected Weight weight;
+    @XmlElement(name = "LegHeight")
+    protected LegHeight legHeight;
+    @XmlElement(name = "PowerConsumption")
+    protected List<PowerConsumption> powerConsumption;
 
     /**
-     * Gets the value of the operatingTemperatureOrWeightOrPowerConsumption property.
+     * Ruft den Wert der operatingTemperature-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link OperatingTemperature }
+     *     
+     */
+    public OperatingTemperature getOperatingTemperature() {
+        return operatingTemperature;
+    }
+
+    /**
+     * Legt den Wert der operatingTemperature-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link OperatingTemperature }
+     *     
+     */
+    public void setOperatingTemperature(OperatingTemperature value) {
+        this.operatingTemperature = value;
+    }
+
+    /**
+     * Ruft den Wert der weight-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Weight }
+     *     
+     */
+    public Weight getWeight() {
+        return weight;
+    }
+
+    /**
+     * Legt den Wert der weight-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Weight }
+     *     
+     */
+    public void setWeight(Weight value) {
+        this.weight = value;
+    }
+
+    /**
+     * Ruft den Wert der legHeight-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link LegHeight }
+     *     
+     */
+    public LegHeight getLegHeight() {
+        return legHeight;
+    }
+
+    /**
+     * Legt den Wert der legHeight-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link LegHeight }
+     *     
+     */
+    public void setLegHeight(LegHeight value) {
+        this.legHeight = value;
+    }
+
+    /**
+     * Gets the value of the powerConsumption property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the operatingTemperatureOrWeightOrPowerConsumption property.
+     * This is why there is not a <CODE>set</CODE> method for the powerConsumption property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getOperatingTemperatureOrWeightOrPowerConsumption().add(newItem);
+     *    getPowerConsumption().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link OperatingTemperature }
-     * {@link Weight }
      * {@link PowerConsumption }
-     * {@link LegHeight }
      * 
      * 
      */
-    public List<Object> getOperatingTemperatureOrWeightOrPowerConsumption() {
-        if (operatingTemperatureOrWeightOrPowerConsumption == null) {
-            operatingTemperatureOrWeightOrPowerConsumption = new ArrayList<Object>();
+    public List<PowerConsumption> getPowerConsumption() {
+        if (powerConsumption == null) {
+            powerConsumption = new ArrayList<PowerConsumption>();
         }
-        return this.operatingTemperatureOrWeightOrPowerConsumption;
+        return this.powerConsumption;
     }
 
 }

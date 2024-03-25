@@ -13,12 +13,14 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.AdditionalColorSpaces;
 import de.verschwiegener.gdtf.fixtureType.physicalDescription.CRIs;
 import de.verschwiegener.gdtf.fixtureType.physicalDescription.ColorSpace;
 import de.verschwiegener.gdtf.fixtureType.physicalDescription.Connectors;
 import de.verschwiegener.gdtf.fixtureType.physicalDescription.DMXProfiles;
 import de.verschwiegener.gdtf.fixtureType.physicalDescription.Emitters;
 import de.verschwiegener.gdtf.fixtureType.physicalDescription.Filters;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.Gamuts;
 import de.verschwiegener.gdtf.fixtureType.physicalDescription.Properties;
 
 
@@ -57,6 +59,10 @@ public class PhysicalDescriptions {
     protected Emitters emitters;
     @XmlElement(name = "Filters")
     protected Filters filters;
+    @XmlElement(name = "AdditionalColorSpaces")
+    protected AdditionalColorSpaces additionalColorSpaces;
+    @XmlElement(name = "Gamuts")
+    protected Gamuts gamuts;
     @XmlElement(name = "ColorSpace")
     protected ColorSpace colorSpace;
     @XmlElement(name = "DMXProfiles")
@@ -114,6 +120,54 @@ public class PhysicalDescriptions {
      */
     public void setFilters(Filters value) {
         this.filters = value;
+    }
+
+    /**
+     * Ruft den Wert der additionalColorSpaces-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link AdditionalColorSpaces }
+     *     
+     */
+    public AdditionalColorSpaces getAdditionalColorSpaces() {
+        return additionalColorSpaces;
+    }
+
+    /**
+     * Legt den Wert der additionalColorSpaces-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link AdditionalColorSpaces }
+     *     
+     */
+    public void setAdditionalColorSpaces(AdditionalColorSpaces value) {
+        this.additionalColorSpaces = value;
+    }
+
+    /**
+     * Ruft den Wert der gamuts-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Gamuts }
+     *     
+     */
+    public Gamuts getGamuts() {
+        return gamuts;
+    }
+
+    /**
+     * Legt den Wert der gamuts-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Gamuts }
+     *     
+     */
+    public void setGamuts(Gamuts value) {
+        this.gamuts = value;
     }
 
     /**
