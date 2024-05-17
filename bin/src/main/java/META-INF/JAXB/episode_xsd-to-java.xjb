@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb">
+  <!--
+
+Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.2 generiert 
+Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
+Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
+Generiert: 2022.07.22 um 09:22:55 PM CEST 
+
+  -->
+  <jaxb:bindings scd="x-schema::">
+    <jaxb:schemaBindings map="false">
+      <jaxb:package name="de.verschwiegener.gdtf"/>
+    </jaxb:schemaBindings>
+    <jaxb:bindings scd="~Filter">
+      <jaxb:class ref="de.verschwiegener.gdtf.Filter"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Emitter">
+      <jaxb:class ref="de.verschwiegener.gdtf.Emitter"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="GDTF">
+      <jaxb:class ref="de.verschwiegener.gdtf.GDTF"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~FixtureType">
+      <jaxb:class ref="de.verschwiegener.gdtf.FixtureType"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~AttributeDefinitions">
+      <jaxb:class ref="de.verschwiegener.gdtf.AttributeDefinitions"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~ActivationGroups">
+      <jaxb:class ref="de.verschwiegener.gdtf.ActivationGroups"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~FeatureGroups">
+      <jaxb:class ref="de.verschwiegener.gdtf.FeatureGroups"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~ActivationGroup">
+      <jaxb:class ref="de.verschwiegener.gdtf.ActivationGroup"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~FeatureGroup">
+      <jaxb:class ref="de.verschwiegener.gdtf.FeatureGroup"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Feature">
+      <jaxb:class ref="de.verschwiegener.gdtf.Feature"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Attributes">
+      <jaxb:class ref="de.verschwiegener.gdtf.Attributes"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Attribute">
+      <jaxb:class ref="de.verschwiegener.gdtf.Attribute"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Wheels">
+      <jaxb:class ref="de.verschwiegener.gdtf.Wheels"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Wheel">
+      <jaxb:class ref="de.verschwiegener.gdtf.Wheel"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Slot">
+      <jaxb:class ref="de.verschwiegener.gdtf.Slot"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Facet">
+      <jaxb:class ref="de.verschwiegener.gdtf.Facet"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~AnimationSystem">
+      <jaxb:class ref="de.verschwiegener.gdtf.AnimationSystem"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~PhysicalDescriptions">
+      <jaxb:class ref="de.verschwiegener.gdtf.PhysicalDescriptions"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Emitters">
+      <jaxb:class ref="de.verschwiegener.gdtf.Emitters"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Filters">
+      <jaxb:class ref="de.verschwiegener.gdtf.Filters"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~MeasurementPoint">
+      <jaxb:class ref="de.verschwiegener.gdtf.MeasurementPoint"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~ColorSpace">
+      <jaxb:class ref="de.verschwiegener.gdtf.ColorSpace"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~DMXProfiles">
+      <jaxb:class ref="de.verschwiegener.gdtf.DMXProfiles"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~DMXProfile">
+      <jaxb:class ref="de.verschwiegener.gdtf.DMXProfile"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~CRIs">
+      <jaxb:class ref="de.verschwiegener.gdtf.CRIs"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~CRIGroup">
+      <jaxb:class ref="de.verschwiegener.gdtf.CRIGroup"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~CRI">
+      <jaxb:class ref="de.verschwiegener.gdtf.CRI"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Connectors">
+      <jaxb:class ref="de.verschwiegener.gdtf.Connectors"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Connector">
+      <jaxb:class ref="de.verschwiegener.gdtf.Connector"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Properties">
+      <jaxb:class ref="de.verschwiegener.gdtf.Properties"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~OperatingTemperature">
+      <jaxb:class ref="de.verschwiegener.gdtf.OperatingTemperature"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Weight">
+      <jaxb:class ref="de.verschwiegener.gdtf.Weight"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~PowerConsumption">
+      <jaxb:class ref="de.verschwiegener.gdtf.PowerConsumption"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~LegHeight">
+      <jaxb:class ref="de.verschwiegener.gdtf.LegHeight"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Models">
+      <jaxb:class ref="de.verschwiegener.gdtf.Models"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Model">
+      <jaxb:class ref="de.verschwiegener.gdtf.Model"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Geometries">
+      <jaxb:class ref="de.verschwiegener.gdtf.Geometries"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~BasicGeometryAttributes">
+      <jaxb:class ref="de.verschwiegener.gdtf.BasicGeometryAttributes"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~BasicGeometryType">
+      <jaxb:class ref="de.verschwiegener.gdtf.BasicGeometryType"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Beam">
+      <jaxb:class ref="de.verschwiegener.gdtf.Beam"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Display">
+      <jaxb:class ref="de.verschwiegener.gdtf.Display"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~GeometryReference">
+      <jaxb:class ref="de.verschwiegener.gdtf.GeometryReference"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Break">
+      <jaxb:class ref="de.verschwiegener.gdtf.Break"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~DMXModes">
+      <jaxb:class ref="de.verschwiegener.gdtf.DMXModes"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~DMXMode">
+      <jaxb:class ref="de.verschwiegener.gdtf.DMXMode"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~DMXChannels">
+      <jaxb:class ref="de.verschwiegener.gdtf.DMXChannels"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~DMXChannel">
+      <jaxb:class ref="de.verschwiegener.gdtf.DMXChannel"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~LogicalChannel">
+      <jaxb:class ref="de.verschwiegener.gdtf.LogicalChannel"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~ChannelFunction">
+      <jaxb:class ref="de.verschwiegener.gdtf.ChannelFunction"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~ChannelSet">
+      <jaxb:class ref="de.verschwiegener.gdtf.ChannelSet"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Relations">
+      <jaxb:class ref="de.verschwiegener.gdtf.Relations"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Relation">
+      <jaxb:class ref="de.verschwiegener.gdtf.Relation"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~FTMacros">
+      <jaxb:class ref="de.verschwiegener.gdtf.FTMacros"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~FTMacro">
+      <jaxb:class ref="de.verschwiegener.gdtf.FTMacro"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~MacroDMX">
+      <jaxb:class ref="de.verschwiegener.gdtf.MacroDMX"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~MacroDMXStep">
+      <jaxb:class ref="de.verschwiegener.gdtf.MacroDMXStep"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~MacroDMXValue">
+      <jaxb:class ref="de.verschwiegener.gdtf.MacroDMXValue"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Revisions">
+      <jaxb:class ref="de.verschwiegener.gdtf.Revisions"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Revision">
+      <jaxb:class ref="de.verschwiegener.gdtf.Revision"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~FTPresets">
+      <jaxb:class ref="de.verschwiegener.gdtf.FTPresets"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~FTPreset">
+      <jaxb:class ref="de.verschwiegener.gdtf.FTPreset"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Protocols">
+      <jaxb:class ref="de.verschwiegener.gdtf.Protocols"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~Art-Net">
+      <jaxb:class ref="de.verschwiegener.gdtf.ArtNet"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~sACN">
+      <jaxb:class ref="de.verschwiegener.gdtf.SACN"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~PosiStageNet">
+      <jaxb:class ref="de.verschwiegener.gdtf.PosiStageNet"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~OpenSoundControl">
+      <jaxb:class ref="de.verschwiegener.gdtf.OpenSoundControl"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~CITP">
+      <jaxb:class ref="de.verschwiegener.gdtf.CITP"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~FTRDM">
+      <jaxb:class ref="de.verschwiegener.gdtf.FTRDM"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~SoftwareVersionID">
+      <jaxb:class ref="de.verschwiegener.gdtf.SoftwareVersionID"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~DMXPersonality">
+      <jaxb:class ref="de.verschwiegener.gdtf.DMXPersonality"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~PhysicalUnitEnum">
+      <jaxb:typesafeEnumClass ref="de.verschwiegener.gdtf.PhysicalUnitEnum"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~MasterEnum">
+      <jaxb:typesafeEnumClass ref="de.verschwiegener.gdtf.MasterEnum"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~PrimitiveTypeEnum">
+      <jaxb:typesafeEnumClass ref="de.verschwiegener.gdtf.PrimitiveTypeEnum"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~LampTypeEnum">
+      <jaxb:typesafeEnumClass ref="de.verschwiegener.gdtf.LampTypeEnum"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~BeamTypeEnum">
+      <jaxb:typesafeEnumClass ref="de.verschwiegener.gdtf.BeamTypeEnum"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~ColorSpaceEnum">
+      <jaxb:typesafeEnumClass ref="de.verschwiegener.gdtf.ColorSpaceEnum"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~InterpolationToEnum">
+      <jaxb:typesafeEnumClass ref="de.verschwiegener.gdtf.InterpolationToEnum"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~SnapEnum">
+      <jaxb:typesafeEnumClass ref="de.verschwiegener.gdtf.SnapEnum"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~YesNoEnum">
+      <jaxb:typesafeEnumClass ref="de.verschwiegener.gdtf.YesNoEnum"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~RelationTypesEnum">
+      <jaxb:typesafeEnumClass ref="de.verschwiegener.gdtf.RelationTypesEnum"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~CESEnum">
+      <jaxb:typesafeEnumClass ref="de.verschwiegener.gdtf.CESEnum"/>
+    </jaxb:bindings>
+  </jaxb:bindings>
+</jaxb:bindings>
+

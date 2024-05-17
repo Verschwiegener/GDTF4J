@@ -138,11 +138,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GDTF }
+     * Create an instance of {@link GDTFType }
      * 
      */
-    public GDTF createGDTF() {
-        return new GDTF();
+    public GDTFType createGDTF() {
+        return new GDTFType();
     }
 
     /**

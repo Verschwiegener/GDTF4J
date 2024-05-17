@@ -21,27 +21,31 @@ import org.xml.sax.SAXException;
 
 public class GDTFParser {
 
-	private SchemaFactory schemaFactory;
-	private Schema schema;
-
-	public GDTFParser() throws SAXException, FileNotFoundException {
+	private static SchemaFactory schemaFactory;
+	private static Schema schema;
+	
+	static {
 		schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-		schema = schemaFactory.newSchema(new StreamSource(getClass().getResourceAsStream("gdtf/gdtf.xsd")));
+		try {
+			schema = schemaFactory.newSchema(new StreamSource(GDTFParser.class.getResourceAsStream("gdtf/gdtf.xsd")));
+		} catch (SAXException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public GDTF parseGDTF(File gdtfFile, File gdtfOutputFolder) throws Exception {
+	public static GDTFType parseGDTF(File gdtfFile, File gdtfOutputFolder) throws Exception {
 		gdtfOutputFolder = new File(gdtfOutputFolder, gdtfFile.getName().split("\\.")[0]);
 		unzipFile(gdtfFile, gdtfOutputFolder);
 
-		Unmarshaller unmarshaller = JAXBContext.newInstance(de.verschwiegener.gdtf.GDTF.class).createUnmarshaller();
+		Unmarshaller unmarshaller = JAXBContext.newInstance("de.verschwiegener.gdtf").createUnmarshaller();
 		unmarshaller.setSchema(schema);
 
-		GDTF root = (GDTF) unmarshaller
+		GDTFType root = (GDTFType) unmarshaller
 				.unmarshal(new InputSource(new FileReader(new File(gdtfOutputFolder, "description.xml"))));
 		return root;
 	}
 
-	private void unzipFile(File gdtfFile, File gdtfFolder) throws IOException {
+	private static void unzipFile(File gdtfFile, File gdtfFolder) throws IOException {
 		byte[] buffer = new byte[1024];
 		try (ZipInputStream zis = new ZipInputStream(new FileInputStream(gdtfFile))) {
 			ZipEntry zipEntry = zis.getNextEntry();
@@ -73,7 +77,7 @@ public class GDTFParser {
 		}
 	}
 
-	private File newFile(File destinationDir, ZipEntry zipEntry) throws IOException {
+	private static File newFile(File destinationDir, ZipEntry zipEntry) throws IOException {
 		File destFile = new File(destinationDir, zipEntry.getName());
 
 		String destDirPath = destinationDir.getCanonicalPath();

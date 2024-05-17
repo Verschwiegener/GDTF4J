@@ -72,5 +72,9 @@ public class Models {
         }
         return this.model;
     }
+    
+    public Model getModelByName(String name) {
+    	return getModel().stream().filter(model -> model.getName().equals(name)).findFirst().orElse(null);
+    }
 
 }
