@@ -312,6 +312,7 @@ level. These unvalidated properties are:
     <xs:attribute name="Energy" type="xs:float" use="required"/>
   </xs:complexType>
   <xs:complexType name="ColorSpace">
+	<xs:attribute name="Name" type="nametype" use="required"/>
     <xs:attribute name="Mode" type="ColorSpaceEnum" use="optional" default="sRGB"/>
     <xs:attribute name="Red" type="colorcietype" use="optional"/>
     <xs:attribute name="Green" type="colorcietype" use="optional"/>
@@ -545,6 +546,8 @@ level. These unvalidated properties are:
     <xs:attribute name="Wheel" type="nametype" use="optional"/>
     <xs:attribute name="Emitter" type="nametype" use="optional"/>
     <xs:attribute name="Filter" type="nametype" use="optional"/>
+ 	<xs:attribute name="ColorSpace" type="nametype" use="optional"/>
+	<xs:attribute name="Gammut" type="nametype" use="optional"/>
     <xs:attribute name="ModeMaster" type="nodetype" use="optional"/>
     <xs:attribute name="ModeFrom" type="dmxtype" default="0/1"/>
     <xs:attribute name="ModeTo" type="dmxtype" default="0/1"/>

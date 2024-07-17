@@ -22,6 +22,7 @@ import de.verschwiegener.gdtf.fixtureType.physicalDescription.Emitters;
 import de.verschwiegener.gdtf.fixtureType.physicalDescription.Filters;
 import de.verschwiegener.gdtf.fixtureType.physicalDescription.Gamuts;
 import de.verschwiegener.gdtf.fixtureType.physicalDescription.Properties;
+import de.verschwiegener.gdtf.util.GDTFNode;
 
 
 /**
@@ -73,6 +74,16 @@ public class PhysicalDescriptions {
     protected Connectors connectors;
     @XmlElement(name = "Properties")
     protected Properties properties;
+    
+    
+    
+    public ColorSpace getColorSpace(GDTFNode node) {
+    	if(colorSpace.getName().equals(node.getNodePath()[0]))
+    		return colorSpace;
+    	return additionalColorSpaces.getColorSpace().stream().filter(cs -> cs.getName().equals(node.getNodePath()[0])).findFirst().orElse(null);
+    }
+    
+    
 
     /**
      * Ruft den Wert der emitters-Eigenschaft ab.

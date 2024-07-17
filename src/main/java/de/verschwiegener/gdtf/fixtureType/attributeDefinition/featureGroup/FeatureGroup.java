@@ -16,6 +16,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 
 /**
  * <p>Java-Klasse für FeatureGroup complex type.
@@ -134,6 +137,12 @@ public class FeatureGroup {
      */
     public void setPretty(String value) {
         this.pretty = value;
+    }
+    
+    public Feature getFeature(GDTFNode node) {
+    	if(node.getStartingPoint() != NodeStartingPoint.FeatureGroup) 
+    		return null;
+    	return getFeature().stream().filter(f -> f.getName().equals(node.getNodePath()[1])).findFirst().orElse(null);
     }
 
 }

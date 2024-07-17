@@ -16,6 +16,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 
 /**
  * <p>Java-Klasse für Laser complex type.
@@ -190,8 +193,8 @@ public class Laser
      *     {@link String }
      *     
      */
-    public String getEmitter() {
-        return emitter;
+    public GDTFNode getEmitter() {
+        return new GDTFNode(emitter, NodeStartingPoint.Emitter);
     }
 
     /**
@@ -202,8 +205,8 @@ public class Laser
      *     {@link String }
      *     
      */
-    public void setEmitter(String value) {
-        this.emitter = value;
+    public void setEmitter(GDTFNode value) {
+        this.emitter = value.toGDTF();
     }
 
     /**

@@ -8,6 +8,8 @@
 
 package de.verschwiegener.gdtf.fixtureType;
 
+import java.util.UUID;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -454,8 +456,8 @@ public class FixtureType {
      *     {@link String }
      *     
      */
-    public String getFixtureTypeID() {
-        return fixtureTypeID;
+    public UUID getFixtureTypeID() {
+        return UUID.fromString(fixtureTypeID);
     }
 
     /**
@@ -466,8 +468,8 @@ public class FixtureType {
      *     {@link String }
      *     
      */
-    public void setFixtureTypeID(String value) {
-        this.fixtureTypeID = value;
+    public void setFixtureTypeID(UUID value) {
+        this.fixtureTypeID = value.toString();
     }
 
     /**
@@ -502,8 +504,8 @@ public class FixtureType {
      *     {@link String }
      *     
      */
-    public String getRefFT() {
-        return refFT;
+    public UUID getRefFT() {
+        return UUID.fromString(refFT);
     }
 
     /**
@@ -514,8 +516,8 @@ public class FixtureType {
      *     {@link String }
      *     
      */
-    public void setRefFT(String value) {
-        this.refFT = value;
+    public void setRefFT(UUID value) {
+        this.refFT = value.toString();
     }
 
     /**

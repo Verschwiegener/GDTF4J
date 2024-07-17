@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -27,7 +28,7 @@ public class GDTFParser {
 	static {
 		schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 		try {
-			schema = schemaFactory.newSchema(new StreamSource(GDTFParser.class.getResourceAsStream("gdtf/gdtf.xsd")));
+			schema = schemaFactory.newSchema(new StreamSource(Thread.currentThread().getContextClassLoader().getResourceAsStream("gdtf/gdtf.xsd")));
 		} catch (SAXException e) {
 			e.printStackTrace();
 		}
@@ -35,9 +36,13 @@ public class GDTFParser {
 
 	public static GDTFType parseGDTF(File gdtfFile, File gdtfOutputFolder) throws Exception {
 		gdtfOutputFolder = new File(gdtfOutputFolder, gdtfFile.getName().split("\\.")[0]);
-		unzipFile(gdtfFile, gdtfOutputFolder);
+		gdtfOutputFolder.mkdir();
+		//unzipFile(gdtfFile, gdtfOutputFolder);
 
-		Unmarshaller unmarshaller = JAXBContext.newInstance("de.verschwiegener.gdtf").createUnmarshaller();
+		// https://bugs.openjdk.org/browse/JDK-8204933
+		Locale.setDefault(Locale.ENGLISH);
+		JAXBContext context = JAXBContext.newInstance("de.verschwiegener.gdtf");
+		Unmarshaller unmarshaller = context.createUnmarshaller();
 		unmarshaller.setSchema(schema);
 
 		GDTFType root = (GDTFType) unmarshaller

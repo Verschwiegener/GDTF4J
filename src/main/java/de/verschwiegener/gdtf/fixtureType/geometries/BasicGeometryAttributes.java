@@ -14,6 +14,10 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFMatrix;
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 
 /**
  * <p>Java-Klasse für BasicGeometryAttributes complex type.
@@ -81,8 +85,8 @@ public class BasicGeometryAttributes {
      *     {@link String }
      *     
      */
-    public String getModel() {
-        return model;
+    public GDTFNode getModel() {
+        return new GDTFNode(model, NodeStartingPoint.Model);
     }
 
     /**
@@ -93,8 +97,8 @@ public class BasicGeometryAttributes {
      *     {@link String }
      *     
      */
-    public void setModel(String value) {
-        this.model = value;
+    public void setModel(GDTFNode value) {
+        this.model = value.toGDTF();
     }
 
     /**
@@ -105,11 +109,11 @@ public class BasicGeometryAttributes {
      *     {@link String }
      *     
      */
-    public String getPosition() {
+    public GDTFMatrix getPosition() {
         if (position == null) {
-            return "{1,0,0,0}{0,1,0,0}{0,0,1,0}{0,0,0,1}";
+            return new GDTFMatrix();
         } else {
-            return position;
+            return new GDTFMatrix(position);
         }
     }
 
@@ -121,8 +125,8 @@ public class BasicGeometryAttributes {
      *     {@link String }
      *     
      */
-    public void setPosition(String value) {
-        this.position = value;
+    public void setPosition(GDTFMatrix value) {
+        this.position = value.toGDTF();
     }
 
 }

@@ -15,6 +15,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 
 /**
  * <p>Java-Klasse für Wheels complex type.
@@ -79,6 +82,12 @@ public class Wheels {
      */
     public Wheel getWheelByName(String name) {
     	return getWheel().stream().filter(wheel -> wheel.getName().equals(name)).findFirst().orElse(null);
+    }
+    
+    public Wheel getWheel(GDTFNode node) {
+    	if(!node.checkPoint(NodeStartingPoint.Wheel))
+			return null;
+    	return getWheel().stream().filter(w -> w.getName().equals(node.getNodePath()[0])).findFirst().orElse(null);
     }
 
 }

@@ -15,6 +15,10 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFColor;
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 /**
  * <p>
  * Java-Klasse für Slot complex type.
@@ -159,20 +163,20 @@ public class Slot {
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getColor() {
+	public GDTFColor getColor() {
 		if (color == null)
-			return "0.3127, 0.3290, 100.0";
-		return color;
+			return new GDTFColor();
+		return GDTFColor.fromGDTF(color);
 	}
 
 	/**
 	 * Legt den Wert der color-Eigenschaft fest.
 	 * 
-	 * @param value allowed object is {@link String }
+	 * @param color allowed object is {@link String }
 	 * 
 	 */
-	public void setColor(String value) {
-		this.color = value;
+	public void setColor(GDTFColor color) {
+		this.color = color.toGDTF();
 	}
 
 	/**
@@ -181,8 +185,8 @@ public class Slot {
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getFilter() {
-		return filter;
+	public GDTFNode getFilter() {
+		return new GDTFNode(filter, NodeStartingPoint.Filter);
 	}
 
 	/**
@@ -191,8 +195,8 @@ public class Slot {
 	 * @param value allowed object is {@link String }
 	 * 
 	 */
-	public void setFilter(String value) {
-		this.filter = value;
+	public void setFilter(GDTFNode value) {
+		this.filter = value.toGDTF();
 	}
 
 	/**

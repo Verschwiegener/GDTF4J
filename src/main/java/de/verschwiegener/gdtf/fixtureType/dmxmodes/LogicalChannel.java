@@ -16,6 +16,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.ValueHelper;
+import de.verschwiegener.gdtf.util.GDTFDMXValue;
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
 
 /**
  * <p>
@@ -80,79 +83,47 @@ public class LogicalChannel {
 	 */
 	@XmlAttribute(name = "DMXChangeTimeLimit")
 	protected Float dmxChangeTimeLimit;
-
-	/**
-	 * Returns the DMX Range the Given ChannelFunction occupies
-	 * 
-	 * @param function ChannelFunction to get DMX Range from
-	 * @return String[] containing the Start and End DMX Value in GDTF Format
-	 */
-	public String[] getDMXRangeFromChannelFunction(ChannelFunction function) {
-		int indexFunction = getChannelFunction().indexOf(function);
-		return new String[] { function.getDMXFrom(),
-				ValueHelper.offsetDMXValue(getChannelFunction().get(indexFunction + 1).getDMXFrom(), -1) };
-	}
-
-	/**
-	 * Used to get first ChannelFunction with given Attribute, null if nothing was
-	 * found
-	 * 
-	 * @param attribute String to search for
-	 * @return ChannelFunction matching given Attribute
-	 */
-	public ChannelFunction getChannelFunctionByAttribute(String attribute) {
-		return getChannelFunction().stream().filter(function -> function.getAttribute().equals(attribute)).findFirst()
-				.orElse(null);
-	}
-
-	/**
-	 * Used to get first ChannelFunction with given Name, null if nothing was found
-	 * 
-	 * @param name String to search for
-	 * @return ChannelFunction matching given Name
-	 */
-	public ChannelFunction getChannelFunctionByName(String name) {
-		return getChannelFunction().stream().filter(function -> function.getName().equals(name)).findFirst()
-				.orElse(null);
-	}
-
-	/**
-	 * Used to get first ChannelFunction with given Attribute and Name, null if
-	 * nothing was found
-	 * 
-	 * @param attribute String to search for * @param name String to search for
-	 * @return ChannelFunction matching given Attribute and Name
-	 */
-	public ChannelFunction getChannelFunctionByAttributeAndName(String attribute, String name) {
-		return getChannelFunction().stream()
-				.filter(function -> function.getAttribute().equals(attribute) && function.getName().equals(name))
-				.findFirst().orElse(null);
-	}
-
-	/**
-	 * Returns all ChannelFunction Names
-	 * 
-	 * @return ArrayList<String> containing Channel Function Names
-	 */
-	public ArrayList<String> getAllChannelFunctionNames() {
-		ArrayList<String> channelFunctionNames = new ArrayList<String>();
-		getChannelFunction().forEach(function -> {
-			channelFunctionNames.add(function.getName());
-		});
-		return channelFunctionNames;
-	}
+	
 	
 	/**
-	 * Returns all ChannelFunction Attributes
+	 * Returns ChannelFunction by GDTFNode
 	 * 
-	 * @return ArrayList<String> containing Channel Function Names
+	 * @param node
+	 * @return
 	 */
-	public ArrayList<String> getAllChannelFunctionAttributes() {
-		ArrayList<String> channelFunctionAttributes = new ArrayList<String>();
-		getChannelFunction().forEach(function -> {
-			channelFunctionAttributes.add(function.getAttribute());
-		});
-		return channelFunctionAttributes;
+	public ChannelFunction getChannelFunction(GDTFNode node) {
+		if(!node.checkPoint(NodeStartingPoint.DMXChannel))
+			return null;
+		return getChannelFunction().stream()
+				.filter(cf -> cf.getAttribute().getNodePath()[0]
+						.equals(node.getNodePath()[2]) && cf.getName().equals(node.getNodePath()[3]))
+				.findFirst().orElse(null);
+	}
+	
+	
+	
+	public GDTFDMXValue[] getDMXRange(GDTFNode node) {
+		ChannelFunction function = getChannelFunction(node);
+
+		GDTFDMXValue minValue = function.getDMXFrom();
+		GDTFDMXValue maxValue = null;
+
+		// Is last ChannelFunction
+		int index = getChannelFunction().indexOf(function);
+		if (index == getChannelFunction().size() - 1) {
+			// Get Max DMX Value
+			maxValue = switch (minValue.getChannelCount()) {
+			case 1 -> new GDTFDMXValue(new int[] { 255 });
+			case 2 -> new GDTFDMXValue(new int[] { 255, 255 });
+			default -> new GDTFDMXValue(new int[] { 255 });
+			};
+
+		} else {
+			// Get Max Value from Next ChannelFunction and Offset by -1
+			maxValue = getChannelFunction().get(index + 1).getDMXFrom();
+			maxValue.offsetDMX(-1);
+		}
+		return new GDTFDMXValue[] { minValue, maxValue };
 	}
 
 	/**
@@ -191,8 +162,8 @@ public class LogicalChannel {
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getAttribute() {
-		return attribute;
+	public GDTFNode getAttribute() {
+		return new GDTFNode(attribute, NodeStartingPoint.Attribute);
 	}
 
 	/**
@@ -201,8 +172,8 @@ public class LogicalChannel {
 	 * @param value allowed object is {@link String }
 	 * 
 	 */
-	public void setAttribute(String value) {
-		this.attribute = value;
+	public void setAttribute(GDTFNode value) {
+		this.attribute = value.toGDTF();
 	}
 
 	/**

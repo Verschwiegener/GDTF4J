@@ -16,6 +16,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFColor;
+
 
 /**
  * <p>Java-Klasse für Filter complex type.
@@ -125,8 +127,8 @@ public class Filter {
      *     {@link String }
      *     
      */
-    public String getColor() {
-        return color;
+    public GDTFColor getColor() {
+        return GDTFColor.fromGDTF(color);
     }
 
     /**
@@ -137,8 +139,8 @@ public class Filter {
      *     {@link String }
      *     
      */
-    public void setColor(String value) {
-        this.color = value;
+    public void setColor(GDTFColor color) {
+        this.color = color.toGDTF();
     }
 
 

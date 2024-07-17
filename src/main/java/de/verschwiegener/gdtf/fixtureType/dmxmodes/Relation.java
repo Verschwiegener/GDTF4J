@@ -13,6 +13,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 
 /**
  * <p>Java-Klasse für Relation complex type.
@@ -94,8 +97,8 @@ public class Relation {
      *     {@link String }
      *     
      */
-    public String getMaster() {
-        return master;
+    public GDTFNode getMaster() {
+        return new GDTFNode(master, NodeStartingPoint.DMXChannel);
     }
 
     /**
@@ -106,8 +109,8 @@ public class Relation {
      *     {@link String }
      *     
      */
-    public void setMaster(String value) {
-        this.master = value;
+    public void setMaster(GDTFNode value) {
+        this.master = value.toGDTF();
     }
 
     /**
@@ -118,8 +121,8 @@ public class Relation {
      *     {@link String }
      *     
      */
-    public String getFollower() {
-        return follower;
+    public GDTFNode getFollower() {
+        return new GDTFNode(follower, NodeStartingPoint.DMXChannel);
     }
 
     /**
@@ -130,8 +133,8 @@ public class Relation {
      *     {@link String }
      *     
      */
-    public void setFollower(String value) {
-        this.follower = value;
+    public void setFollower(GDTFNode value) {
+        this.follower = value.toGDTF();
     }
 
     /**

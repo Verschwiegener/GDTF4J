@@ -18,6 +18,9 @@ import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.ValueHelper.FeatureHelper;
 import de.verschwiegener.gdtf.ValueHelper.NameHelper;
+import de.verschwiegener.gdtf.util.GDTFColor;
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
 
 /**
  * <p>
@@ -166,8 +169,8 @@ public class Attribute {
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getActivationGroup() {
-		return activationGroup;
+	public GDTFNode getActivationGroup() {
+		return new GDTFNode(activationGroup, NodeStartingPoint.ActivationGroup);
 	}
 
 	/**
@@ -176,8 +179,8 @@ public class Attribute {
 	 * @param value allowed object is {@link String }
 	 * 
 	 */
-	public void setActivationGroup(String value) {
-		this.activationGroup = value;
+	public void setActivationGroup(GDTFNode value) {
+		this.activationGroup = value.toGDTF();
 	}
 
 	/**
@@ -210,8 +213,8 @@ public class Attribute {
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getColor() {
-		return color;
+	public GDTFColor getColor() {
+		return GDTFColor.fromGDTF(color);
 	}
 
 	/**
@@ -220,8 +223,8 @@ public class Attribute {
 	 * @param value allowed object is {@link String }
 	 * 
 	 */
-	public void setColor(String value) {
-		this.color = value;
+	public void setColor(GDTFColor color) {
+		this.color = color.toGDTF();
 	}
 
 	/**
@@ -230,8 +233,8 @@ public class Attribute {
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getFeature() {
-		return feature;
+	public GDTFNode getFeature() {
+		return new GDTFNode(feature, NodeStartingPoint.FeatureGroup);
 	}
 
 	/**
@@ -240,8 +243,8 @@ public class Attribute {
 	 * @param value allowed object is {@link String }
 	 * 
 	 */
-	public void setFeature(String value) {
-		this.feature = value;
+	public void setFeature(GDTFNode value) {
+		this.feature = value.toGDTF();
 	}
 
 	/**
@@ -250,8 +253,8 @@ public class Attribute {
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getMainAttribute() {
-		return mainAttribute;
+	public GDTFNode getMainAttribute() {
+		return new GDTFNode(mainAttribute, NodeStartingPoint.Attribute);
 	}
 
 	/**
@@ -260,8 +263,8 @@ public class Attribute {
 	 * @param value allowed object is {@link String }
 	 * 
 	 */
-	public void setMainAttribute(String value) {
-		this.mainAttribute = value;
+	public void setMainAttribute(GDTFNode value) {
+		this.mainAttribute = value.toString();
 	}
 
 }

@@ -15,6 +15,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFNode;
+
 
 /**
  * <p>Java-Klasse für Gamuts complex type.
@@ -71,6 +73,10 @@ public class Gamuts {
             gamut = new ArrayList<Gamut>();
         }
         return this.gamut;
+    }
+    
+    public Gamut getGammut(GDTFNode node) {
+    	return getGamut().stream().filter(g -> g.getName().equals(node.getNodePath()[0])).findFirst().orElse(null);
     }
 
 }

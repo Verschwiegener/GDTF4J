@@ -15,6 +15,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 
 /**
  * <p>Java-Klasse für Emitters complex type.
@@ -71,6 +74,12 @@ public class Emitters {
             emitter = new ArrayList<Emitter>();
         }
         return this.emitter;
+    }
+    
+    public Emitter getEmitter(GDTFNode node) {
+    	if(node.getStartingPoint() != NodeStartingPoint.Emitter) 
+    		return null;
+    	return getEmitter().stream().filter(e -> e.getName().equals(node.getNodePath()[0])).findFirst().orElse(null);
     }
 
 }

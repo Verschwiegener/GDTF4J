@@ -13,6 +13,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 
 /**
  * <p>Java-Klasse für SubChannelSet complex type.
@@ -114,8 +117,8 @@ public class SubChannelSet {
      *     {@link String }
      *     
      */
-    public String getSubPhysicalUnit() {
-        return subPhysicalUnit;
+    public GDTFNode getSubPhysicalUnit() {
+        return new GDTFNode(subPhysicalUnit, NodeStartingPoint.Attribute);
     }
 
     /**
@@ -126,8 +129,8 @@ public class SubChannelSet {
      *     {@link String }
      *     
      */
-    public void setSubPhysicalUnit(String value) {
-        this.subPhysicalUnit = value;
+    public void setSubPhysicalUnit(GDTFNode value) {
+        this.subPhysicalUnit = value.toGDTF();
     }
 
     /**
@@ -138,8 +141,8 @@ public class SubChannelSet {
      *     {@link String }
      *     
      */
-    public String getDMXProfile() {
-        return dmxProfile;
+    public GDTFNode getDMXProfile() {
+        return new GDTFNode(dmxProfile, NodeStartingPoint.DMXProfile);
     }
 
     /**
@@ -150,8 +153,8 @@ public class SubChannelSet {
      *     {@link String }
      *     
      */
-    public void setDMXProfile(String value) {
-        this.dmxProfile = value;
+    public void setDMXProfile(GDTFNode value) {
+        this.dmxProfile = value.toGDTF();
     }
 
 }

@@ -7,11 +7,16 @@
 
 package de.verschwiegener.gdtf.fixtureType.dmxmodes;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
 
 /**
  * <p>
@@ -178,6 +183,19 @@ public class DMXMode {
 	 */
 	public void setGeometry(String value) {
 		this.geometry = value;
+	}
+
+	public List<DMXChannel> getDMXChannel(String Geometry) {
+		return getDMXChannels().getDMXChannel().stream().filter(dc -> dc.getGeometry().equals(Geometry)).toList();
+	}
+
+	public DMXChannel getDmxChannel(GDTFNode node) {
+		if (!node.checkPoint(NodeStartingPoint.DMXMode))
+			return null;
+
+		return getDMXChannels().getDMXChannel().stream()
+				.filter(dc -> dc.getGeometry().equals(node.getNodePath()[0]) && dc.getLogicalChannel(node) != null)
+				.findFirst().orElse(null);
 	}
 
 }

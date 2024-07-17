@@ -14,6 +14,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 
 /**
  * <p>Java-Klasse für FTMacro complex type.
@@ -105,8 +108,8 @@ public class FTMacro {
      *     {@link String }
      *     
      */
-    public String getChannelFunction() {
-        return channelFunction;
+    public GDTFNode getChannelFunction() {
+        return new GDTFNode(channelFunction, NodeStartingPoint.DMXMode);
     }
 
     /**
@@ -117,8 +120,8 @@ public class FTMacro {
      *     {@link String }
      *     
      */
-    public void setChannelFunction(String value) {
-        this.channelFunction = value;
+    public void setChannelFunction(GDTFNode value) {
+        this.channelFunction = value.toGDTF();
     }
 
 }

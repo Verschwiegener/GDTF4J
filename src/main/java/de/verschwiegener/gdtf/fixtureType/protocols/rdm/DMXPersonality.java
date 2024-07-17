@@ -13,6 +13,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 
 /**
  * <p>Java-Klasse für DMXPersonality complex type.
@@ -73,8 +76,8 @@ public class DMXPersonality {
      *     {@link String }
      *     
      */
-    public String getDMXMode() {
-        return dmxMode;
+    public GDTFNode getDMXMode() {
+        return new GDTFNode(dmxMode, NodeStartingPoint.DMXMode);
     }
 
     /**
@@ -85,8 +88,8 @@ public class DMXPersonality {
      *     {@link String }
      *     
      */
-    public void setDMXMode(String value) {
-        this.dmxMode = value;
+    public void setDMXMode(GDTFNode value) {
+        this.dmxMode = value.toGDTF();
     }
 
 }

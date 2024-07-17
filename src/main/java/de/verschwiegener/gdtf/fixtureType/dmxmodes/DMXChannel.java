@@ -7,6 +7,7 @@
 
 package de.verschwiegener.gdtf.fixtureType.dmxmodes;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -16,6 +17,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.ValueHelper.NodeHelper;
+import de.verschwiegener.gdtf.util.GDTFDMXValue;
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.SimpleDMXFunction;
+import de.verschwiegener.gdtf.util.SimpleDMXFunction.SimpleSet;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
 
 /**
  * <p>
@@ -86,90 +92,105 @@ public class DMXChannel {
 	@XmlAttribute(name = "Geometry", required = true)
 	protected String geometry;
 
+	
 	/**
-	 * Used to Split InitialFunction up into usable Node Paths
-	 * 
-	 * @return String[] Initial Function Node Path
-	 */
-	public String[] parseInitialFunction() {
-		String[] parsedValues;
-		String[] splitDot = initialFunction.split(".");
-
-		parsedValues = new String[splitDot.length + 1];
-
-		// Split First Value into its parts
-		int indexUnderscore = splitDot[0].indexOf("_");
-		parsedValues[0] = splitDot[0].substring(0, indexUnderscore);
-		parsedValues[1] = splitDot[0].substring(indexUnderscore);
-
-		// Add Remaining Values
-		for (int i = 1; i < splitDot.length; i++) {
-			parsedValues[i + 1] = splitDot[i];
-		}
-		return parsedValues;
-	}
-
-	/**
-	 * Used to get the ChannelFunction which is specified in InitialFunction
-	 * 
-	 * @return ChannelFunction InitialFunction
-	 */
-	public ChannelFunction initialFunction() {
-		String[] initialFunctionParts = parseInitialFunction();
-		if (initialFunctionParts.length > 3)
-			return null;
-		return getLogicalChannel(initialFunctionParts[1]).getChannelFunctionByAttributeAndName(initialFunctionParts[2],
-				initialFunctionParts[3]);
-	}
-
-	/**
-	 * Returns First LogicalChannel with given Attribute, null if nothing was found
-	 * 
-	 * @param attribute String attribute to search for
-	 * @return First LogicalChannel with given attribute or null
-	 */
-	public LogicalChannel getLogicalChannel(String attribute) {
-		return getLogicalChannel().stream().filter(channel -> channel.getAttribute().equals(attribute)).findFirst()
-				.orElse(null);
-	}
-
-	/**
-	 * Returns all ChannelFunction Names of its Parents
-	 * 
-	 * @return ArrayList<String> containing Channel Function Names
-	 */
-	public ArrayList<String> getAllChannelFunctionNames() {
-		ArrayList<String> channelFunctions = new ArrayList<String>();
-		getLogicalChannel().forEach(channel -> {
-			channelFunctions.addAll(channel.getAllChannelFunctionNames());
-		});
-		return channelFunctions;
-	}
-
-	/**
-	 * Returns all usable Nodes of this DMX Channel in Format
-	 * LogicalChannel(Attribute).ChannelFunction(Attribute)
-	 * 
+	 * Returns LogicalChannel by GDTFNode
+	 * @param node
 	 * @return
 	 */
-	public ArrayList<NodeHelper> getAllUsableNodeIDs() {
-		ArrayList<NodeHelper> nodes = new ArrayList<NodeHelper>();
-		getLogicalChannel().forEach(lchannel -> {
-			lchannel.getAllChannelFunctionAttributes().forEach(attribute -> {
-				nodes.add(new NodeHelper(lchannel.getAttribute(), attribute));
-			});
-		});
-		return nodes;
+	public LogicalChannel getLogicalChannel(GDTFNode node) {
+		if(!node.checkPoint(NodeStartingPoint.DMXChannel))
+			return null;
+		return getLogicalChannel().stream().filter(lc -> lc.getAttribute().getNodePath()[0].equals(node.getNodePath()[1])).findFirst().orElse(null);
 	}
 	
 	/**
-	 * Returns ChannelFunction by Node Path
+	 * Returns Initial Function ChannelFunction
 	 * 
-	 * @param helper NodeHelper Node Path
+	 * @return
 	 */
-	public ChannelFunction getChannelFunction(NodeHelper helper) {
-		return getLogicalChannel(helper.lcAttribute()).getChannelFunctionByAttribute(helper.cfAttribute());
+	public ChannelFunction initialFunction() {
+		GDTFNode node = getInitialFunction();
+		return getLogicalChannel(node).getChannelFunction(node);
 	}
+	
+	
+	public List<SimpleDMXFunction> getFunctions() {
+		List<SimpleDMXFunction> dmxFunctions = new ArrayList<>();
+		for (LogicalChannel channel : getLogicalChannel()) {
+			for (ChannelFunction function : channel.getChannelFunction()) {
+
+				// Build GDTFNode to ChannelFunction
+				GDTFNode node = new GDTFNode(new String[] { geometry }, NodeStartingPoint.DMXChannel);
+				node.appendLast(channel.getAttribute(), function.getAttribute());
+				node.appendLast(function.getName());
+
+				SimpleDMXFunction simpleDMX = new SimpleDMXFunction(node, getOffsetAsInt(), channel.getDMXRange(node),
+						function.getDefault(), function.getName(), function.getCustomName(), channel.getAttribute());
+
+				List<ChannelSet> channelSet = function.getChannelSet();
+
+				for (int i = 0; i > channelSet.size(); i++) {
+					ChannelSet set = channelSet.get(i);
+					GDTFDMXValue dmxTo = null;
+					if (i + 1 > channelSet.size()) {
+						ChannelSet set2 = channelSet.get(i + 1);
+						dmxTo = set2.getDMXFrom();
+						dmxTo.offsetDMX(-1);
+					} else {
+						dmxTo = switch (set.getDMXFrom().getChannelCount()) {
+						case 1 -> new GDTFDMXValue(new int[] { 255 });
+						case 2 -> new GDTFDMXValue(new int[] { 255, 255 });
+						default -> new GDTFDMXValue(new int[] { 255 });
+						};
+					}
+
+					simpleDMX.getSimpleSet().add(simpleDMX.new SimpleSet(set.getDMXFrom(), dmxTo, set.getName()));
+				}
+				dmxFunctions.add(simpleDMX);
+			}
+		}
+		return dmxFunctions;
+	}
+	
+	
+	public SimpleDMXFunction getSimpleDMXFunction(GDTFNode node) {
+		LogicalChannel channel = getLogicalChannel(node);
+		ChannelFunction function = channel.getChannelFunction(node);
+		
+		SimpleDMXFunction simpleDMX = new SimpleDMXFunction(node, getOffsetAsInt(), channel.getDMXRange(node),
+				function.getDefault(), function.getName(), function.getCustomName(), channel.getAttribute());
+		
+		List<ChannelSet> channelSet = function.getChannelSet();
+		
+		for(int i = 0; i > channelSet.size();i++) {
+			ChannelSet set = channelSet.get(i);
+			GDTFDMXValue dmxTo = null;
+			if(i + 1 > channelSet.size()) {
+				ChannelSet set2 =  channelSet.get(i + 1);
+				dmxTo = set2.getDMXFrom();
+				dmxTo.offsetDMX(-1);
+			}else {
+				dmxTo = switch (set.getDMXFrom().getChannelCount()) {
+				case 1 -> new GDTFDMXValue(new int[] { 255 });
+				case 2 -> new GDTFDMXValue(new int[] { 255, 255 });
+				default -> new GDTFDMXValue(new int[] { 255 });
+				};
+			}
+			
+			simpleDMX.getSimpleSet().add(simpleDMX.new SimpleSet(set.getDMXFrom(), dmxTo, set.getName()));
+			
+		}
+		return simpleDMX;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * Gets the value of the logicalChannel property.
@@ -238,6 +259,18 @@ public class DMXChannel {
 			return offset;
 		}
 	}
+	
+	public int[] getOffsetAsInt() {
+		if(!offset.contains(",")) {
+			return new int[] {Integer.parseInt(offset)};
+		}
+		String[] parts = offset.split(",");
+		int[] dmxOffsets = new int[parts.length];
+		for(int i = 0; i < parts.length;i++) {
+			dmxOffsets[i] = Integer.parseInt(parts[i]);
+		}
+		return dmxOffsets;
+	}
 
 	/**
 	 * Legt den Wert der offset-Eigenschaft fest.
@@ -255,8 +288,12 @@ public class DMXChannel {
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getInitialFunction() {
-		return initialFunction;
+	public GDTFNode getInitialFunction() {
+		//Remove Geometry_ from initialFunction
+		GDTFNode node = new GDTFNode(initialFunction.substring(geometry.length()), NodeStartingPoint.DMXChannel);
+		//Add Geometry into first Position
+		node.appendFirst(geometry);
+		return node;
 	}
 
 	/**
@@ -265,8 +302,8 @@ public class DMXChannel {
 	 * @param value allowed object is {@link String }
 	 * 
 	 */
-	public void setInitialFunction(String value) {
-		this.initialFunction = value;
+	public void setInitialFunction(GDTFNode value) {
+		this.initialFunction = geometry + "_" + value.toGDTF();
 	}
 
 	/**
@@ -275,12 +312,8 @@ public class DMXChannel {
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getHighlight() {
-		if (highlight == null) {
-			return "None";
-		} else {
-			return highlight;
-		}
+	public GDTFDMXValue getHighlight() {
+		return new GDTFDMXValue(highlight);
 	}
 
 	/**
@@ -289,8 +322,8 @@ public class DMXChannel {
 	 * @param value allowed object is {@link String }
 	 * 
 	 */
-	public void setHighlight(String value) {
-		this.highlight = value;
+	public void setHighlight(GDTFDMXValue value) {
+		this.highlight = value.toGDTF();
 	}
 
 	/**

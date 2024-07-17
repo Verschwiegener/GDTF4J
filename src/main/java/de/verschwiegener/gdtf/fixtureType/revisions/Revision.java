@@ -9,11 +9,16 @@
 package de.verschwiegener.gdtf.fixtureType.revisions;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.crypto.Data;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
@@ -80,8 +85,8 @@ public class Revision {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getDate() {
-        return date;
+    public LocalDate getDate() {
+        return LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
     }
 
     /**
@@ -92,8 +97,12 @@ public class Revision {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDate(XMLGregorianCalendar value) {
-        this.date = value;
+    public void setDate(LocalDate value) {
+        try {
+			this.date = DatatypeFactory.newInstance().newXMLGregorianCalendar(value.toString());
+		} catch (DatatypeConfigurationException e) {
+			e.printStackTrace();
+		}
     }
 
     /**

@@ -57,6 +57,13 @@ public class Geometries {
     })
     protected List<JAXBElement<? extends BasicGeometryAttributes>> geometryOrAxisOrFilterBeam;
 
+    //TODO add rest of Geometry Children Types (https://github.com/mvrdevelopment/spec/blob/main/gdtf-spec.md#table-34-geometry-children-types)
+    //And then delete Basic GeometryType
+    
+    //TODO Add getWiringObject by Node funktion
+    
+    
+    
     /**
      * Gets the value of the geometryOrAxisOrFilterBeam property.
      * 

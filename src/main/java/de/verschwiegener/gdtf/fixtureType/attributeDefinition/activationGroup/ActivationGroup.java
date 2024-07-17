@@ -13,6 +13,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 
 /**
  * <p>Java-Klasse für ActivationGroup complex type.
@@ -63,6 +66,10 @@ public class ActivationGroup {
      */
     public void setName(String value) {
         this.name = value;
+    }
+    
+    public GDTFNode getNode() {
+    	return new GDTFNode(name, NodeStartingPoint.ActivationGroup);
     }
 
 }

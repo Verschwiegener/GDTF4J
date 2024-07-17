@@ -16,6 +16,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFColor;
+
 
 /**
  * <p>Java-Klasse für Emitter complex type.
@@ -131,8 +133,8 @@ public class Emitter {
      *     {@link String }
      *     
      */
-    public String getColor() {
-        return color;
+    public GDTFColor getColor() {
+        return GDTFColor.fromGDTF(color);
     }
 
     /**
@@ -143,8 +145,8 @@ public class Emitter {
      *     {@link String }
      *     
      */
-    public void setColor(String value) {
-        this.color = value;
+    public void setColor(GDTFColor color) {
+        this.color = color.toGDTF();
     }
 
     /**

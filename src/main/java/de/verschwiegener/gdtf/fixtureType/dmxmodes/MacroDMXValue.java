@@ -12,6 +12,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFDMXValue;
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 /**
  * <p>
  * Java-Klasse für MacroDMXValue complex type.
@@ -55,8 +59,8 @@ public class MacroDMXValue {
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getValue() {
-		return value;
+	public GDTFDMXValue getValue() {
+		return new GDTFDMXValue(value);
 	}
 
 	/**
@@ -65,8 +69,8 @@ public class MacroDMXValue {
 	 * @param value allowed object is {@link String }
 	 * 
 	 */
-	public void setValue(String value) {
-		this.value = value;
+	public void setValue(GDTFDMXValue value) {
+		this.value = value.toGDTF();
 	}
 
 	/**
@@ -75,8 +79,8 @@ public class MacroDMXValue {
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getDMXChannel() {
-		return dmxChannel;
+	public GDTFNode getDMXChannel() {
+		return new GDTFNode(dmxChannel, NodeStartingPoint.DMXChannel);
 	}
 
 	/**
@@ -85,8 +89,8 @@ public class MacroDMXValue {
 	 * @param value allowed object is {@link String }
 	 * 
 	 */
-	public void setDMXChannel(String value) {
-		this.dmxChannel = value;
+	public void setDMXChannel(GDTFNode value) {
+		this.dmxChannel = value.toGDTF();
 	}
 
 }

@@ -15,6 +15,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 
 /**
  * <p>Java-Klasse für DMXProfiles complex type.
@@ -71,6 +74,12 @@ public class DMXProfiles {
             dmxProfile = new ArrayList<DMXProfile>();
         }
         return this.dmxProfile;
+    }
+    
+    public DMXProfile getDmxProfile(GDTFNode node) {
+    	if(!node.checkPoint(NodeStartingPoint.DMXProfile))
+    		return null;
+    	return getDMXProfile().stream().filter(dp -> dp.getName().equals(node.getNodePath()[0])).findFirst().orElse(null);
     }
 
 }

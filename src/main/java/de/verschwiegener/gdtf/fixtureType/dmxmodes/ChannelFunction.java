@@ -15,6 +15,10 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFDMXValue;
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 /**
  * <p>
  * Java-Klasse für ChannelFunction complex type.
@@ -89,6 +93,8 @@ public class ChannelFunction {
     protected String filter;
     @XmlAttribute(name = "ColorSpace")
     protected String colorSpace;
+    @XmlAttribute(name = "Gammut")
+    protected String gamut;
     @XmlAttribute(name = "ModeMaster")
     protected String modeMaster;
     @XmlAttribute(name = "ModeFrom")
@@ -194,11 +200,11 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public String getAttribute() {
+    public GDTFNode getAttribute() {
         if (attribute == null) {
-            return "NoFeature";
+            return new GDTFNode("NoFeature", NodeStartingPoint.Attribute);
         } else {
-            return attribute;
+            return new GDTFNode(attribute, NodeStartingPoint.Attribute);
         }
     }
 
@@ -210,8 +216,8 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public void setAttribute(String value) {
-        this.attribute = value;
+    public void setAttribute(GDTFNode value) {
+        this.attribute = value.toString();
     }
 
     /**
@@ -250,11 +256,11 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public String getDMXFrom() {
+    public GDTFDMXValue getDMXFrom() {
         if (dmxFrom == null) {
-            return "0/1";
+            return new GDTFDMXValue("0/1");
         } else {
-            return dmxFrom;
+            return new GDTFDMXValue(dmxFrom);
         }
     }
 
@@ -266,8 +272,8 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public void setDMXFrom(String value) {
-        this.dmxFrom = value;
+    public void setDMXFrom(GDTFDMXValue value) {
+        this.dmxFrom = value.toGDTF();
     }
 
     /**
@@ -278,8 +284,8 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public String getDefault() {
-        return _default;
+    public GDTFDMXValue getDefault() {
+        return new GDTFDMXValue(_default);
     }
 
     /**
@@ -290,8 +296,8 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public void setDefault(String value) {
-        this._default = value;
+    public void setDefault(GDTFDMXValue value) {
+        this._default = value.toGDTF();
     }
 
     /**
@@ -398,8 +404,8 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public String getWheel() {
-        return wheel;
+    public GDTFNode getWheel() {
+        return new GDTFNode(wheel, NodeStartingPoint.Wheel);
     }
 
     /**
@@ -410,8 +416,8 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public void setWheel(String value) {
-        this.wheel = value;
+    public void setWheel(GDTFNode value) {
+        this.wheel = value.toGDTF();
     }
 
     /**
@@ -422,8 +428,8 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public String getEmitter() {
-        return emitter;
+    public GDTFNode getEmitter() {
+        return new GDTFNode(emitter, NodeStartingPoint.Emitter);
     }
 
     /**
@@ -434,8 +440,8 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public void setEmitter(String value) {
-        this.emitter = value;
+    public void setEmitter(GDTFNode value) {
+        this.emitter = value.toGDTF();
     }
 
     /**
@@ -446,8 +452,8 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public String getFilter() {
-        return filter;
+    public GDTFNode getFilter() {
+        return new GDTFNode(filter, NodeStartingPoint.Filter);
     }
 
     /**
@@ -458,8 +464,8 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public void setFilter(String value) {
-        this.filter = value;
+    public void setFilter(GDTFNode value) {
+        this.filter = value.toGDTF();
     }
 
     /**
@@ -470,8 +476,8 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public String getColorSpace() {
-        return colorSpace;
+    public GDTFNode getColorSpace() {
+        return new GDTFNode(colorSpace, NodeStartingPoint.PhysicalDescription);
     }
 
     /**
@@ -482,9 +488,31 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public void setColorSpace(String value) {
-        this.colorSpace = value;
+    public void setColorSpace(GDTFNode value) {
+        this.colorSpace = value.toGDTF();
     }
+    /**
+     * Ruft den Wert der Gammut-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public GDTFNode getGamut() {
+    	return new GDTFNode(gamut, NodeStartingPoint.Gammut);
+    }
+    /**
+     * Legt den Wert der Gammut-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setGamut(GDTFNode gamut) {
+		this.gamut = gamut.toGDTF();
+	}
 
     /**
      * Ruft den Wert der modeMaster-Eigenschaft ab.
@@ -494,8 +522,8 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public String getModeMaster() {
-        return modeMaster;
+    public GDTFNode getModeMaster() {
+        return new GDTFNode(modeMaster, NodeStartingPoint.DMXMode);
     }
 
     /**
@@ -506,8 +534,8 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public void setModeMaster(String value) {
-        this.modeMaster = value;
+    public void setModeMaster(GDTFNode value) {
+        this.modeMaster = value.toGDTF();
     }
 
     /**
@@ -518,11 +546,11 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public String getModeFrom() {
+    public GDTFDMXValue getModeFrom() {
         if (modeFrom == null) {
-            return "0/1";
+            return new GDTFDMXValue("0/1");
         } else {
-            return modeFrom;
+            return new GDTFDMXValue(modeFrom);
         }
     }
 
@@ -534,8 +562,8 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public void setModeFrom(String value) {
-        this.modeFrom = value;
+    public void setModeFrom(GDTFDMXValue value) {
+        this.modeFrom = value.toGDTF();
     }
 
     /**
@@ -546,11 +574,11 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public String getModeTo() {
+    public GDTFDMXValue getModeTo() {
         if (modeTo == null) {
-            return "0/1";
+            return new GDTFDMXValue("0/1");
         } else {
-            return modeTo;
+            return new GDTFDMXValue(modeTo);
         }
     }
 
@@ -574,8 +602,8 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public String getDMXProfile() {
-        return dmxProfile;
+    public GDTFNode getDMXProfile() {
+        return new GDTFNode(dmxProfile, NodeStartingPoint.DMXProfile);
     }
 
     /**
@@ -586,8 +614,8 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public void setDMXProfile(String value) {
-        this.dmxProfile = value;
+    public void setDMXProfile(GDTFNode value) {
+        this.dmxProfile = value.toGDTF();
     }
 
     /**

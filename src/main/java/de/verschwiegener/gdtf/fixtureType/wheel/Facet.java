@@ -12,6 +12,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFColor;
+
 /**
  * <p>
  * Java-Klasse für Facet complex type.
@@ -55,10 +57,10 @@ public class Facet {
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getColor() {
-		if (color == null)
-			return "0.3127, 0.3290, 100.0";
-		return color;
+	public GDTFColor getColor() {
+		if(color == null)
+			return new GDTFColor();
+		return GDTFColor.fromGDTF(color);
 	}
 
 	/**
@@ -67,8 +69,8 @@ public class Facet {
 	 * @param value allowed object is {@link String }
 	 * 
 	 */
-	public void setColor(String value) {
-		this.color = value;
+	public void setColor(GDTFColor color) {
+		this.color = color.toGDTF();
 	}
 
 	/**

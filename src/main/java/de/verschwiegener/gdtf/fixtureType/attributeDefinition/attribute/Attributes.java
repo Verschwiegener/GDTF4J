@@ -14,6 +14,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 /**
  * <p>
  * Java-Klasse für Attributes complex type.
@@ -95,5 +98,12 @@ public class Attributes {
 	public Attribute getAttributeByName(String name) {
 		return getAttribute().stream().filter(attribute -> attribute.getName().equals(name)).findFirst().orElse(null);
 	}
+	
+	public Attribute getAttribute(GDTFNode node) {
+		if(!node.checkPoint(NodeStartingPoint.Attribute))
+			return null;
+		return getAttribute().stream().filter(attribute -> attribute.getName().equals(node.getNodePath()[0])).findFirst().orElse(null);
+	}
+	
 
 }

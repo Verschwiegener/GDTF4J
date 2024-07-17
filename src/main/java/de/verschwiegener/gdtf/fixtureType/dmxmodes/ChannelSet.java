@@ -12,6 +12,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFDMXValue;
+
 /**
  * <p>
  * Java-Klasse für ChannelSet complex type.
@@ -105,10 +107,10 @@ public class ChannelSet {
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getDMXFrom() {
+	public GDTFDMXValue getDMXFrom() {
 		if (dmxFrom == null)
-			return "0/1";
-		return dmxFrom;
+			return new GDTFDMXValue("0/1");
+		return new GDTFDMXValue(dmxFrom);
 	}
 
 	/**
@@ -117,8 +119,8 @@ public class ChannelSet {
 	 * @param value allowed object is {@link String }
 	 * 
 	 */
-	public void setDMXFrom(String value) {
-		this.dmxFrom = value;
+	public void setDMXFrom(GDTFDMXValue value) {
+		this.dmxFrom = value.toGDTF();
 	}
 
 	/**

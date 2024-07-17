@@ -16,6 +16,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.ValueHelper.NameHelper;
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
 
 
 /**
@@ -120,5 +122,23 @@ public class FeatureGroups {
     	});
     	return featureGroupFeatures;
     }
+    
+    
+    
+    public FeatureGroup getFeatureGroup(GDTFNode node) {
+    	if(!node.checkPoint(NodeStartingPoint.FeatureGroup))
+			return null;
+    	return getFeatureGroup().stream().filter(fg -> fg.name.equals(node.getNodePath()[0])).findFirst().orElse(null);
+    }
+    
+    public Feature getFeature(GDTFNode node) {
+    	if(!node.checkPoint(NodeStartingPoint.FeatureGroup))
+			return null;
+    	return getFeatureGroup(node).getFeature(node);
+    }
+    
+    
+    
+    
 
 }

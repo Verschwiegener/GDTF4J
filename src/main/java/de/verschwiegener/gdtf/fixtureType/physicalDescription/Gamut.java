@@ -36,8 +36,14 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "Gamut")
 public class Gamut {
 
+	/**
+	 * Unique Name of the Gamut.
+	 */
     @XmlAttribute(name = "Name", required = true)
     protected String name;
+    /**
+     * Set of points defining the vertice of the gamut's polygon.
+     */
     @XmlAttribute(name = "Points")
     protected String points;
 

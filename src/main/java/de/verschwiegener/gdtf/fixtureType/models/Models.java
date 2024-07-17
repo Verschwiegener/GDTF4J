@@ -15,6 +15,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 
 /**
  * <p>Java-Klasse für Models complex type.
@@ -75,6 +78,12 @@ public class Models {
     
     public Model getModelByName(String name) {
     	return getModel().stream().filter(model -> model.getName().equals(name)).findFirst().orElse(null);
+    }
+    
+    public Model getModel(GDTFNode node) {
+    	if(!node.checkPoint(NodeStartingPoint.Model))
+    		return null;
+    	return getModel().stream().filter(m -> m.getName().equals(node.getNodePath()[0])).findFirst().orElse(null);
     }
 
 }

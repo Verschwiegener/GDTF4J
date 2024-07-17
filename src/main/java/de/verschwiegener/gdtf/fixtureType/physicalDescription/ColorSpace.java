@@ -38,7 +38,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ColorSpace")
 public class ColorSpace {
-
+	
+	@XmlAttribute(name = "Name")
+	protected String name;
+	
     @XmlAttribute(name = "Mode")
     protected ColorSpaceEnum mode;
     @XmlAttribute(name = "Red")
@@ -50,6 +53,15 @@ public class ColorSpace {
     @XmlAttribute(name = "WhitePoint")
     protected String whitePoint;
 
+    
+    public String getName() {
+		return name;
+	}
+    
+    public void setName(String name) {
+		this.name = name;
+	}
+    
     /**
      * Ruft den Wert der mode-Eigenschaft ab.
      * 

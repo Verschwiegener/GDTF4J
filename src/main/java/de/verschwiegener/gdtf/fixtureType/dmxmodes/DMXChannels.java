@@ -72,30 +72,4 @@ public class DMXChannels {
 		}
 		return this.dmxChannel;
 	}
-
-	/**
-	 * Returns all ChannelFunction Names
-	 * 
-	 * @return ArrayList<String> containing Channel Function Names
-	 */
-	public ArrayList<String> getAllChannelFunctionNames() {
-		ArrayList<String> channelFunctions = new ArrayList<String>();
-		getDMXChannel().forEach(channel -> {
-			channelFunctions.addAll(channel.getAllChannelFunctionNames());
-		});
-		return channelFunctions;
-	}
-
-	/**
-	 * Returns all ChannelFunction Names sorted by the Geometry of its DMXChannel
-	 * 
-	 */
-	public HashMap<String, ArrayList<String>> getAllChannelFunctionsNamesByGeometry() {
-		HashMap<String, ArrayList<String>> namesbygeo = new HashMap<String, ArrayList<String>>();
-		getDMXChannel().forEach(channel -> {
-			namesbygeo.putIfAbsent(channel.getGeometry(), new ArrayList<String>());
-			namesbygeo.get(channel.getGeometry()).addAll(channel.getAllChannelFunctionNames());
-		});
-		return namesbygeo;
-	}
 }

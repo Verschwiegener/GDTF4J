@@ -9,6 +9,7 @@
 package de.verschwiegener.gdtf.fixtureType.revisions;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -74,7 +75,7 @@ public class Revisions {
     }
     
     public Revision getLatest() {
-    	return getRevision().get(getRevision().size() - 1);
+    	return getRevision().stream().sorted((o1, o2) -> o1.getDate().compareTo(o2.getDate())).findFirst().orElse(getRevision().get(getRevision().size() - 1));
     }
 
 }

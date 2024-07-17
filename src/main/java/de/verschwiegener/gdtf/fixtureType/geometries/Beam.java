@@ -14,6 +14,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 
 /**
  * <p>Java-Klasse für Beam complex type.
@@ -347,8 +350,8 @@ public class Beam
      *     {@link String }
      *     
      */
-    public String getEmitterSpectrum() {
-        return emitterSpectrum;
+    public GDTFNode getEmitterSpectrum() {
+        return new GDTFNode(emitterSpectrum, NodeStartingPoint.Emitter);
     }
 
     /**
@@ -359,8 +362,8 @@ public class Beam
      *     {@link String }
      *     
      */
-    public void setEmitterSpectrum(String value) {
-        this.emitterSpectrum = value;
+    public void setEmitterSpectrum(GDTFNode value) {
+        this.emitterSpectrum = value.toGDTF();
     }
 
 }
