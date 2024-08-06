@@ -99,6 +99,9 @@ public class GDTFDMXValue {
 		return values;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return toGDTF();
+	}
 	
 }

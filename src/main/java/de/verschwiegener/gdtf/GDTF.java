@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.JAXBElement;
+
 import de.verschwiegener.gdtf.fixtureType.FTPresets;
 import de.verschwiegener.gdtf.fixtureType.PhysicalDescriptions;
 import de.verschwiegener.gdtf.fixtureType.attributeDefinition.AttributeDefinitions;
@@ -44,7 +46,7 @@ public class GDTF {
 
 	private File gdtfModel3ds;
 	private File gdtfModelsvg;
-	
+
 	private DMXMode dmxMode;
 
 	public GDTF(File gdtfFile, File gdtfOutputFolder) throws Exception {
@@ -98,47 +100,66 @@ public class GDTF {
 	public DMXProfile getDmxProfile(GDTFNode node) {
 		return getPhysicalDescriptions().getDMXProfiles().getDmxProfile(node);
 	}
-	
+
 	public CRIs getCRI() {
 		return getPhysicalDescriptions().getCRIs();
 	}
-	
+
 	public Connectors getConnectors() {
 		return getPhysicalDescriptions().getConnectors();
 	}
-	
+
 	public Properties getProperties() {
 		return getPhysicalDescriptions().getProperties();
 	}
-	
+
 	public Model getModel(GDTFNode node) {
 		return type.getFixtureType().getModels().getModel(node);
 	}
-	
+
+	public ArrayList<GDTFGeometry> getGeometries() {
+		ArrayList<GDTFGeometry> geo = new ArrayList<GDTF.GDTFGeometry>();
+		for (JAXBElement<? extends BasicGeometryAttributes> geoType : type.getFixtureType().getGeometries()
+				.getGeometryOrAxisOrFilterBeam()) {
+			geo.add(parseGeo(geoType));
+		}
+		return geo;
+	}
+
+	private GDTFGeometry parseGeo(JAXBElement<? extends BasicGeometryAttributes> element) {
+		BasicGeometryType type = (BasicGeometryType) element.getValue();
+		ArrayList<GDTFGeometry> children = new ArrayList<GDTF.GDTFGeometry>();
+		for (JAXBElement<? extends BasicGeometryAttributes> child : type.getGeometryOrAxisOrFilterBeam()) {
+			children.add(parseGeo(child));
+		}
+		return new GDTFGeometry(element.getName().getLocalPart(), type, children);
+	}
+
 	public Revisions getRevisions() {
 		return type.getFixtureType().getRevisions();
 	}
-	
+
 	public FTPresets getPresets() {
 		return type.getFixtureType().getFTPresets();
 	}
-	
+
 	public Protocols getProtocols() {
 		return type.getFixtureType().getProtocols();
 	}
-	
+
 	public List<DMXMode> getDMXModes() {
 		return type.getFixtureType().getDMXModes().getDMXMode();
 	}
-	
+
 	public void selectMode(DMXMode mode) {
 		this.dmxMode = mode;
 	}
-	
+
 	public SimpleDMXFunction getSimpleDMXFunction(GDTFNode node) {
-		return dmxMode.getDmxChannel(node).getSimpleDMXFunction(node);
+		DMXChannel channel = dmxMode.getDmxChannel(node);
+		return channel.getSimpleDMXFunction(node);
 	}
-	
+
 	public List<DMXChannelData> getDMXChannels() {
 		List<DMXChannelData> channelData = new ArrayList<>();
 		for (DMXChannel channel : dmxMode.getDMXChannels().getDMXChannel()) {
@@ -147,33 +168,29 @@ public class GDTF {
 		}
 		return channelData;
 	}
-	
+
 	public Relations getRelations() {
-		if(dmxMode == null) 
+		if (dmxMode == null)
 			return null;
 		return dmxMode.getRelations();
 	}
-	
-	
+
 	public FTMacros getMacros() {
-		if(dmxMode == null) 
+		if (dmxMode == null)
 			return null;
 		return dmxMode.getFTMacros();
 	}
-	
-		
+
 	public void parse() {
 		DMXMode mode = getDMXModes().get(0);
 		mode.getGeometry();
-		
+
 		BasicGeometryAttributes g = type.getFixtureType().getGeometries().getGeometryOrAxisOrFilterBeam().stream()
 				.filter(geo -> geo.getValue().getName().equals(mode.getGeometry())).findFirst().orElse(null).getValue();
-		
-		
-		//TODO continue parser
 
-	}	
-	
+		// TODO continue parser
+
+	}
 
 	private AttributeDefinitions getAttributeDefinitions() {
 		return type.getFixtureType().getAttributeDefinitions();
@@ -206,8 +223,9 @@ public class GDTF {
 
 	public static record DMXChannelData(int[] dmxOffset, String dmxBreak, String geometry, GDTFDMXValue highlight,
 			GDTFNode initialfunction, List<SimpleDMXFunction> channelFunctions) {
-
 	}
-	
+
+	public static record GDTFGeometry(String geoType, BasicGeometryType typeClass, ArrayList<GDTFGeometry> children) {
+	}
 
 }

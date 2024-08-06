@@ -8,7 +8,10 @@
 package de.verschwiegener.gdtf.fixtureType.dmxmodes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import javax.management.RuntimeErrorException;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -104,6 +107,9 @@ public class LogicalChannel {
 	
 	public GDTFDMXValue[] getDMXRange(GDTFNode node) {
 		ChannelFunction function = getChannelFunction(node);
+		
+		if(function == null)
+			throw new RuntimeException("Invalid GDTF Node path: " + Arrays.toString(node.getNodePath()));
 
 		GDTFDMXValue minValue = function.getDMXFrom();
 		GDTFDMXValue maxValue = null;
