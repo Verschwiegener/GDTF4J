@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.3.2 generiert 
 // Siehe <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2024.03.01 um 02:31:37 PM CET 
+// Generiert: 2024.08.04 um 12:03:53 AM CEST 
 //
 
 
@@ -18,70 +18,18 @@ import de.verschwiegener.gdtf.fixtureType.FTPresets;
 import de.verschwiegener.gdtf.fixtureType.FixtureType;
 import de.verschwiegener.gdtf.fixtureType.PhysicalDescriptions;
 import de.verschwiegener.gdtf.fixtureType.attributeDefinition.AttributeDefinitions;
-import de.verschwiegener.gdtf.fixtureType.attributeDefinition.activationGroup.ActivationGroup;
-import de.verschwiegener.gdtf.fixtureType.attributeDefinition.activationGroup.ActivationGroups;
-import de.verschwiegener.gdtf.fixtureType.attributeDefinition.attribute.Attribute;
-import de.verschwiegener.gdtf.fixtureType.attributeDefinition.attribute.Attributes;
-import de.verschwiegener.gdtf.fixtureType.attributeDefinition.featureGroup.Feature;
-import de.verschwiegener.gdtf.fixtureType.attributeDefinition.featureGroup.FeatureGroup;
-import de.verschwiegener.gdtf.fixtureType.attributeDefinition.featureGroup.FeatureGroups;
-import de.verschwiegener.gdtf.fixtureType.dmxmodes.ChannelFunction;
-import de.verschwiegener.gdtf.fixtureType.dmxmodes.ChannelSet;
-import de.verschwiegener.gdtf.fixtureType.dmxmodes.DMXChannel;
-import de.verschwiegener.gdtf.fixtureType.dmxmodes.DMXChannels;
-import de.verschwiegener.gdtf.fixtureType.dmxmodes.DMXMode;
-import de.verschwiegener.gdtf.fixtureType.dmxmodes.DMXModes;
-import de.verschwiegener.gdtf.fixtureType.dmxmodes.FTMacro;
-import de.verschwiegener.gdtf.fixtureType.dmxmodes.FTMacros;
-import de.verschwiegener.gdtf.fixtureType.dmxmodes.LogicalChannel;
-import de.verschwiegener.gdtf.fixtureType.dmxmodes.MacroDMX;
-import de.verschwiegener.gdtf.fixtureType.dmxmodes.MacroDMXStep;
-import de.verschwiegener.gdtf.fixtureType.dmxmodes.MacroDMXValue;
-import de.verschwiegener.gdtf.fixtureType.dmxmodes.Relation;
-import de.verschwiegener.gdtf.fixtureType.dmxmodes.Relations;
-import de.verschwiegener.gdtf.fixtureType.geometries.BasicGeometryAttributes;
-import de.verschwiegener.gdtf.fixtureType.geometries.BasicGeometryType;
-import de.verschwiegener.gdtf.fixtureType.geometries.Beam;
-import de.verschwiegener.gdtf.fixtureType.geometries.Break;
-import de.verschwiegener.gdtf.fixtureType.geometries.Display;
-import de.verschwiegener.gdtf.fixtureType.geometries.Geometries;
-import de.verschwiegener.gdtf.fixtureType.geometries.GeometryReference;
+import de.verschwiegener.gdtf.fixtureType.attributeDefinition.activationGroup.*;
+import de.verschwiegener.gdtf.fixtureType.attributeDefinition.attribute.*;
+import de.verschwiegener.gdtf.fixtureType.attributeDefinition.featureGroup.*;
+import de.verschwiegener.gdtf.fixtureType.dmxmodes.*;
+import de.verschwiegener.gdtf.fixtureType.geometries.*;
 import de.verschwiegener.gdtf.fixtureType.models.Model;
 import de.verschwiegener.gdtf.fixtureType.models.Models;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.CRI;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.CRIGroup;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.CRIs;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.ColorSpace;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.Connector;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.Connectors;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.DMXProfile;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.DMXProfiles;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.Emitter;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.Emitters;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.Filter;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.Filters;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.LegHeight;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.MeasurementPoint;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.OperatingTemperature;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.PowerConsumption;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.Properties;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.Weight;
-import de.verschwiegener.gdtf.fixtureType.protocols.ArtNet;
-import de.verschwiegener.gdtf.fixtureType.protocols.CITP;
-import de.verschwiegener.gdtf.fixtureType.protocols.FTRDM;
-import de.verschwiegener.gdtf.fixtureType.protocols.OpenSoundControl;
-import de.verschwiegener.gdtf.fixtureType.protocols.PosiStageNet;
-import de.verschwiegener.gdtf.fixtureType.protocols.Protocols;
-import de.verschwiegener.gdtf.fixtureType.protocols.SACN;
-import de.verschwiegener.gdtf.fixtureType.protocols.rdm.DMXPersonality;
-import de.verschwiegener.gdtf.fixtureType.protocols.rdm.SoftwareVersionID;
-import de.verschwiegener.gdtf.fixtureType.revisions.Revision;
-import de.verschwiegener.gdtf.fixtureType.revisions.Revisions;
-import de.verschwiegener.gdtf.fixtureType.wheel.AnimationSystem;
-import de.verschwiegener.gdtf.fixtureType.wheel.Facet;
-import de.verschwiegener.gdtf.fixtureType.wheel.Slot;
-import de.verschwiegener.gdtf.fixtureType.wheel.Wheel;
-import de.verschwiegener.gdtf.fixtureType.wheel.Wheels;
+import de.verschwiegener.gdtf.fixtureType.physicalDescription.*;
+import de.verschwiegener.gdtf.fixtureType.protocols.*;
+import de.verschwiegener.gdtf.fixtureType.protocols.rdm.*;
+import de.verschwiegener.gdtf.fixtureType.revisions.*;
+import de.verschwiegener.gdtf.fixtureType.wheel.*;
 
 
 /**
@@ -113,6 +61,12 @@ public class ObjectFactory {
     private final static QName _BasicGeometryTypeMediaServerMaster_QNAME = new QName("", "MediaServerMaster");
     private final static QName _BasicGeometryTypeDisplay_QNAME = new QName("", "Display");
     private final static QName _BasicGeometryTypeGeometryReference_QNAME = new QName("", "GeometryReference");
+    private final static QName _BasicGeometryTypeLaser_QNAME = new QName("", "Laser");
+    private final static QName _BasicGeometryTypeWiringObject_QNAME = new QName("", "WiringObject");
+    private final static QName _BasicGeometryTypeInventory_QNAME = new QName("", "Inventory");
+    private final static QName _BasicGeometryTypeStructure_QNAME = new QName("", "Structure");
+    private final static QName _BasicGeometryTypeSupport_QNAME = new QName("", "Support");
+    private final static QName _BasicGeometryTypeMagnet_QNAME = new QName("", "Magnet");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: de.verschwiegener.gdtf
@@ -138,7 +92,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GDTFType }
+     * Create an instance of {@link GDTF }
      * 
      */
     public GDTFType createGDTF() {
@@ -218,6 +172,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link SubPhysicalUnit }
+     * 
+     */
+    public SubPhysicalUnit createSubPhysicalUnit() {
+        return new SubPhysicalUnit();
+    }
+
+    /**
      * Create an instance of {@link Wheels }
      * 
      */
@@ -290,11 +252,35 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link AdditionalColorSpaces }
+     * 
+     */
+    public AdditionalColorSpaces createAdditionalColorSpaces() {
+        return new AdditionalColorSpaces();
+    }
+
+    /**
      * Create an instance of {@link ColorSpace }
      * 
      */
     public ColorSpace createColorSpace() {
         return new ColorSpace();
+    }
+
+    /**
+     * Create an instance of {@link Gamuts }
+     * 
+     */
+    public Gamuts createGamuts() {
+        return new Gamuts();
+    }
+
+    /**
+     * Create an instance of {@link Gamut }
+     * 
+     */
+    public Gamut createGamut() {
+        return new Gamut();
     }
 
     /**
@@ -311,6 +297,14 @@ public class ObjectFactory {
      */
     public DMXProfile createDMXProfile() {
         return new DMXProfile();
+    }
+
+    /**
+     * Create an instance of {@link Point }
+     * 
+     */
+    public Point createPoint() {
+        return new Point();
     }
 
     /**
@@ -466,6 +460,62 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Laser }
+     * 
+     */
+    public Laser createLaser() {
+        return new Laser();
+    }
+
+    /**
+     * Create an instance of {@link Protocol }
+     * 
+     */
+    public Protocol createProtocol() {
+        return new Protocol();
+    }
+
+    /**
+     * Create an instance of {@link WiringObject }
+     * 
+     */
+    public WiringObject createWiringObject() {
+        return new WiringObject();
+    }
+
+    /**
+     * Create an instance of {@link PinPatch }
+     * 
+     */
+    public PinPatch createPinPatch() {
+        return new PinPatch();
+    }
+
+    /**
+     * Create an instance of {@link Inventory }
+     * 
+     */
+    public Inventory createInventory() {
+        return new Inventory();
+    }
+
+    /**
+     * Create an instance of {@link Structure }
+     * 
+     */
+    public Structure createStructure() {
+        return new Structure();
+    }
+
+    /**
+     * Create an instance of {@link Support }
+     * 
+     */
+    public Support createSupport() {
+        return new Support();
+    }
+
+    /**
      * Create an instance of {@link DMXModes }
      * 
      */
@@ -519,6 +569,14 @@ public class ObjectFactory {
      */
     public ChannelSet createChannelSet() {
         return new ChannelSet();
+    }
+
+    /**
+     * Create an instance of {@link SubChannelSet }
+     * 
+     */
+    public SubChannelSet createSubChannelSet() {
+        return new SubChannelSet();
     }
 
     /**
@@ -623,6 +681,14 @@ public class ObjectFactory {
      */
     public ArtNet createArtNet() {
         return new ArtNet();
+    }
+
+    /**
+     * Create an instance of {@link Map }
+     * 
+     */
+    public Map createMap() {
+        return new Map();
     }
 
     /**
@@ -854,6 +920,84 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Laser }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Laser }{@code >}
+     */
+    @XmlElementDecl(namespace = "", name = "Laser", scope = BasicGeometryType.class)
+    public JAXBElement<Laser> createBasicGeometryTypeLaser(Laser value) {
+        return new JAXBElement<Laser>(_BasicGeometryTypeLaser_QNAME, Laser.class, BasicGeometryType.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WiringObject }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link WiringObject }{@code >}
+     */
+    @XmlElementDecl(namespace = "", name = "WiringObject", scope = BasicGeometryType.class)
+    public JAXBElement<WiringObject> createBasicGeometryTypeWiringObject(WiringObject value) {
+        return new JAXBElement<WiringObject>(_BasicGeometryTypeWiringObject_QNAME, WiringObject.class, BasicGeometryType.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Inventory }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Inventory }{@code >}
+     */
+    @XmlElementDecl(namespace = "", name = "Inventory", scope = BasicGeometryType.class)
+    public JAXBElement<Inventory> createBasicGeometryTypeInventory(Inventory value) {
+        return new JAXBElement<Inventory>(_BasicGeometryTypeInventory_QNAME, Inventory.class, BasicGeometryType.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Structure }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Structure }{@code >}
+     */
+    @XmlElementDecl(namespace = "", name = "Structure", scope = BasicGeometryType.class)
+    public JAXBElement<Structure> createBasicGeometryTypeStructure(Structure value) {
+        return new JAXBElement<Structure>(_BasicGeometryTypeStructure_QNAME, Structure.class, BasicGeometryType.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Support }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Support }{@code >}
+     */
+    @XmlElementDecl(namespace = "", name = "Support", scope = BasicGeometryType.class)
+    public JAXBElement<Support> createBasicGeometryTypeSupport(Support value) {
+        return new JAXBElement<Support>(_BasicGeometryTypeSupport_QNAME, Support.class, BasicGeometryType.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link BasicGeometryType }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link BasicGeometryType }{@code >}
+     */
+    @XmlElementDecl(namespace = "", name = "Magnet", scope = BasicGeometryType.class)
+    public JAXBElement<BasicGeometryType> createBasicGeometryTypeMagnet(BasicGeometryType value) {
+        return new JAXBElement<BasicGeometryType>(_BasicGeometryTypeMagnet_QNAME, BasicGeometryType.class, BasicGeometryType.class, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link BasicGeometryType }{@code >}
      * 
      * @param value
@@ -1007,6 +1151,84 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "", name = "GeometryReference", scope = Geometries.class)
     public JAXBElement<GeometryReference> createGeometriesGeometryReference(GeometryReference value) {
         return new JAXBElement<GeometryReference>(_BasicGeometryTypeGeometryReference_QNAME, GeometryReference.class, Geometries.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Laser }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Laser }{@code >}
+     */
+    @XmlElementDecl(namespace = "", name = "Laser", scope = Geometries.class)
+    public JAXBElement<Laser> createGeometriesLaser(Laser value) {
+        return new JAXBElement<Laser>(_BasicGeometryTypeLaser_QNAME, Laser.class, Geometries.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WiringObject }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link WiringObject }{@code >}
+     */
+    @XmlElementDecl(namespace = "", name = "WiringObject", scope = Geometries.class)
+    public JAXBElement<WiringObject> createGeometriesWiringObject(WiringObject value) {
+        return new JAXBElement<WiringObject>(_BasicGeometryTypeWiringObject_QNAME, WiringObject.class, Geometries.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Inventory }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Inventory }{@code >}
+     */
+    @XmlElementDecl(namespace = "", name = "Inventory", scope = Geometries.class)
+    public JAXBElement<Inventory> createGeometriesInventory(Inventory value) {
+        return new JAXBElement<Inventory>(_BasicGeometryTypeInventory_QNAME, Inventory.class, Geometries.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Structure }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Structure }{@code >}
+     */
+    @XmlElementDecl(namespace = "", name = "Structure", scope = Geometries.class)
+    public JAXBElement<Structure> createGeometriesStructure(Structure value) {
+        return new JAXBElement<Structure>(_BasicGeometryTypeStructure_QNAME, Structure.class, Geometries.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Support }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link Support }{@code >}
+     */
+    @XmlElementDecl(namespace = "", name = "Support", scope = Geometries.class)
+    public JAXBElement<Support> createGeometriesSupport(Support value) {
+        return new JAXBElement<Support>(_BasicGeometryTypeSupport_QNAME, Support.class, Geometries.class, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link BasicGeometryType }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link BasicGeometryType }{@code >}
+     */
+    @XmlElementDecl(namespace = "", name = "Magnet", scope = Geometries.class)
+    public JAXBElement<BasicGeometryType> createGeometriesMagnet(BasicGeometryType value) {
+        return new JAXBElement<BasicGeometryType>(_BasicGeometryTypeMagnet_QNAME, BasicGeometryType.class, Geometries.class, value);
     }
 
 }

@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlElementRefs;
 import javax.xml.bind.annotation.XmlType;
 
 
+
 /**
  * <p>Java-Klasse für Geometries complex type.
  * 
@@ -53,17 +54,16 @@ public class Geometries {
         @XmlElementRef(name = "MediaServerCamera", type = JAXBElement.class, required = false),
         @XmlElementRef(name = "MediaServerMaster", type = JAXBElement.class, required = false),
         @XmlElementRef(name = "Display", type = JAXBElement.class, required = false),
-        @XmlElementRef(name = "GeometryReference", type = JAXBElement.class, required = false)
+        @XmlElementRef(name = "GeometryReference", type = JAXBElement.class, required = false),
+        @XmlElementRef(name = "Laser", type = JAXBElement.class, required = false),
+        @XmlElementRef(name = "WiringObject", type = JAXBElement.class, required = false),
+        @XmlElementRef(name = "Inventory", type = JAXBElement.class, required = false),
+        @XmlElementRef(name = "Structure", type = JAXBElement.class, required = false),
+        @XmlElementRef(name = "Support", type = JAXBElement.class, required = false),
+        @XmlElementRef(name = "Magnet", type = JAXBElement.class, required = false)
     })
     protected List<JAXBElement<? extends BasicGeometryAttributes>> geometryOrAxisOrFilterBeam;
 
-    //TODO add rest of Geometry Children Types (https://github.com/mvrdevelopment/spec/blob/main/gdtf-spec.md#table-34-geometry-children-types)
-    //And then delete Basic GeometryType
-    
-    //TODO Add getWiringObject by Node funktion
-    
-    
-    
     /**
      * Gets the value of the geometryOrAxisOrFilterBeam property.
      * 
@@ -94,6 +94,12 @@ public class Geometries {
      * {@link JAXBElement }{@code <}{@link BasicGeometryType }{@code >}
      * {@link JAXBElement }{@code <}{@link Display }{@code >}
      * {@link JAXBElement }{@code <}{@link GeometryReference }{@code >}
+     * {@link JAXBElement }{@code <}{@link Laser }{@code >}
+     * {@link JAXBElement }{@code <}{@link WiringObject }{@code >}
+     * {@link JAXBElement }{@code <}{@link Inventory }{@code >}
+     * {@link JAXBElement }{@code <}{@link Structure }{@code >}
+     * {@link JAXBElement }{@code <}{@link Support }{@code >}
+     * {@link JAXBElement }{@code <}{@link BasicGeometryType }{@code >}
      * 
      * 
      */
