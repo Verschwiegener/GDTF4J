@@ -19,9 +19,7 @@ import de.verschwiegener.gdtf.fixtureType.dmxmodes.FTMacros;
 import de.verschwiegener.gdtf.fixtureType.dmxmodes.Relations;
 import de.verschwiegener.gdtf.fixtureType.geometries.BasicGeometryAttributes;
 import de.verschwiegener.gdtf.fixtureType.geometries.BasicGeometryType;
-import de.verschwiegener.gdtf.fixtureType.geometries.Beam;
 import de.verschwiegener.gdtf.fixtureType.models.Model;
-import de.verschwiegener.gdtf.fixtureType.models.PrimitiveTypeEnum;
 import de.verschwiegener.gdtf.fixtureType.physicalDescription.CRIs;
 import de.verschwiegener.gdtf.fixtureType.physicalDescription.ColorSpace;
 import de.verschwiegener.gdtf.fixtureType.physicalDescription.Connectors;
@@ -29,7 +27,6 @@ import de.verschwiegener.gdtf.fixtureType.physicalDescription.DMXProfile;
 import de.verschwiegener.gdtf.fixtureType.physicalDescription.Emitter;
 import de.verschwiegener.gdtf.fixtureType.physicalDescription.Filter;
 import de.verschwiegener.gdtf.fixtureType.physicalDescription.Gamut;
-import de.verschwiegener.gdtf.fixtureType.physicalDescription.OperatingTemperature;
 import de.verschwiegener.gdtf.fixtureType.physicalDescription.Properties;
 import de.verschwiegener.gdtf.fixtureType.protocols.Protocols;
 import de.verschwiegener.gdtf.fixtureType.revisions.Revisions;
@@ -46,6 +43,7 @@ public class GDTF {
 
 	private File gdtfModel3ds;
 	private File gdtfModelsvg;
+	private File gdtfModelgltf;
 
 	private DMXMode dmxMode;
 
@@ -55,6 +53,7 @@ public class GDTF {
 		type = GDTFParser.parseGDTF(gdtfFile, gdtfOutputFolder);
 		this.gdtfModelsvg = new File(gdtfOutputFolder, "models/svg");
 		this.gdtfModel3ds = new File(gdtfOutputFolder, "models/3ds");
+		this.gdtfModelgltf = new File(gdtfOutputFolder, "models/gltf");
 	}
 
 	public ActivationGroup getActivationGroup(GDTFNode node) {
@@ -117,6 +116,27 @@ public class GDTF {
 		return type.getFixtureType().getModels().getModel(node);
 	}
 
+	public ArrayList<GDTFModelFile> getModelFile(String file) {
+		ArrayList<GDTFModelFile> modelFiles = new ArrayList<GDTF.GDTFModelFile>();
+		if (hasSVG()) {
+			File fsvg = new File(gdtfModelsvg, file + ".svg");
+			if (fsvg.exists())
+				modelFiles.add(new GDTFModelFile(fsvg, GDTFModelType.TYPE_SVG));
+		}
+		if (has3DS()) {
+			File f3ds = new File(gdtfModel3ds, file + ".3ds");
+			if (f3ds.exists())
+				modelFiles.add(new GDTFModelFile(f3ds, GDTFModelType.TYPE_3DS));
+		}
+
+		if (hasGLTF()) {
+			File fgdtf = new File(gdtfModelgltf, file + ".glb");
+			if (fgdtf.exists())
+				modelFiles.add(new GDTFModelFile(fgdtf, GDTFModelType.TYPE_GLTF));
+		}
+		return modelFiles;
+	}
+
 	public ArrayList<GDTFGeometry> getGeometries() {
 		ArrayList<GDTFGeometry> geo = new ArrayList<GDTF.GDTFGeometry>();
 		for (JAXBElement<? extends BasicGeometryAttributes> geoType : type.getFixtureType().getGeometries()
@@ -124,15 +144,6 @@ public class GDTF {
 			geo.add(parseGeo(geoType));
 		}
 		return geo;
-	}
-
-	private GDTFGeometry parseGeo(JAXBElement<? extends BasicGeometryAttributes> element) {
-		BasicGeometryType type = (BasicGeometryType) element.getValue();
-		ArrayList<GDTFGeometry> children = new ArrayList<GDTF.GDTFGeometry>();
-		for (JAXBElement<? extends BasicGeometryAttributes> child : type.getGeometryOrAxisOrFilterBeam()) {
-			children.add(parseGeo(child));
-		}
-		return new GDTFGeometry(element.getName().getLocalPart(), type, children);
 	}
 
 	public Revisions getRevisions() {
@@ -181,15 +192,17 @@ public class GDTF {
 		return dmxMode.getFTMacros();
 	}
 
-	public void parse() {
-		DMXMode mode = getDMXModes().get(0);
-		mode.getGeometry();
+	public GDTFType getGDTFType() {
+		return type;
+	}
 
-		BasicGeometryAttributes g = type.getFixtureType().getGeometries().getGeometryOrAxisOrFilterBeam().stream()
-				.filter(geo -> geo.getValue().getName().equals(mode.getGeometry())).findFirst().orElse(null).getValue();
-
-		// TODO continue parser
-
+	private GDTFGeometry parseGeo(JAXBElement<? extends BasicGeometryAttributes> element) {
+		BasicGeometryType type = (BasicGeometryType) element.getValue();
+		ArrayList<GDTFGeometry> children = new ArrayList<GDTF.GDTFGeometry>();
+		for (JAXBElement<? extends BasicGeometryAttributes> child : type.getGeometryOrAxisOrFilterBeam()) {
+			children.add(parseGeo(child));
+		}
+		return new GDTFGeometry(element.getName().getLocalPart(), type, children);
 	}
 
 	private AttributeDefinitions getAttributeDefinitions() {
@@ -200,25 +213,16 @@ public class GDTF {
 		return type.getFixtureType().getPhysicalDescriptions();
 	}
 
-	public GDTFType getGDTFType() {
-		return type;
-	}
-
 	private boolean hasSVG() {
 		return gdtfModelsvg.exists();
 	}
 
-	public File checkSVG(String file) {
-		if (!hasSVG())
-			return null;
-		File f = new File(gdtfModelsvg, file + ".svg");
-		if (!f.exists())
-			return null;
-		return f;
+	private boolean has3DS() {
+		return gdtfModel3ds.exists();
 	}
 
-	private boolean has3ds() {
-		return gdtfModel3ds.exists();
+	private boolean hasGLTF() {
+		return gdtfModelgltf.exists();
 	}
 
 	public static record DMXChannelData(int[] dmxOffset, String dmxBreak, String geometry, GDTFDMXValue highlight,
@@ -226,6 +230,13 @@ public class GDTF {
 	}
 
 	public static record GDTFGeometry(String geoType, BasicGeometryType typeClass, ArrayList<GDTFGeometry> children) {
+	}
+
+	public static record GDTFModelFile(File file, GDTFModelType modelType) {
+	}
+
+	private static enum GDTFModelType {
+		TYPE_3DS, TYPE_SVG, TYPE_GLTF;
 	}
 
 }
