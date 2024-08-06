@@ -1,5 +1,7 @@
 package de.verschwiegener.gdtf.util;
 
+import java.util.Arrays;
+
 public class GDTFNode {
 
 	/**
@@ -13,7 +15,11 @@ public class GDTFNode {
 	private NodeStartingPoint startingPoint;
 	
 	public GDTFNode(String path, NodeStartingPoint startingPoint) {
-		nodePath = path.split(".");
+		if(path.contains(".")) {
+			nodePath = path.split("\\.");
+		}else {
+			nodePath = new String[] {path};
+		}
 		this.startingPoint = startingPoint;
 	}
 	public GDTFNode(String[] path, NodeStartingPoint startingpoint) {
@@ -37,7 +43,7 @@ public class GDTFNode {
 	 */
 	public void appendFirst(String path) {
 		String[] newNodePath = new String[nodePath.length + 1];
-		System.arraycopy(nodePath, 0, newNodePath,1, newNodePath.length);
+		System.arraycopy(nodePath, 0, newNodePath,1, nodePath.length);
 		newNodePath[0] = path;
 		nodePath = newNodePath;
 	}
@@ -45,7 +51,10 @@ public class GDTFNode {
 	public void appendLast(GDTFNode... node) {
 		for(GDTFNode node2 : node) {
 			String[] newNodePath = new String[nodePath.length + node2.getNodePath().length];
-			System.arraycopy(node2.getNodePath(), 0, newNodePath, 0, newNodePath.length);
+			//Copy old Content
+			System.arraycopy(nodePath, 0, newNodePath, 0, nodePath.length);
+			//Append new Node Content
+			System.arraycopy(node2.getNodePath(), 0, newNodePath, nodePath.length, node2.getNodePath().length);
 			nodePath = newNodePath;
 		}
 	}

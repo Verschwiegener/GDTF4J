@@ -9,6 +9,7 @@ package de.verschwiegener.gdtf.fixtureType.dmxmodes;
 
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -290,9 +291,10 @@ public class DMXChannel {
 	 */
 	public GDTFNode getInitialFunction() {
 		//Remove Geometry_ from initialFunction
-		GDTFNode node = new GDTFNode(initialFunction.substring(geometry.length()), NodeStartingPoint.DMXChannel);
+		GDTFNode node = new GDTFNode(initialFunction.substring(geometry.length() + 1), NodeStartingPoint.DMXChannel);
 		//Add Geometry into first Position
 		node.appendFirst(geometry);
+		
 		return node;
 	}
 
