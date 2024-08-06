@@ -190,9 +190,9 @@ public class DMXMode {
 	}
 
 	public DMXChannel getDmxChannel(GDTFNode node) {
-		if (!node.checkPoint(NodeStartingPoint.DMXMode))
+		if (!node.checkPoint(NodeStartingPoint.DMXChannel))
 			return null;
-
+		
 		return getDMXChannels().getDMXChannel().stream()
 				.filter(dc -> dc.getGeometry().equals(node.getNodePath()[0]) && dc.getLogicalChannel(node) != null)
 				.findFirst().orElse(null);

@@ -109,7 +109,7 @@ public class FTMacro {
      *     
      */
     public GDTFNode getChannelFunction() {
-        return new GDTFNode(channelFunction, NodeStartingPoint.DMXMode);
+        return new GDTFNode(channelFunction, NodeStartingPoint.DMXChannel);
     }
 
     /**

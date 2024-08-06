@@ -523,7 +523,7 @@ public class ChannelFunction {
      *     
      */
     public GDTFNode getModeMaster() {
-        return new GDTFNode(modeMaster, NodeStartingPoint.DMXMode);
+        return new GDTFNode(modeMaster, NodeStartingPoint.DMXChannel);
     }
 
     /**
