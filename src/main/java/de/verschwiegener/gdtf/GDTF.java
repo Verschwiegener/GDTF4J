@@ -115,26 +115,30 @@ public class GDTF {
 	public Model getModel(GDTFNode node) {
 		return type.getFixtureType().getModels().getModel(node);
 	}
-
-	public ArrayList<GDTFModelFile> getModelFile(String file) {
-		ArrayList<GDTFModelFile> modelFiles = new ArrayList<GDTF.GDTFModelFile>();
-		if (hasSVG()) {
-			File fsvg = new File(gdtfModelsvg, file + ".svg");
-			if (fsvg.exists())
-				modelFiles.add(new GDTFModelFile(fsvg, GDTFModelType.TYPE_SVG));
-		}
+	
+	
+	public GDTFModelFile get3DModelFile(String file) {
 		if (has3DS()) {
 			File f3ds = new File(gdtfModel3ds, file + ".3ds");
 			if (f3ds.exists())
-				modelFiles.add(new GDTFModelFile(f3ds, GDTFModelType.TYPE_3DS));
+				return new GDTFModelFile(f3ds, GDTFModelType.TYPE_3DS);
 		}
 
 		if (hasGLTF()) {
 			File fgdtf = new File(gdtfModelgltf, file + ".glb");
 			if (fgdtf.exists())
-				modelFiles.add(new GDTFModelFile(fgdtf, GDTFModelType.TYPE_GLTF));
+				return new GDTFModelFile(fgdtf, GDTFModelType.TYPE_GLTF);
 		}
-		return modelFiles;
+		return null;
+	}
+	
+	public GDTFModelFile get2DModelFile(String file) {
+		if (hasSVG()) {
+			File fsvg = new File(gdtfModelsvg, file + ".svg");
+			if (fsvg.exists())
+				return new GDTFModelFile(fsvg, GDTFModelType.TYPE_SVG);
+		}
+		return null;
 	}
 
 	public ArrayList<GDTFGeometry> getGeometries() {
