@@ -6,13 +6,20 @@ import java.util.Arrays;
 
 public class GDTFMatrix {
 
-	float m00, m01, m02, m03;
-	float m10, m11, m12, m13;
-	float m20, m21, m22, m23;
-	float m30, m31, m32, m33;
+	double m00, m01, m02, m03;
+	double m10, m11, m12, m13;
+	double m20, m21, m22, m23;
+	double m30, m31, m32, m33;
 
 	public GDTFMatrix() {
 		identity();
+	}
+	
+	public GDTFMatrix(double[] translation, double[] rotationAngle, double[] scale) {
+		this();
+		setTranslation(translation);
+		setRotationXYZ(rotationAngle);
+		setScale(scale);
 	}
 
 	public GDTFMatrix(String matrix) {
@@ -99,23 +106,47 @@ public class GDTFMatrix {
 	/**
 	 * Returns Scale of the Matrix
 	 * 
-	 * @return float[] {scaleX, scaleY, scaleZ}
+	 * @return double[] {scaleX, scaleY, scaleZ}
 	 */
-	public float[] getScale() {
-		float[] scale = new float[3];
-		scale[0] = (float) Math.sqrt(m00 * m00 + m01 * m01 + m02 * m02);
-		scale[1] = (float) Math.sqrt(m10 * m10 + m11 * m11 + m12 * m12);
-		scale[2] = (float) Math.sqrt(m20 * m20 + m21 * m21 + m22 * m22);
+	public double[] getScale() {
+		double[] scale = new double[3];
+		scale[0] = (double) Math.sqrt(m00 * m00 + m01 * m01 + m02 * m02);
+		scale[1] = (double) Math.sqrt(m10 * m10 + m11 * m11 + m12 * m12);
+		scale[2] = (double) Math.sqrt(m20 * m20 + m21 * m21 + m22 * m22);
 		return scale;
+	}
+	
+	/**
+	 * Sets the Scale 
+	 * 
+	 * @param scale {scaleX, scaleY, scaleZ}
+	 */
+	public void setScale(double[] scale) {
+		m00 = scale[0];
+		m11 = scale[1];
+		m22 = scale[2];
+	}
+	
+	/**
+	 *TODO Matrix Scaling, and all Methods needed to create a Matrix from Scratch
+	 * DO not use, does not work
+	 * Multiplies the Scale by given Scale Multiplier
+	 * @param scaleMul {multiplierX, multiplierY, multiplierZ}
+	 */
+	public void mulScale(double[] scaleMul) {
+		double[] scale = getScale();
+		m00 = scale[0] * scaleMul[0];
+		m11 = scale[1] * scaleMul[1];
+		m22 = scale[2] * scaleMul[2];
 	}
 
 	/**
 	 * Returns the Translation of the Matrix
 	 * 
-	 * @return float[] {posX, posY, posZ}
+	 * @return double[] {posX, posY, posZ}
 	 */
-	public float[] getTranslation() {
-		float[] translation = new float[3];
+	public double[] getTranslation() {
+		double[] translation = new double[3];
 		translation[0] = m30;
 		translation[1] = m31;
 		translation[2] = m32;
@@ -123,17 +154,17 @@ public class GDTFMatrix {
 	}
 
 	/**
-	 * Returns the Translation of the Matrix divided by scaleFactor
+	 * Returns the Translation of the Matrix multiplied by scaleFactor
 	 * 
 	 * @param scaleFactor Scales the Position to whatever Unit is wanted scaleFactor
 	 *                    1 = Millimeter
 	 * @return
 	 */
-	public float[] getTranslation(float scaleFactor) {
-		float[] translation = new float[3];
-		translation[0] = m30 / 100;
-		translation[1] = m31 / 100;
-		translation[2] = m32 / 100;
+	public double[] getTranslation(double scaleFactor) {
+		double[] translation = new double[3];
+		translation[0] = m30 * scaleFactor;
+		translation[1] = m31 * scaleFactor;
+		translation[2] = m32 * scaleFactor;
 		return translation;
 	}
 
@@ -142,39 +173,49 @@ public class GDTFMatrix {
 	 * 
 	 * @param offset
 	 */
-	public void offsetPos(float[] offset) {
+	public void translate(double[] offset) {
 		m30 = m30 + offset[0];
 		m31 = m31 + offset[1];
 		m32 = m32 + offset[2];
+	}
+	
+	public void setTranslation(double[] translation) {
+		m30 = translation[0];
+		m31 = translation[1];
+		m32 = translation[2];
+	}
+	
+	public void mulTranslation(double mul) {
+		m30 = m30 * mul;
+		m31 = m31 * mul;
+		m32 = m32 * mul;
 	}
 
 	/**
 	 * Sets the Rotation of this matrix
 	 * 
-	 * @param radianX
-	 * @param radianY
-	 * @param radianZ
+	 * @param rotationRadian {angleX, angleY, angleZ}
 	 */
-	public void setRotationXYZ(float radianX, float radianY, float radianZ) {
-		float sinX = (float) Math.sin(radianX);
-		float cosX = (float) Math.sin(radianX + (Math.PI * 0.5));
-		float sinY = (float) Math.sin(radianY);
-		float cosY = (float) Math.sin(radianY + (Math.PI * 0.5));
-		float sinZ = (float) Math.sin(radianZ);
-		float cosZ = (float) Math.sin(radianZ + (Math.PI * 0.5));
-		float m_sinX = -sinX;
-		float m_sinY = -sinY;
-		float m_sinZ = -sinZ;
+	public void setRotationXYZ(double[] rotationAngle) {
+		double sinX = (double) Math.sin(rotationAngle[0]);
+		double cosX = (double) Math.sin(rotationAngle[0] + (Math.PI * 0.5));
+		double sinY = (double) Math.sin(rotationAngle[1]);
+		double cosY = (double) Math.sin(rotationAngle[1] + (Math.PI * 0.5));
+		double sinZ = (double) Math.sin(rotationAngle[2]);
+		double cosZ = (double) Math.sin(rotationAngle[2] + (Math.PI * 0.5));
+		double m_sinX = -sinX;
+		double m_sinY = -sinY;
+		double m_sinZ = -sinZ;
 
 		// rotateX
-		float nm11 = cosX;
-		float nm12 = sinX;
-		float nm21 = m_sinX;
-		float nm22 = cosX;
+		double nm11 = cosX;
+		double nm12 = sinX;
+		double nm21 = m_sinX;
+		double nm22 = cosX;
 		// rotateY
-		float nm00 = cosY;
-		float nm01 = nm21 * m_sinY;
-		float nm02 = nm22 * m_sinY;
+		double nm00 = cosY;
+		double nm01 = nm21 * m_sinY;
+		double nm02 = nm22 * m_sinY;
 		m20 = sinY;
 		m21 = nm21 * cosY;
 		m22 = nm22 * cosY;
@@ -187,15 +228,20 @@ public class GDTFMatrix {
 		m12 = nm02 * m_sinZ + nm12 * cosZ;
 	}
 
-	public float[] getRotation() {
-		float[] rotation = new float[4];
+	/**
+	 * Get Quaternion Rotation
+	 * 
+	 * @return rotation[4] Quaternion Rotation
+	 */
+	public double[] getRotation() {
+		double[] rotation = new double[4];
 
-		float nm00 = m00, nm01 = m01, nm02 = m02;
-		float nm10 = m10, nm11 = m11, nm12 = m12;
-		float nm20 = m20, nm21 = m21, nm22 = m22;
-		float lenX = (float) (1.0f / Math.sqrt(m00 * m00 + m01 * m01 + m02 * m02));
-		float lenY = (float) (1.0f / Math.sqrt(m10 * m10 + m11 * m11 + m12 * m12));
-		float lenZ = (float) (1.0f / Math.sqrt(m20 * m20 + m21 * m21 + m22 * m22));
+		double nm00 = m00, nm01 = m01, nm02 = m02;
+		double nm10 = m10, nm11 = m11, nm12 = m12;
+		double nm20 = m20, nm21 = m21, nm22 = m22;
+		double lenX = 1.0f / Math.sqrt(m00 * m00 + m01 * m01 + m02 * m02);
+		double lenY = 1.0f / Math.sqrt(m10 * m10 + m11 * m11 + m12 * m12);
+		double lenZ = 1.0f / Math.sqrt(m20 * m20 + m21 * m21 + m22 * m22);
 		nm00 *= lenX;
 		nm01 *= lenX;
 		nm02 *= lenX;
@@ -205,7 +251,7 @@ public class GDTFMatrix {
 		nm20 *= lenZ;
 		nm21 *= lenZ;
 		nm22 *= lenZ;
-		float epsilon = 1E-4f, epsilon2 = 1E-3f;
+		double epsilon = 1E-4f, epsilon2 = 1E-3f;
 		if (Math.abs(nm10 - nm01) < epsilon && Math.abs(nm20 - nm02) < epsilon && Math.abs(nm21 - nm12) < epsilon) {
 			if (Math.abs(nm10 + nm01) < epsilon2 && Math.abs(nm20 + nm02) < epsilon2 && Math.abs(nm21 + nm12) < epsilon2
 					&& Math.abs(nm00 + nm11 + nm22 - 3) < epsilon2) {
@@ -215,35 +261,47 @@ public class GDTFMatrix {
 				rotation[3] = 0f;
 				return rotation;
 			}
-			rotation[3] = (float) Math.PI;
-			float xx = (nm00 + 1) / 2;
-			float yy = (nm11 + 1) / 2;
-			float zz = (nm22 + 1) / 2;
-			float xy = (nm10 + nm01) / 4;
-			float xz = (nm20 + nm02) / 4;
-			float yz = (nm21 + nm12) / 4;
+			rotation[3] = Math.PI;
+			double xx = (nm00 + 1) / 2;
+			double yy = (nm11 + 1) / 2;
+			double zz = (nm22 + 1) / 2;
+			double xy = (nm10 + nm01) / 4;
+			double xz = (nm20 + nm02) / 4;
+			double yz = (nm21 + nm12) / 4;
 			if ((xx > yy) && (xx > zz)) {
-				rotation[0] = (float) Math.sqrt(xx);
+				rotation[0] = Math.sqrt(xx);
 				rotation[1] = xy / rotation[0];
 				rotation[2] = xz / rotation[0];
 			} else if (yy > zz) {
-				rotation[1] = (float) Math.sqrt(yy);
+				rotation[1] = Math.sqrt(yy);
 				rotation[0] = xy / rotation[1];
 				rotation[2] = yz / rotation[1];
 			} else {
-				rotation[2] = (float) Math.sqrt(zz);
+				rotation[2] = Math.sqrt(zz);
 				rotation[0] = xz / rotation[2];
 				rotation[1] = yz / rotation[2];
 			}
 			return rotation;
 		}
-		float s = (float) Math
+		double s = Math
 				.sqrt((nm12 - nm21) * (nm12 - nm21) + (nm20 - nm02) * (nm20 - nm02) + (nm01 - nm10) * (nm01 - nm10));
 		rotation[3] = safeAcos((nm00 + nm11 + nm22 - 1) / 2);
 		rotation[0] = (nm12 - nm21) / s;
 		rotation[1] = (nm20 - nm02) / s;
 		rotation[2] = (nm01 - nm10) / s;
 		return rotation;
+	}
+	
+	/**
+	 * Offsets the Rotation by the given Angles
+	 * 
+	 * @param rotationAngles
+	 */
+	public void offsetRotation(double[] rotationAngles) {
+		double[] thisRotation = getRotationAngles();
+		setRotationXYZ(new double[] { Math.toRadians(rotationAngles[0] + thisRotation[0]),
+				Math.toRadians(rotationAngles[1] + thisRotation[1]),
+				Math.toRadians(rotationAngles[2] + thisRotation[2]) });
 	}
 
 	/**
@@ -269,76 +327,76 @@ public class GDTFMatrix {
 		return new double[] { Math.toDegrees(radians[0]), Math.toDegrees(radians[1]), Math.toDegrees(radians[2]) };
 	}
 
-	private float safeAcos(float v) {
+	private double safeAcos(double v) {
 		if (v < -1.0f)
-			return (float) Math.PI;
+			return Math.PI;
 		else if (v > +1.0f)
 			return 0.0f;
 		else
-			return (float) Math.acos(v);
+			return Math.acos(v);
 	}
 
-	public float m00() {
+	public double m00() {
 		return m00;
 	}
 
-	public float m01() {
+	public double m01() {
 		return m01;
 	}
 
-	public float m02() {
+	public double m02() {
 		return m02;
 	}
 
-	public float m03() {
+	public double m03() {
 		return m03;
 	}
 
-	public float m10() {
+	public double m10() {
 		return m10;
 	}
 
-	public float m11() {
+	public double m11() {
 		return m11;
 	}
 
-	public float m12() {
+	public double m12() {
 		return m12;
 	}
 
-	public float m13() {
+	public double m13() {
 		return m13;
 	}
 
-	public float m20() {
+	public double m20() {
 		return m20;
 	}
 
-	public float m21() {
+	public double m21() {
 		return m21;
 	}
 
-	public float m22() {
+	public double m22() {
 		return m22;
 	}
 
-	public float m23() {
+	public double m23() {
 		return m23;
 	}
 
-	public float m30() {
+	public double m30() {
 		return m30;
 	}
 
-	public float m31() {
+	public double m31() {
 		return m31;
 	}
 
-	public float m32() {
+	public double m32() {
 		return m32;
 	}
 
-	public float m33() {
+	public double m33() {
 		return m33;
 	}
 

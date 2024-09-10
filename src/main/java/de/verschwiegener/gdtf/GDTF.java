@@ -3,6 +3,7 @@ package de.verschwiegener.gdtf;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBElement;
 
@@ -32,6 +33,7 @@ import de.verschwiegener.gdtf.fixtureType.protocols.Protocols;
 import de.verschwiegener.gdtf.fixtureType.revisions.Revisions;
 import de.verschwiegener.gdtf.fixtureType.wheel.Wheel;
 import de.verschwiegener.gdtf.util.GDTFDMXValue;
+import de.verschwiegener.gdtf.util.GDTFModel;
 import de.verschwiegener.gdtf.util.GDTFNode;
 import de.verschwiegener.gdtf.util.SimpleDMXFunction;
 
@@ -47,13 +49,29 @@ public class GDTF {
 
 	private DMXMode dmxMode;
 
-	public GDTF(File gdtfFile, File gdtfOutputFolder) throws Exception {
+	/**
+	 * Creates internal File Structure, gdtf first needs to be parsed to be usefull
+	 * 
+	 * @param gdtfFile
+	 * @param gdtfOutputFolder
+	 */
+	public GDTF(File gdtfFile, File gdtfOutputFolder) {
 		this.gdtfFile = gdtfFile;
-		this.gdtfOutputFolder = gdtfOutputFolder;
-		type = GDTFParser.parseGDTF(gdtfFile, gdtfOutputFolder);
-		this.gdtfModelsvg = new File(gdtfOutputFolder, "models/svg");
-		this.gdtfModel3ds = new File(gdtfOutputFolder, "models/3ds");
-		this.gdtfModelgltf = new File(gdtfOutputFolder, "models/gltf");
+		this.gdtfOutputFolder = new File(gdtfOutputFolder, gdtfFile.getName().split("\\.")[0]);
+		this.gdtfModelsvg = new File(this.gdtfOutputFolder, "models/svg");
+		this.gdtfModel3ds = new File(this.gdtfOutputFolder, "models/3ds");
+		this.gdtfModelgltf = new File(this.gdtfOutputFolder, "models/gltf");
+	}
+	
+	/**
+	 * Parses GDTF
+	 * @throws Exception 
+	 */
+	public void parse() throws Exception {
+		//Parse File only once
+		if(type != null)
+			return;
+		type = GDTFParser.parseGDTF(gdtfFile, this.gdtfOutputFolder);
 	}
 
 	public ActivationGroup getActivationGroup(GDTFNode node) {
@@ -117,17 +135,17 @@ public class GDTF {
 	}
 	
 	
-	public GDTFModelFile get3DModelFile(String file) {
+	public File get3DModelFile(String file) {
 		if (has3DS()) {
 			File f3ds = new File(gdtfModel3ds, file + ".3ds");
 			if (f3ds.exists())
-				return new GDTFModelFile(f3ds, GDTFModelType.TYPE_3DS);
+				return f3ds;
 		}
 
 		if (hasGLTF()) {
 			File fgdtf = new File(gdtfModelgltf, file + ".glb");
 			if (fgdtf.exists())
-				return new GDTFModelFile(fgdtf, GDTFModelType.TYPE_GLTF);
+				return fgdtf;
 		}
 		return null;
 	}
@@ -164,6 +182,10 @@ public class GDTF {
 
 	public List<DMXMode> getDMXModes() {
 		return type.getFixtureType().getDMXModes().getDMXMode();
+	}
+	
+	public DMXMode getDMXModeByName(String dmxMode) {
+		return type.getFixtureType().getDMXModes().getDMXMode().stream().filter(m -> m.getName().equals(dmxMode)).findFirst().orElse(null);
 	}
 
 	public void selectMode(DMXMode mode) {
@@ -202,11 +224,12 @@ public class GDTF {
 
 	private GDTFGeometry parseGeo(JAXBElement<? extends BasicGeometryAttributes> element) {
 		BasicGeometryType type = (BasicGeometryType) element.getValue();
-		ArrayList<GDTFGeometry> children = new ArrayList<GDTF.GDTFGeometry>();
-		for (JAXBElement<? extends BasicGeometryAttributes> child : type.getGeometryOrAxisOrFilterBeam()) {
-			children.add(parseGeo(child));
-		}
-		return new GDTFGeometry(element.getName().getLocalPart(), type, children);
+		ArrayList<GDTFGeometry> children = type.getGeometryOrAxisOrFilterBeam().stream().map(child -> parseGeo(child))
+				.collect(Collectors.toCollection(ArrayList::new));
+
+		Model model = getModel(type.getModel());
+		return new GDTFGeometry(element.getName().getLocalPart(), type, children,
+				new GDTFModel(get3DModelFile(model.getFile()), type.getPosition()));
 	}
 
 	private AttributeDefinitions getAttributeDefinitions() {
@@ -233,7 +256,7 @@ public class GDTF {
 			GDTFNode initialfunction, List<SimpleDMXFunction> channelFunctions) {
 	}
 
-	public static record GDTFGeometry(String geoType, BasicGeometryType typeClass, ArrayList<GDTFGeometry> children) {
+	public static record GDTFGeometry(String geoType, BasicGeometryType typeClass, ArrayList<GDTFGeometry> children, GDTFModel model) {
 	}
 
 	public static record GDTFModelFile(File file, GDTFModelType modelType) {

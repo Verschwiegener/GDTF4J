@@ -28,16 +28,15 @@ public class GDTFParser {
 	static {
 		schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 		try {
-			schema = schemaFactory.newSchema(new StreamSource(Thread.currentThread().getContextClassLoader().getResourceAsStream("gdtf/gdtf.xsd")));
+			schema = schemaFactory.newSchema(new StreamSource(Thread.currentThread().getContextClassLoader().getResourceAsStream("xsd/gdtf.xsd")));
 		} catch (SAXException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static GDTFType parseGDTF(File gdtfFile, File gdtfOutputFolder) throws Exception {
-		gdtfOutputFolder = new File(gdtfOutputFolder, gdtfFile.getName().split("\\.")[0]);
 		gdtfOutputFolder.mkdir();
-		//unzipFile(gdtfFile, gdtfOutputFolder);
+		unzipFile(gdtfFile, gdtfOutputFolder);
 
 		// https://bugs.openjdk.org/browse/JDK-8204933
 		Locale.setDefault(Locale.ENGLISH);
