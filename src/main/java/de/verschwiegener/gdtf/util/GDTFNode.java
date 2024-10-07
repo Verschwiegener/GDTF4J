@@ -15,7 +15,7 @@ public class GDTFNode {
 	private NodeStartingPoint startingPoint;
 	
 	public GDTFNode(String path, NodeStartingPoint startingPoint) {
-		if(path.contains(".")) {
+		if(path != null && path.contains(".")) {
 			nodePath = path.split("\\.");
 		}else {
 			nodePath = new String[] {path};

@@ -163,7 +163,9 @@ public class GDTF {
 		ArrayList<GDTFGeometry> geo = new ArrayList<GDTF.GDTFGeometry>();
 		for (JAXBElement<? extends BasicGeometryAttributes> geoType : type.getFixtureType().getGeometries()
 				.getGeometryOrAxisOrFilterBeam()) {
-			geo.add(parseGeo(geoType));
+			GDTFGeometry gdtfGeo = parseGeo(geoType);
+			if(gdtfGeo != null)
+				geo.add(gdtfGeo);
 		}
 		return geo;
 	}
@@ -228,6 +230,8 @@ public class GDTF {
 				.collect(Collectors.toCollection(ArrayList::new));
 
 		Model model = getModel(type.getModel());
+		if(model == null)
+			return null;
 		return new GDTFGeometry(element.getName().getLocalPart(), type, children,
 				new GDTFModel(get3DModelFile(model.getFile()), type.getPosition()));
 	}
