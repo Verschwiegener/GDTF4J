@@ -4,29 +4,25 @@ import java.io.File;
 
 public class GDTFModel {
 
-	private File modelFile;
+	private final File modelFile;
 	private FileType fileType;
 
-	private GDTFMatrix transformationMatrix;
+	private final GDTFMatrix matrix;
 
 	public GDTFModel(File modelFile, GDTFMatrix transformationMatrix) {
 		this.modelFile = modelFile;
-		this.transformationMatrix = transformationMatrix;
+		this.matrix = transformationMatrix;
 		if (modelFile != null) {
 			this.fileType = FileType.fromExtension(modelFile.getName()
 					.substring(modelFile.getName().lastIndexOf(".") + 1, modelFile.getName().length()));
 			if (fileType == FileType.TYPE_3DS) {
-				//transformationMatrix.setRotationXYZ(new double[] { Math.toRadians(-90f), 0, 0 });
+				transformationMatrix.setRotationXYZ(new float[] { (float) Math.toRadians(-90f), 0, 0 });
 			}
 		}
 	}
 
-	public GDTFMatrix getTransformationMatrix() {
-		return transformationMatrix;
-	}
-	
-	public void setTransformationMatrix(GDTFMatrix transformationMatrix) {
-		this.transformationMatrix = transformationMatrix;
+	public GDTFMatrix getMatrix() {
+		return matrix;
 	}
 
 	public File getModelFile() {

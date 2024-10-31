@@ -112,9 +112,9 @@ public class GDTFMatrix {
 	 * @return
 	 */
 	public float[] getRotation() {
-		float[] scale = getScale(); // Skalierung wird benötigt, um die Matrix zu "normalisieren"
+		float[] scale = getScale();
 
-		// Normiere die Rotationskomponenten
+		// Normalize Rotational Component
 		float m00 = m[0][0] / scale[0];
 		float m01 = m[0][1] / scale[0];
 		float m02 = m[0][2] / scale[0];
@@ -125,9 +125,9 @@ public class GDTFMatrix {
 		float m21 = m[2][1] / scale[2];
 		float m22 = m[2][2] / scale[2];
 
-		// Berechne Quaternion aus der 3x3-Rotationsmatrix
+		// Calculate Quaternion
 		float trace = m00 + m11 + m22;
-		float[] quat = new float[4]; // Quaternion: [x, y, z, w]
+		float[] quat = new float[4];
 
 		if (trace > 0) {
 			float s = (float) Math.sqrt(trace + 1.0f) * 2; // s = 4 * w
@@ -155,7 +155,7 @@ public class GDTFMatrix {
 			quat[2] = 0.25f * s;
 		}
 
-		return quat; // Rückgabe: Quaternion in der Form [x, y, z, w]
+		return quat;
 	}
 
 	/**
@@ -227,6 +227,51 @@ public class GDTFMatrix {
 		m[2][2] = 1.0f - 2.0f * (xx + yy);
 		m[2][3] = 0.0f;
 
+		m[3][0] = 0.0f;
+		m[3][1] = 0.0f;
+		m[3][2] = 0.0f;
+		m[3][3] = 1.0f;
+	}
+	
+	/**
+	 * Sets the Rotation of this matrix
+	 * 
+	 * @param rotationRadian {angleX, angleY, angleZ}
+	 */
+	public void setRotationXYZ(float[] rotationAngle) {
+		float sinX = (float) Math.sin(rotationAngle[0]);
+		float cosX = (float) Math.sin(rotationAngle[0] + (Math.PI * 0.5));
+		float sinY = (float) Math.sin(rotationAngle[1]);
+		float cosY = (float) Math.sin(rotationAngle[1] + (Math.PI * 0.5));
+		float sinZ = (float) Math.sin(rotationAngle[2]);
+		float cosZ = (float) Math.sin(rotationAngle[2] + (Math.PI * 0.5));
+		float m_sinX = -sinX;
+		float m_sinY = -sinY;
+		float m_sinZ = -sinZ;
+
+		float nm11 = cosX;
+		float nm12 = sinX;
+		float nm21 = m_sinX;
+		float nm22 = cosX;
+		float nm00 = cosY;
+		float nm01 = nm21 * m_sinY;
+		float nm02 = nm22 * m_sinY;
+		
+		m[0][0] = nm00 * cosZ;
+		m[0][1] = nm01 * cosZ + nm11 * sinZ;
+		m[0][2] = nm02 * cosZ + nm12 * sinZ;
+		m[0][3] = 0.0f;
+		
+		m[1][0] = nm00 * m_sinZ;
+		m[1][1] = nm01 * m_sinZ + nm11 * cosZ;
+		m[1][2] = nm02 * m_sinZ + nm12 * cosZ;
+		m[1][3] = 0.0f;
+		
+		m[2][0] = sinY;
+		m[2][1] = nm21 * cosY;
+		m[2][2] = nm22 * cosY;
+		m[2][3] = 0.0f;
+		
 		m[3][0] = 0.0f;
 		m[3][1] = 0.0f;
 		m[3][2] = 0.0f;
