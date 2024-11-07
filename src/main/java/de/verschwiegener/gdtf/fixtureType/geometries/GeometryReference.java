@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlType;
     "_break"
 })
 public class GeometryReference
-    extends BasicGeometryAttributes
+    extends BasicGeometryType
 {
 
     @XmlElement(name = "Break")
