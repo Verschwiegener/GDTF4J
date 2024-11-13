@@ -15,9 +15,6 @@ public class GDTFModel {
 		if (modelFile != null) {
 			this.fileType = FileType.fromExtension(modelFile.getName()
 					.substring(modelFile.getName().lastIndexOf(".") + 1, modelFile.getName().length()));
-			if (fileType == FileType.TYPE_3DS) {
-				transformationMatrix.setRotationXYZ(new float[] { (float) Math.toRadians(-90f), 0, 0 });
-			}
 		}
 	}
 
@@ -27,6 +24,10 @@ public class GDTFModel {
 
 	public File getModelFile() {
 		return modelFile;
+	}
+	
+	public FileType getFileType() {
+		return fileType;
 	}
 
 	public enum FileType {
