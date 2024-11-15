@@ -14,8 +14,10 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
-import de.verschwiegener.gdtf.util.GDTFMatrix;
+import org.joml.Matrix4f;
+
 import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFUtils;
 import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
 
 
@@ -109,11 +111,11 @@ public class BasicGeometryAttributes {
      *     {@link String }
      *     
      */
-    public GDTFMatrix getPosition() {
+    public Matrix4f getPosition() {
         if (position == null) {
-            return new GDTFMatrix();
+            return new Matrix4f();
         } else {
-            return new GDTFMatrix(position);
+        	return GDTFUtils.toMatrix(position);
         }
     }
 
@@ -125,8 +127,8 @@ public class BasicGeometryAttributes {
      *     {@link String }
      *     
      */
-    public void setPosition(GDTFMatrix value) {
-        this.position = value.toGDTF();
+    public void setPosition(Matrix4f value) {
+        this.position = GDTFUtils.toGDTFMatrix(value);
     }
 
 }
