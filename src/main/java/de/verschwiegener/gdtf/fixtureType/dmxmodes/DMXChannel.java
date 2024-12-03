@@ -17,12 +17,12 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-import de.verschwiegener.gdtf.ValueHelper.NodeHelper;
 import de.verschwiegener.gdtf.util.GDTFDMXValue;
 import de.verschwiegener.gdtf.util.GDTFNode;
 import de.verschwiegener.gdtf.util.SimpleDMXFunction;
 import de.verschwiegener.gdtf.util.SimpleDMXFunction.SimpleSet;
 import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFUtils.NodeHelper;
 
 /**
  * <p>

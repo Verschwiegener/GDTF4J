@@ -18,9 +18,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-import de.verschwiegener.gdtf.ValueHelper;
 import de.verschwiegener.gdtf.util.GDTFDMXValue;
 import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFUtils;
 import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
 
 /**

@@ -16,11 +16,11 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-import de.verschwiegener.gdtf.ValueHelper.FeatureHelper;
-import de.verschwiegener.gdtf.ValueHelper.NameHelper;
 import de.verschwiegener.gdtf.util.GDTFColor;
 import de.verschwiegener.gdtf.util.GDTFNode;
 import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFUtils.FeatureHelper;
+import de.verschwiegener.gdtf.util.GDTFUtils.NameHelper;
 
 /**
  * <p>

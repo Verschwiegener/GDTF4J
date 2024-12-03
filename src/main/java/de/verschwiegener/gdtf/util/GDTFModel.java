@@ -26,9 +26,10 @@ public class GDTFModel {
 				Vector3f scale = matrix.getScale(new Vector3f());
 				Quaternionf rotation = matrix.getNormalizedRotation(new Quaternionf());
 				
+				
 				//Rotate 3DS File by 90 Degree
 				Vector3f rotationXYZ = rotation.getEulerAnglesXYZ(new Vector3f());
-				rotation.rotateYXZ(rotationXYZ.y, rotationXYZ.x - (float) Math.toRadians(-90f), rotationXYZ.z);
+				rotation.rotateYXZ(rotationXYZ.y, rotationXYZ.x - (float) Math.toRadians(90f), rotationXYZ.z);
 				
 				System.out.println("TranslationPre: " + translation);
 				
