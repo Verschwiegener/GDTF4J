@@ -15,8 +15,15 @@ public class GDTFNode {
 	private NodeStartingPoint startingPoint;
 	
 	private int index = 0;
+	/**
+	 * If the input Path is null this node is invalid and doesnt need to check
+	 */
+	private boolean valid = true;
 	
 	public GDTFNode(String path, NodeStartingPoint startingPoint) {
+		if(path == null) {
+			valid = false;
+		}
 		if(path != null && path.contains(".")) {
 			nodePath = path.split("\\.");
 		}else {
@@ -44,6 +51,8 @@ public class GDTFNode {
 	 * @param path
 	 */
 	public void appendFirst(String path) {
+		if(path == null)
+			valid = false;
 		String[] newNodePath = new String[nodePath.length + 1];
 		System.arraycopy(nodePath, 0, newNodePath,1, nodePath.length);
 		newNodePath[0] = path;
@@ -75,8 +84,15 @@ public class GDTFNode {
 	 * @return true if we are on the right path, false if not
 	 */
 	public boolean check(GDTFNode checkNode) {
+		// If Path contains null the Node is invalid, is a valid usecase if the node is
+		// code generated and some Attribute does not exist in the gdtf file
+		if(!valid)
+			return false;
 		if(checkNode.getStartingPoint() == getStartingPoint()) {
 			index = 0;
+		}
+		if(getNodePath()[index] == null) {
+			return false;
 		}
 		
 		// If this NodePath at the index from the StartingPoint equals the checkNode
