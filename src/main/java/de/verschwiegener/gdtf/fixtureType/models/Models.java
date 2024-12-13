@@ -83,7 +83,7 @@ public class Models {
     public Model getModel(GDTFNode node) {
     	if(!node.checkPoint(NodeStartingPoint.Model))
     		return null;
-    	return getModel().stream().filter(m -> m.getName().equals(node.getNodePath()[0])).findFirst().orElse(null);
+    	return getModel().stream().filter(m -> node.check(m.getNode())).findFirst().orElse(null);
     }
 
 }

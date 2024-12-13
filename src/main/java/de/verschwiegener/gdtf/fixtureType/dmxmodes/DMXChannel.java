@@ -102,7 +102,7 @@ public class DMXChannel {
 	public LogicalChannel getLogicalChannel(GDTFNode node) {
 		if(!node.checkPoint(NodeStartingPoint.DMXChannel))
 			return null;
-		return getLogicalChannel().stream().filter(lc -> lc.getAttribute().getNodePath()[0].equals(node.getNodePath()[1])).findFirst().orElse(null);
+		return getLogicalChannel().stream().filter(lc -> node.check(lc.getNode())).findFirst().orElse(null);
 	}
 	
 	/**
@@ -123,11 +123,11 @@ public class DMXChannel {
 
 				// Build GDTFNode to ChannelFunction
 				GDTFNode node = new GDTFNode(new String[] { geometry }, NodeStartingPoint.DMXChannel);
-				node.appendLast(channel.getAttribute(), function.getAttribute());
+				node.appendLast(channel.getNode(), function.getNode());
 				node.appendLast(function.getName());
 
 				SimpleDMXFunction simpleDMX = new SimpleDMXFunction(node, getOffsetAsInt(), channel.getDMXRange(node),
-						function.getDefault(), function.getName(), function.getCustomName(), channel.getAttribute());
+						function.getDefault(), function.getName(), function.getCustomName());
 
 				List<ChannelSet> channelSet = function.getChannelSet();
 
@@ -160,7 +160,7 @@ public class DMXChannel {
 		ChannelFunction function = channel.getChannelFunction(node);
 		
 		SimpleDMXFunction simpleDMX = new SimpleDMXFunction(node, getOffsetAsInt(), channel.getDMXRange(node),
-				function.getDefault(), function.getName(), function.getCustomName(), channel.getAttribute());
+				function.getDefault(), function.getName(), function.getCustomName());
 		
 		List<ChannelSet> channelSet = function.getChannelSet();
 		
@@ -337,6 +337,15 @@ public class DMXChannel {
 	public String getGeometry() {
 		return geometry;
 	}
+	
+	/**
+	 * Returns the Node this Class is referenced by
+	 * 
+	 * @return GDTFNode
+	 */
+	public GDTFNode getNode() {
+    	return new GDTFNode(geometry, NodeStartingPoint.DMXChannel);
+    }
 
 	/**
 	 * Legt den Wert der geometry-Eigenschaft fest.

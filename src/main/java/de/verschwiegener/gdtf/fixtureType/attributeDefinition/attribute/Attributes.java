@@ -99,10 +99,12 @@ public class Attributes {
 		return getAttribute().stream().filter(attribute -> attribute.getName().equals(name)).findFirst().orElse(null);
 	}
 	
+	//TODO Fix Node Starting Points
 	public Attribute getAttribute(GDTFNode node) {
 		if(!node.checkPoint(NodeStartingPoint.Attribute))
 			return null;
-		return getAttribute().stream().filter(attribute -> attribute.getName().equals(node.getNodePath()[0])).findFirst().orElse(null);
+		
+		return getAttribute().stream().filter(attribute -> node.check(attribute.getNode())).findFirst().orElse(null);
 	}
 	
 

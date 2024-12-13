@@ -35,6 +35,7 @@ import de.verschwiegener.gdtf.fixtureType.wheel.Wheel;
 import de.verschwiegener.gdtf.util.GDTFDMXValue;
 import de.verschwiegener.gdtf.util.GDTFModel;
 import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
 import de.verschwiegener.gdtf.util.SimpleDMXFunction;
 
 public class GDTF {
@@ -50,7 +51,7 @@ public class GDTF {
 	private DMXMode dmxMode;
 
 	/**
-	 * Creates internal File Structure, gdtf first needs to be parsed to be usefull
+	 * Creates internal File Structure, gdtf first needs to be parsed to be useful
 	 * 
 	 * @param gdtfFile
 	 * @param gdtfOutputFolder
@@ -134,7 +135,11 @@ public class GDTF {
 		return type.getFixtureType().getModels().getModel(node);
 	}
 	
-	
+	/**
+	 * Returns File to given 3D Model File
+	 * @param file
+	 * @return
+	 */
 	public File get3DModelFile(String file) {
 		if (has3DS()) {
 			File f3ds = new File(gdtfModel3ds, file + ".3ds");
@@ -150,11 +155,11 @@ public class GDTF {
 		return null;
 	}
 	
-	public GDTFModelFile get2DModelFile(String file) {
+	public GDTFModel get2DModelFile(String file) {
 		if (hasSVG()) {
 			File fsvg = new File(gdtfModelsvg, file + ".svg");
 			if (fsvg.exists())
-				return new GDTFModelFile(fsvg, GDTFModelType.TYPE_SVG);
+				return new GDTFModel(fsvg);
 		}
 		return null;
 	}
@@ -224,8 +229,14 @@ public class GDTF {
 		return type;
 	}
 
+	/**
+	 * Parses XML Geometry into GDTFGeometry
+	 * @param element
+	 * @return
+	 */
 	private GDTFGeometry parseGeo(JAXBElement<? extends BasicGeometryAttributes> element) {
 		BasicGeometryType type = (BasicGeometryType) element.getValue();
+		//Get Children of Geometry
 		ArrayList<GDTFGeometry> children = type.getGeometryOrAxisOrFilterBeam().stream().map(child -> parseGeo(child))
 				.collect(Collectors.toCollection(ArrayList::new));
 
@@ -233,7 +244,7 @@ public class GDTF {
 		if(model == null)
 			return null;
 		return new GDTFGeometry(element.getName().getLocalPart(), type, children,
-				new GDTFModel(get3DModelFile(model.getFile()), type.getPosition()));
+				new GDTFModel(get3DModelFile(model.getFile()), type.getPosition()), get2DModelFile(model.getFile()));
 	}
 
 	private AttributeDefinitions getAttributeDefinitions() {
@@ -251,23 +262,35 @@ public class GDTF {
 	private boolean has3DS() {
 		return gdtfModel3ds.exists();
 	}
-
+	
 	private boolean hasGLTF() {
 		return gdtfModelgltf.exists();
 	}
 
+	/**
+	 * Utility Class holding parsed DMXChannelData
+	 */
 	public static record DMXChannelData(int[] dmxOffset, String dmxBreak, String geometry, GDTFDMXValue highlight,
 			GDTFNode initialfunction, List<SimpleDMXFunction> channelFunctions) {
+		
+		/**
+		 * Returns SimpleDMXFunction by ChannelFunction Attribute node
+		 * 
+		 * @param node
+		 * @return
+		 */
+		public SimpleDMXFunction getSimpleDMXFunctionFromAttribute(GDTFNode node) {
+			if(!node.checkPoint(NodeStartingPoint.Attribute)) 
+				return null;
+			//return channelFunctions.stream().filter(cf -> node.check(cf.getAttribute())).findFirst().orElse(null);
+			return null;
+		}
 	}
-
-	public static record GDTFGeometry(String geoType, BasicGeometryType typeClass, ArrayList<GDTFGeometry> children, GDTFModel model) {
-	}
-
-	public static record GDTFModelFile(File file, GDTFModelType modelType) {
-	}
-
-	private static enum GDTFModelType {
-		TYPE_3DS, TYPE_SVG, TYPE_GLTF;
+	
+	/**
+	 * Utility Class holding parsed Geometry Information
+	 */
+	public static record GDTFGeometry(String geoType, BasicGeometryType typeClass, ArrayList<GDTFGeometry> children, GDTFModel model3D, GDTFModel model2D) {
 	}
 
 }

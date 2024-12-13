@@ -14,6 +14,8 @@ public class GDTFNode {
 	 */
 	private NodeStartingPoint startingPoint;
 	
+	private int index = 0;
+	
 	public GDTFNode(String path, NodeStartingPoint startingPoint) {
 		if(path != null && path.contains(".")) {
 			nodePath = path.split("\\.");
@@ -64,6 +66,28 @@ public class GDTFNode {
 	}
 	public boolean checkPoint(NodeStartingPoint point) {
 		return startingPoint == point;
+	}
+	
+	/**
+	 * Check given GDTFNode checkNode against this GDTFNode
+	 * 
+	 * @param checkNode GDTFNode The GDTFNode to check this node against
+	 * @return true if we are on the right path, false if not
+	 */
+	public boolean check(GDTFNode checkNode) {
+		if(checkNode.getStartingPoint() == getStartingPoint()) {
+			index = 0;
+		}
+		
+		// If this NodePath at the index from the StartingPoint equals the checkNode
+		// value we are on the right path and increment the index
+		if(getNodePath()[index].equals(checkNode.getNodePath()[0])) {
+			if(index < getNodePath().length - 1) {
+				index +=1;
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	public NodeStartingPoint getStartingPoint() {

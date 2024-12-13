@@ -16,6 +16,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 
 /**
  * <p>Java-Klasse für Wheel complex type.
@@ -99,6 +102,15 @@ public class Wheel {
      */
     public String getName() {
         return name;
+    }
+    
+	/**
+	 * Returns the Node this Class is referenced by
+	 * 
+	 * @return GDTFNode
+	 */
+    public GDTFNode getNode() {
+    	return new GDTFNode(name, NodeStartingPoint.Wheel);
     }
 
     /**

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class SimpleDMXFunction {
 	
 	/**
-	 * Node to the ChannelFunction
+	 * Complete Node to the ChannelFunction
 	 */
 	private GDTFNode node;
 	
@@ -18,13 +18,12 @@ public class SimpleDMXFunction {
 	
 	private String name;
 	private String customName;
-	private GDTFNode attribute;
 	
 	private ArrayList<SimpleSet> simpleSet = new ArrayList<>();
 	
 	
 	
-	public SimpleDMXFunction(GDTFNode node, int[] dmxOffset, GDTFDMXValue[] dmxRange, GDTFDMXValue dmxDefault, String name, String customName, GDTFNode attribute) {
+	public SimpleDMXFunction(GDTFNode node, int[] dmxOffset, GDTFDMXValue[] dmxRange, GDTFDMXValue dmxDefault, String name, String customName) {
 		this.node  = node;
 		this.dmxOffset = dmxOffset;
 		this.dmxFrom = dmxRange[0];
@@ -32,7 +31,6 @@ public class SimpleDMXFunction {
 		this.dmxDefault = dmxDefault;
 		this.name = name;
 		this.customName = customName;
-		this.attribute = attribute;
 	}
 	
 	
@@ -74,15 +72,6 @@ public class SimpleDMXFunction {
 		return customName;
 	}
 
-
-	public GDTFNode getAttribute() {
-		return attribute;
-	}
-
-
-
-
-
 	public class SimpleSet {
 		
 		private GDTFDMXValue dmxFrom;
@@ -91,6 +80,9 @@ public class SimpleDMXFunction {
 		private String name;
 		
 		public SimpleSet(GDTFDMXValue dmxFrom, GDTFDMXValue dmxTo, String name) {
+			this.dmxFrom = dmxFrom;
+			this.dmxTo =  dmxTo;
+			this.name = name;
 		}
 		
 	}

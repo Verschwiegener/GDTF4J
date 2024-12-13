@@ -179,6 +179,10 @@ public class ChannelFunction {
     public String getName() {
         return name;
     }
+    
+    public GDTFNode getNameNode() {
+    	return new GDTFNode(name, NodeStartingPoint.Attribute);
+    }
 
     /**
      * Legt den Wert der name-Eigenschaft fest.
@@ -192,6 +196,19 @@ public class ChannelFunction {
         this.name = value;
     }
 
+	/**
+	 * Returns the Node this Class is referenced by
+	 * 
+	 * @return GDTFNode
+	 */
+    public GDTFNode getNode() {
+        if (attribute == null) {
+            return new GDTFNode("NoFeature", NodeStartingPoint.Attribute);
+        } else {
+            return new GDTFNode(attribute, NodeStartingPoint.Attribute);
+        }
+    }
+    
     /**
      * Ruft den Wert der attribute-Eigenschaft ab.
      * 
@@ -200,12 +217,8 @@ public class ChannelFunction {
      *     {@link String }
      *     
      */
-    public GDTFNode getAttribute() {
-        if (attribute == null) {
-            return new GDTFNode("NoFeature", NodeStartingPoint.Attribute);
-        } else {
-            return new GDTFNode(attribute, NodeStartingPoint.Attribute);
-        }
+    public String getAttribute() {
+    	return attribute;
     }
 
     /**

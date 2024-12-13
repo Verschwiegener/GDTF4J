@@ -98,8 +98,7 @@ public class LogicalChannel {
 		if(!node.checkPoint(NodeStartingPoint.DMXChannel))
 			return null;
 		return getChannelFunction().stream()
-				.filter(cf -> cf.getAttribute().getNodePath()[0]
-						.equals(node.getNodePath()[2]) && cf.getName().equals(node.getNodePath()[3]))
+				.filter(cf -> node.check(cf.getNode()) && node.check(cf.getNameNode()))
 				.findFirst().orElse(null);
 	}
 	
@@ -163,13 +162,22 @@ public class LogicalChannel {
 	}
 
 	/**
+	 * Returns the Node this Class is referenced by
+	 * 
+	 * @return GDTFNode
+	 */
+	public GDTFNode getNode() {
+		return new GDTFNode(attribute, NodeStartingPoint.Attribute);
+	}
+	
+	/**
 	 * Ruft den Wert der attribute-Eigenschaft ab.
 	 * 
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public GDTFNode getAttribute() {
-		return new GDTFNode(attribute, NodeStartingPoint.Attribute);
+	public String getAttribute() {
+		return attribute;
 	}
 
 	/**

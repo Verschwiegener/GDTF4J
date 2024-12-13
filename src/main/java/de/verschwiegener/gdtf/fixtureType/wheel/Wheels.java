@@ -87,7 +87,7 @@ public class Wheels {
     public Wheel getWheel(GDTFNode node) {
     	if(!node.checkPoint(NodeStartingPoint.Wheel))
 			return null;
-    	return getWheel().stream().filter(w -> w.getName().equals(node.getNodePath()[0])).findFirst().orElse(null);
+    	return getWheel().stream().filter(w -> node.check(w.getNode())).findFirst().orElse(null);
     }
 
 }

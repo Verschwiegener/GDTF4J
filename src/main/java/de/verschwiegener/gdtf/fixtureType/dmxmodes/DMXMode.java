@@ -194,7 +194,7 @@ public class DMXMode {
 			return null;
 		
 		return getDMXChannels().getDMXChannel().stream()
-				.filter(dc -> dc.getGeometry().equals(node.getNodePath()[0]) && dc.getLogicalChannel(node) != null)
+				.filter(dc -> node.check(dc.getNode()) && dc.getLogicalChannel(node) != null)
 				.findFirst().orElse(null);
 	}
 

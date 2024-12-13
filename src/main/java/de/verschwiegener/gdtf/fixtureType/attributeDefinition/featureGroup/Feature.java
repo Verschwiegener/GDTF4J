@@ -13,6 +13,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
+import de.verschwiegener.gdtf.util.GDTFNode;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+
 
 /**
  * <p>Java-Klasse für Feature complex type.
@@ -51,6 +54,10 @@ public class Feature {
      */
     public String getName() {
         return name;
+    }
+    
+    public GDTFNode getNode() {
+    	return new GDTFNode(name, NodeStartingPoint.ActivationGroup);
     }
 
     /**

@@ -114,6 +114,15 @@ public class FeatureGroup {
     public void setName(String value) {
         this.name = value;
     }
+    
+    /**
+	 * Returns the Node this Class is referenced by
+	 * 
+	 * @return GDTFNode
+	 */
+	public GDTFNode getNode() {
+    	return new GDTFNode(name, NodeStartingPoint.ActivationGroup);
+    }
 
     /**
      * Ruft den Wert der pretty-Eigenschaft ab.
@@ -142,7 +151,7 @@ public class FeatureGroup {
     public Feature getFeature(GDTFNode node) {
     	if(node.getStartingPoint() != NodeStartingPoint.FeatureGroup) 
     		return null;
-    	return getFeature().stream().filter(f -> f.getName().equals(node.getNodePath()[1])).findFirst().orElse(null);
+    	return getFeature().stream().filter(f -> node.check(f.getNode())).findFirst().orElse(null);
     }
 
 }

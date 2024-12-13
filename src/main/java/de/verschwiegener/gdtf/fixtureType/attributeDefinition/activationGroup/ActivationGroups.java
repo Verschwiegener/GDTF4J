@@ -87,10 +87,12 @@ public class ActivationGroups {
     	return names;
     }
     
+    //TODO Fix Node StartingPoints
     public ActivationGroup getActivationGroup(GDTFNode node) {
     	if(!node.checkPoint(NodeStartingPoint.ActivationGroup))
 			return null;
-    	return getActivationGroup().stream().filter(ag -> ag.getName().equals(node.getNodePath()[0])).findFirst().orElse(null);
+    	
+    	return getActivationGroup().stream().filter(ag -> node.check(ag.getNode())).findFirst().orElse(null);
     }
  
 }

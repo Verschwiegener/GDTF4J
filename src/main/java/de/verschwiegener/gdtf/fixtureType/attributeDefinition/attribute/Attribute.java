@@ -132,6 +132,15 @@ public class Attribute {
 	public String getName() {
 		return name;
 	}
+	
+	/**
+	 * Returns the Node this Class is referenced by
+	 * 
+	 * @return GDTFNode
+	 */
+	public GDTFNode getNode() {
+    	return new GDTFNode(name, NodeStartingPoint.ActivationGroup);
+    }
 
 	/**
 	 * Legt den Wert der name-Eigenschaft fest.

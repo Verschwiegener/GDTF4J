@@ -124,11 +124,11 @@ public class FeatureGroups {
     }
     
     
-    
+    //Todo Fix Node StartingPoints
     public FeatureGroup getFeatureGroup(GDTFNode node) {
     	if(!node.checkPoint(NodeStartingPoint.FeatureGroup))
 			return null;
-    	return getFeatureGroup().stream().filter(fg -> fg.name.equals(node.getNodePath()[0])).findFirst().orElse(null);
+    	return getFeatureGroup().stream().filter(fg -> node.check(fg.getNode())).findFirst().orElse(null);
     }
     
     public Feature getFeature(GDTFNode node) {
