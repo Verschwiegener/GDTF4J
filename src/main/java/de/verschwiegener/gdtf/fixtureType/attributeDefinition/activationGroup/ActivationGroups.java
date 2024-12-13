@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 
 /**
@@ -87,9 +87,8 @@ public class ActivationGroups {
     	return names;
     }
     
-    //TODO Fix Node StartingPoints
     public ActivationGroup getActivationGroup(GDTFNode node) {
-    	if(!node.checkPoint(NodeStartingPoint.ActivationGroup))
+    	if(!node.checkPoint(NodeSearchPoint.ActivationGroup))
 			return null;
     	
     	return getActivationGroup().stream().filter(ag -> node.check(ag.getNode())).findFirst().orElse(null);

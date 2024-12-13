@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 /**
  * <p>
@@ -99,9 +99,8 @@ public class Attributes {
 		return getAttribute().stream().filter(attribute -> attribute.getName().equals(name)).findFirst().orElse(null);
 	}
 	
-	//TODO Fix Node Starting Points
 	public Attribute getAttribute(GDTFNode node) {
-		if(!node.checkPoint(NodeStartingPoint.Attribute))
+		if(!node.checkPoint(NodeSearchPoint.Attribute))
 			return null;
 		
 		return getAttribute().stream().filter(attribute -> node.check(attribute.getNode())).findFirst().orElse(null);

@@ -18,7 +18,7 @@ import org.joml.Matrix4f;
 
 import de.verschwiegener.gdtf.util.GDTFNode;
 import de.verschwiegener.gdtf.util.GDTFUtils;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 
 /**
@@ -88,7 +88,7 @@ public class BasicGeometryAttributes {
      *     
      */
     public GDTFNode getModel() {
-        return new GDTFNode(model, NodeStartingPoint.Model);
+        return new GDTFNode(model, NodeSearchPoint.Model);
     }
 
     /**

@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 
 /**
@@ -77,7 +77,7 @@ public class Filters {
     }
     
     public Filter getFilter(GDTFNode node) {
-    	if(node.getStartingPoint() != NodeStartingPoint.Filter) 
+    	if(node.getSearchPoint() != NodeSearchPoint.Filter) 
     		return null;
     	return getFilter().stream().filter(f -> f.getName().equals(node.getNodePath()[0])).findFirst().orElse(null);
     }

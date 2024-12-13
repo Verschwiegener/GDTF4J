@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFColor;
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 /**
  * <p>
@@ -186,7 +186,7 @@ public class Slot {
 	 * 
 	 */
 	public GDTFNode getFilter() {
-		return new GDTFNode(filter, NodeStartingPoint.Filter);
+		return new GDTFNode(filter, NodeSearchPoint.Filter);
 	}
 
 	/**

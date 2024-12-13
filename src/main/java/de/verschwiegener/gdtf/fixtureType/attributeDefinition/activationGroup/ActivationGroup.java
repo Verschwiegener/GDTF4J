@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 
 /**
@@ -69,7 +69,7 @@ public class ActivationGroup {
     }
     
     public GDTFNode getNode() {
-    	return new GDTFNode(name, NodeStartingPoint.ActivationGroup);
+    	return new GDTFNode(name, NodeSearchPoint.ActivationGroup);
     }
 
 }

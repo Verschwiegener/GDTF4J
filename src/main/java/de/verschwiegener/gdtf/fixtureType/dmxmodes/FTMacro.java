@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 
 /**
@@ -109,7 +109,7 @@ public class FTMacro {
      *     
      */
     public GDTFNode getChannelFunction() {
-        return new GDTFNode(channelFunction, NodeStartingPoint.DMXChannel);
+        return new GDTFNode(channelFunction, NodeSearchPoint.DMXChannel);
     }
 
     /**

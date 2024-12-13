@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
 import de.verschwiegener.gdtf.util.GDTFDMXValue;
 import de.verschwiegener.gdtf.util.GDTFNode;
 import de.verschwiegener.gdtf.util.GDTFUtils;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 /**
  * <p>
@@ -89,14 +89,17 @@ public class LogicalChannel {
 	
 	
 	/**
-	 * Returns ChannelFunction by GDTFNode
+	 * Returns ChannelFunction by GDTFNode, the only valid Node is DMXChannel
 	 * 
 	 * @param node
 	 * @return
 	 */
 	public ChannelFunction getChannelFunction(GDTFNode node) {
-		if(!node.checkPoint(NodeStartingPoint.DMXChannel))
+		System.out.println("Node: " + node + " / " + node.getSearchPoint() + " / " + node.getIndex());
+		if(!node.checkPoint(NodeSearchPoint.DMXChannel)) {
+			System.out.println("Checkpoint");
 			return null;
+		}
 		return getChannelFunction().stream()
 				.filter(cf -> node.check(cf.getNode()) && node.check(cf.getNameNode()))
 				.findFirst().orElse(null);
@@ -167,7 +170,7 @@ public class LogicalChannel {
 	 * @return GDTFNode
 	 */
 	public GDTFNode getNode() {
-		return new GDTFNode(attribute, NodeStartingPoint.Attribute);
+		return new GDTFNode(attribute, NodeSearchPoint.Attribute);
 	}
 	
 	/**

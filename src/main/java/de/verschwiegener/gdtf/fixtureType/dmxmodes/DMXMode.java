@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 /**
  * <p>
@@ -190,7 +190,7 @@ public class DMXMode {
 	}
 
 	public DMXChannel getDmxChannel(GDTFNode node) {
-		if (!node.checkPoint(NodeStartingPoint.DMXChannel))
+		if (!node.checkPoint(NodeSearchPoint.DMXChannel))
 			return null;
 		
 		return getDMXChannels().getDMXChannel().stream()

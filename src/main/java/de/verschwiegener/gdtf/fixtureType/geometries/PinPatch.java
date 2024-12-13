@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 
 /**
@@ -57,7 +57,7 @@ public class PinPatch {
      *     
      */
     public GDTFNode getToWiringObject() {
-        return new GDTFNode(toWiringObject, NodeStartingPoint.WiringObject);
+        return new GDTFNode(toWiringObject, NodeSearchPoint.WiringObject);
     }
 
     /**

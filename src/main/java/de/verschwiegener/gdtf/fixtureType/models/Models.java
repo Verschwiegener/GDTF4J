@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 
 /**
@@ -81,7 +81,7 @@ public class Models {
     }
     
     public Model getModel(GDTFNode node) {
-    	if(!node.checkPoint(NodeStartingPoint.Model))
+    	if(!node.checkPoint(NodeSearchPoint.Model))
     		return null;
     	return getModel().stream().filter(m -> node.check(m.getNode())).findFirst().orElse(null);
     }

@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 
 /**
@@ -98,7 +98,7 @@ public class Relation {
      *     
      */
     public GDTFNode getMaster() {
-        return new GDTFNode(master, NodeStartingPoint.DMXChannel);
+        return new GDTFNode(master, NodeSearchPoint.DMXChannel);
     }
 
     /**
@@ -122,7 +122,7 @@ public class Relation {
      *     
      */
     public GDTFNode getFollower() {
-        return new GDTFNode(follower, NodeStartingPoint.DMXChannel);
+        return new GDTFNode(follower, NodeSearchPoint.DMXChannel);
     }
 
     /**

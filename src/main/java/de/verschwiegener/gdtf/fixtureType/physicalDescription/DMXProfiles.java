@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 
 /**
@@ -77,7 +77,7 @@ public class DMXProfiles {
     }
     
     public DMXProfile getDmxProfile(GDTFNode node) {
-    	if(!node.checkPoint(NodeStartingPoint.DMXProfile))
+    	if(!node.checkPoint(NodeSearchPoint.DMXProfile))
     		return null;
     	return getDMXProfile().stream().filter(dp -> dp.getName().equals(node.getNodePath()[0])).findFirst().orElse(null);
     }

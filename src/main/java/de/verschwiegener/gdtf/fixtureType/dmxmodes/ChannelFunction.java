@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFDMXValue;
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 /**
  * <p>
@@ -181,7 +181,7 @@ public class ChannelFunction {
     }
     
     public GDTFNode getNameNode() {
-    	return new GDTFNode(name, NodeStartingPoint.Attribute);
+    	return new GDTFNode(name, NodeSearchPoint.Attribute);
     }
 
     /**
@@ -203,9 +203,9 @@ public class ChannelFunction {
 	 */
     public GDTFNode getNode() {
         if (attribute == null) {
-            return new GDTFNode("NoFeature", NodeStartingPoint.Attribute);
+            return new GDTFNode("NoFeature", NodeSearchPoint.Attribute);
         } else {
-            return new GDTFNode(attribute, NodeStartingPoint.Attribute);
+            return new GDTFNode(attribute, NodeSearchPoint.Attribute);
         }
     }
     
@@ -418,7 +418,7 @@ public class ChannelFunction {
      *     
      */
     public GDTFNode getWheel() {
-        return new GDTFNode(wheel, NodeStartingPoint.Wheel);
+        return new GDTFNode(wheel, NodeSearchPoint.Wheel);
     }
 
     /**
@@ -442,7 +442,7 @@ public class ChannelFunction {
      *     
      */
     public GDTFNode getEmitter() {
-        return new GDTFNode(emitter, NodeStartingPoint.Emitter);
+        return new GDTFNode(emitter, NodeSearchPoint.Emitter);
     }
 
     /**
@@ -466,7 +466,7 @@ public class ChannelFunction {
      *     
      */
     public GDTFNode getFilter() {
-        return new GDTFNode(filter, NodeStartingPoint.Filter);
+        return new GDTFNode(filter, NodeSearchPoint.Filter);
     }
 
     /**
@@ -490,7 +490,7 @@ public class ChannelFunction {
      *     
      */
     public GDTFNode getColorSpace() {
-        return new GDTFNode(colorSpace, NodeStartingPoint.PhysicalDescription);
+        return new GDTFNode(colorSpace, NodeSearchPoint.ColorSpace);
     }
 
     /**
@@ -513,7 +513,7 @@ public class ChannelFunction {
      *     
      */
     public GDTFNode getGamut() {
-    	return new GDTFNode(gamut, NodeStartingPoint.Gammut);
+    	return new GDTFNode(gamut, NodeSearchPoint.Gammut);
     }
     /**
      * Legt den Wert der Gammut-Eigenschaft fest.
@@ -536,7 +536,7 @@ public class ChannelFunction {
      *     
      */
     public GDTFNode getModeMaster() {
-        return new GDTFNode(modeMaster, NodeStartingPoint.DMXChannel);
+        return new GDTFNode(modeMaster, NodeSearchPoint.DMXChannel);
     }
 
     /**
@@ -616,7 +616,7 @@ public class ChannelFunction {
      *     
      */
     public GDTFNode getDMXProfile() {
-        return new GDTFNode(dmxProfile, NodeStartingPoint.DMXProfile);
+        return new GDTFNode(dmxProfile, NodeSearchPoint.DMXProfile);
     }
 
     /**

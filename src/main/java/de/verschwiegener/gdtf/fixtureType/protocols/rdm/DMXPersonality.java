@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 
 /**
@@ -77,7 +77,7 @@ public class DMXPersonality {
      *     
      */
     public GDTFNode getDMXMode() {
-        return new GDTFNode(dmxMode, NodeStartingPoint.DMXMode);
+        return new GDTFNode(dmxMode, NodeSearchPoint.DMXMode);
     }
 
     /**

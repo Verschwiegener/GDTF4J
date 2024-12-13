@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 
 /**
@@ -110,7 +110,7 @@ public class Wheel {
 	 * @return GDTFNode
 	 */
     public GDTFNode getNode() {
-    	return new GDTFNode(name, NodeStartingPoint.Wheel);
+    	return new GDTFNode(name, NodeSearchPoint.Wheel);
     }
 
     /**

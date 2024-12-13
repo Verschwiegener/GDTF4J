@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 
 /**
@@ -351,7 +351,7 @@ public class Beam
      *     
      */
     public GDTFNode getEmitterSpectrum() {
-        return new GDTFNode(emitterSpectrum, NodeStartingPoint.Emitter);
+        return new GDTFNode(emitterSpectrum, NodeSearchPoint.Emitter);
     }
 
     /**

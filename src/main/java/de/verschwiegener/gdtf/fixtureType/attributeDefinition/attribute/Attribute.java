@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFColor;
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 import de.verschwiegener.gdtf.util.GDTFUtils.FeatureHelper;
 import de.verschwiegener.gdtf.util.GDTFUtils.NameHelper;
 
@@ -139,7 +139,7 @@ public class Attribute {
 	 * @return GDTFNode
 	 */
 	public GDTFNode getNode() {
-    	return new GDTFNode(name, NodeStartingPoint.ActivationGroup);
+    	return new GDTFNode(name, NodeSearchPoint.Attribute);
     }
 
 	/**
@@ -179,7 +179,7 @@ public class Attribute {
 	 * 
 	 */
 	public GDTFNode getActivationGroup() {
-		return new GDTFNode(activationGroup, NodeStartingPoint.ActivationGroup);
+		return new GDTFNode(activationGroup, NodeSearchPoint.ActivationGroup);
 	}
 
 	/**
@@ -243,7 +243,7 @@ public class Attribute {
 	 * 
 	 */
 	public GDTFNode getFeature() {
-		return new GDTFNode(feature, NodeStartingPoint.FeatureGroup);
+		return new GDTFNode(feature, NodeSearchPoint.FeatureGroup);
 	}
 
 	/**
@@ -263,7 +263,7 @@ public class Attribute {
 	 * 
 	 */
 	public GDTFNode getMainAttribute() {
-		return new GDTFNode(mainAttribute, NodeStartingPoint.Attribute);
+		return new GDTFNode(mainAttribute, NodeSearchPoint.Attribute);
 	}
 
 	/**

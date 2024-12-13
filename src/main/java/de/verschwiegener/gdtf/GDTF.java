@@ -35,7 +35,7 @@ import de.verschwiegener.gdtf.fixtureType.wheel.Wheel;
 import de.verschwiegener.gdtf.util.GDTFDMXValue;
 import de.verschwiegener.gdtf.util.GDTFModel;
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 import de.verschwiegener.gdtf.util.SimpleDMXFunction;
 
 public class GDTF {
@@ -280,7 +280,7 @@ public class GDTF {
 		 * @return
 		 */
 		public SimpleDMXFunction getSimpleDMXFunctionFromAttribute(GDTFNode node) {
-			if(!node.checkPoint(NodeStartingPoint.Attribute)) 
+			if(!node.checkPoint(NodeSearchPoint.Attribute)) 
 				return null;
 			//return channelFunctions.stream().filter(cf -> node.check(cf.getAttribute())).findFirst().orElse(null);
 			return null;

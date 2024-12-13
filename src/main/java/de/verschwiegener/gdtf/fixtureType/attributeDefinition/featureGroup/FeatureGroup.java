@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 
 /**
@@ -121,7 +121,7 @@ public class FeatureGroup {
 	 * @return GDTFNode
 	 */
 	public GDTFNode getNode() {
-    	return new GDTFNode(name, NodeStartingPoint.ActivationGroup);
+    	return new GDTFNode(name, NodeSearchPoint.ActivationGroup);
     }
 
     /**
@@ -149,7 +149,7 @@ public class FeatureGroup {
     }
     
     public Feature getFeature(GDTFNode node) {
-    	if(node.getStartingPoint() != NodeStartingPoint.FeatureGroup) 
+    	if(node.getSearchPoint() != NodeSearchPoint.FeatureGroup) 
     		return null;
     	return getFeature().stream().filter(f -> node.check(f.getNode())).findFirst().orElse(null);
     }

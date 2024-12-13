@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import de.verschwiegener.gdtf.util.GDTFDMXValue;
 import de.verschwiegener.gdtf.util.GDTFNode;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 
 /**
  * <p>
@@ -80,7 +80,7 @@ public class MacroDMXValue {
 	 * 
 	 */
 	public GDTFNode getDMXChannel() {
-		return new GDTFNode(dmxChannel, NodeStartingPoint.DMXChannel);
+		return new GDTFNode(dmxChannel, NodeSearchPoint.DMXChannel);
 	}
 
 	/**

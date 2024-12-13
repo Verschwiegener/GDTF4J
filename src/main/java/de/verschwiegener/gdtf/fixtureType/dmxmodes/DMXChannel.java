@@ -21,7 +21,7 @@ import de.verschwiegener.gdtf.util.GDTFDMXValue;
 import de.verschwiegener.gdtf.util.GDTFNode;
 import de.verschwiegener.gdtf.util.SimpleDMXFunction;
 import de.verschwiegener.gdtf.util.SimpleDMXFunction.SimpleSet;
-import de.verschwiegener.gdtf.util.GDTFNode.NodeStartingPoint;
+import de.verschwiegener.gdtf.util.GDTFNode.NodeSearchPoint;
 import de.verschwiegener.gdtf.util.GDTFUtils.NodeHelper;
 
 /**
@@ -100,7 +100,7 @@ public class DMXChannel {
 	 * @return
 	 */
 	public LogicalChannel getLogicalChannel(GDTFNode node) {
-		if(!node.checkPoint(NodeStartingPoint.DMXChannel))
+		if(!node.checkPoint(NodeSearchPoint.DMXChannel))
 			return null;
 		return getLogicalChannel().stream().filter(lc -> node.check(lc.getNode())).findFirst().orElse(null);
 	}
@@ -122,10 +122,11 @@ public class DMXChannel {
 			for (ChannelFunction function : channel.getChannelFunction()) {
 
 				// Build GDTFNode to ChannelFunction
-				GDTFNode node = new GDTFNode(new String[] { geometry }, NodeStartingPoint.DMXChannel);
-				node.appendLast(channel.getNode(), function.getNode());
-				node.appendLast(function.getName());
+				GDTFNode node = new GDTFNode(new String[] { geometry }, NodeSearchPoint.DMXChannel);
+				node.appendLast(channel.getNode(), function.getNode(), function.getNameNode());
 
+				node.setIndex(2);
+				
 				SimpleDMXFunction simpleDMX = new SimpleDMXFunction(node, getOffsetAsInt(), channel.getDMXRange(node),
 						function.getDefault(), function.getName(), function.getCustomName());
 
@@ -291,7 +292,7 @@ public class DMXChannel {
 	 */
 	public GDTFNode getInitialFunction() {
 		//Remove Geometry_ from initialFunction
-		GDTFNode node = new GDTFNode(initialFunction.substring(geometry.length() + 1), NodeStartingPoint.DMXChannel);
+		GDTFNode node = new GDTFNode(initialFunction.substring(geometry.length() + 1), NodeSearchPoint.DMXChannel);
 		//Add Geometry into first Position
 		node.appendFirst(geometry);
 		
@@ -344,7 +345,7 @@ public class DMXChannel {
 	 * @return GDTFNode
 	 */
 	public GDTFNode getNode() {
-    	return new GDTFNode(geometry, NodeStartingPoint.DMXChannel);
+    	return new GDTFNode(geometry, NodeSearchPoint.DMXChannel);
     }
 
 	/**
