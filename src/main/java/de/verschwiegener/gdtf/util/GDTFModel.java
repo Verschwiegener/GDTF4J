@@ -28,22 +28,6 @@ public class GDTFModel {
 			this.fileType = FileType.fromExtension(modelFile.getName()
 					.substring(modelFile.getName().lastIndexOf(".") + 1, modelFile.getName().length()));
 			
-			if(fileType == FileType.TYPE_3DS) {
-				Vector3f translation = matrix.getTranslation(new Vector3f());
-				Vector3f scale = matrix.getScale(new Vector3f());
-				Quaternionf rotation = matrix.getNormalizedRotation(new Quaternionf());
-				
-				
-				//Rotate 3DS File by 90 Degree
-				Vector3f rotationXYZ = rotation.getEulerAnglesXYZ(new Vector3f());
-				rotation.rotateYXZ(rotationXYZ.y, rotationXYZ.x - (float) Math.toRadians(90f), rotationXYZ.z);
-				
-				matrix.identity();
-				matrix.translate(translation);
-				matrix.rotate(rotation);
-				matrix.scale(scale);
-				
-			}
 		}
 	}
 	/**
