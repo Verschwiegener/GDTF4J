@@ -2,7 +2,6 @@ package de.verschwiegener.gdtf;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,6 +11,7 @@ import java.util.zip.ZipInputStream;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
@@ -34,7 +34,7 @@ public class GDTFParser {
 		}
 	}
 
-	public static GDTFType parseGDTF(File gdtfFile, File gdtfOutputFolder) throws Exception {
+	public static GDTFType parseGDTF(File gdtfFile, File gdtfOutputFolder) throws JAXBException, IOException {
 		gdtfOutputFolder.mkdir();
 		unzipFile(gdtfFile, gdtfOutputFolder);
 

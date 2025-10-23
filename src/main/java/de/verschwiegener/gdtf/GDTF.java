@@ -1,11 +1,13 @@
 package de.verschwiegener.gdtf;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
 
 import de.verschwiegener.gdtf.fixtureType.FTPresets;
 import de.verschwiegener.gdtf.fixtureType.PhysicalDescriptions;
@@ -49,6 +51,11 @@ public class GDTF {
 	private File gdtfModelgltf;
 
 	private DMXMode dmxMode;
+	
+	/**
+	 * State if this GDTF has been parsed correctly
+	 */
+	private boolean parsed;
 
 	/**
 	 * Creates internal File Structure, gdtf first needs to be parsed to be useful
@@ -66,13 +73,15 @@ public class GDTF {
 	
 	/**
 	 * Parses GDTF
-	 * @throws Exception 
+	 * @throws IOException 
+	 * @throws JAXBException 
 	 */
-	public void parse() throws Exception {
+	public void parse() throws JAXBException, IOException {
 		//Parse File only once
 		if(type != null)
 			return;
 		type = GDTFParser.parseGDTF(gdtfFile, this.gdtfOutputFolder);
+		parsed = true;
 	}
 
 	public ActivationGroup getActivationGroup(GDTFNode node) {
@@ -227,6 +236,10 @@ public class GDTF {
 
 	public GDTFType getGDTFType() {
 		return type;
+	}
+	
+	public boolean isParsed() {
+		return parsed;
 	}
 
 	/**
