@@ -1,5 +1,7 @@
 package de.verschwiegener.gdtf.util;
 
+import java.util.Locale;
+
 import org.joml.Matrix4f;
 
 public class GDTFUtils {
@@ -49,26 +51,22 @@ public class GDTFUtils {
 				Float.valueOf(oValues[3]));*/
 		
 		Matrix4f m = new Matrix4f();
-		
-		
+
+		// GDTF stores the matrix row by row, {u1,v1,w1,o1}{u2,v2,w2,o2}{u3,v3,w3,o3}{0,0,0,1}.
+		// JOML names its fields mColumnRow, so every brace fills one row across the columns,
+		// the same way the translation in the fourth element is read below
 		m.m00(Float.valueOf(uValues[0]));
-		m.m01(Float.valueOf(uValues[1]));
-		m.m02(Float.valueOf(uValues[2]));
-		
-		//m.m03(Float.valueOf(uValues[3]));
-		
-		m.m10(Float.valueOf(vValues[0]));
+		m.m10(Float.valueOf(uValues[1]));
+		m.m20(Float.valueOf(uValues[2]));
+
+		m.m01(Float.valueOf(vValues[0]));
 		m.m11(Float.valueOf(vValues[1]));
-		m.m12(Float.valueOf(vValues[2]));
-		
-		//m.m13(Float.valueOf(vValues[3]));
-		
-		m.m20(Float.valueOf(wValues[0]));
-		m.m21(Float.valueOf(wValues[1]));
+		m.m21(Float.valueOf(vValues[2]));
+
+		m.m02(Float.valueOf(wValues[0]));
+		m.m12(Float.valueOf(wValues[1]));
 		m.m22(Float.valueOf(wValues[2]));
-		
-		//m.m23(Float.valueOf(wValues[3]));
-		
+
 		//Set Translation
 		m.m30(Float.valueOf(uValues[3]));
 		m.m31(Float.valueOf(vValues[3]));
@@ -90,20 +88,12 @@ public class GDTFUtils {
 	 * @return
 	 */
 	public static String toGDTFMatrix(Matrix4f m) {
-		float[] matrixArray = new float[16];
-		m.get(matrixArray);
-		StringBuilder sb = new StringBuilder();
-		sb.append("{");
-		for(int i = 0; i < matrixArray.length;i++) {
-			sb.append(Float.toString(matrixArray[0]));
-			if(i % 4 == 0) {
-				sb.append("}{");
-			}else {
-				sb.append(",");
-			}
-		}
-		sb.append("}");
-		return sb.toString();
+		// Written row by row like toMatrix reads it, the translation is the fourth element
+		// of the first three rows. Locale.ROOT keeps the decimal point a point on any system
+		return String.format(Locale.ROOT, "{%f,%f,%f,%f}{%f,%f,%f,%f}{%f,%f,%f,%f}{0,0,0,1}",
+				m.m00(), m.m10(), m.m20(), m.m30(),
+				m.m01(), m.m11(), m.m21(), m.m31(),
+				m.m02(), m.m12(), m.m22(), m.m32());
 	}
 
 	/**

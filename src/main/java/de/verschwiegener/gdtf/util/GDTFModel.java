@@ -3,10 +3,6 @@ package de.verschwiegener.gdtf.util;
 import java.io.File;
 
 import org.joml.Matrix4f;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
-
-import de.verschwiegener.mvr.util.MVRModel.FileType;
 
 public class GDTFModel {
 
