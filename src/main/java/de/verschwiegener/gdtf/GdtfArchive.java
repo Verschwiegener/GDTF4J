@@ -1,32 +1,33 @@
 package de.verschwiegener.gdtf;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.NoSuchFileException;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.function.Predicate;
 
 import de.verschwiegener.gdtf.model.GdtfFixtureType;
 import de.verschwiegener.gdtf.model.GdtfModel;
 import de.verschwiegener.gdtf.model.GdtfWheel;
 
 /**
- * A read GDTF file: the fixture type and all other files of the archive (models, wheel images, thumbnail), held
- * in memory. Immutable, safe to share between threads.
+ * A read GDTF file: the fixture type and all other files of the archive (models, wheel images, thumbnail). The
+ * archive stays in memory, files are unpacked when they are read. Immutable, safe to share between threads.
  */
 public final class GdtfArchive {
 
 	private final GdtfFixtureType fixtureType;
-	private final Map<String, byte[]> resources;
+	private final ZipArchive zip;
 	private final List<String> warnings;
 
-	GdtfArchive(GdtfFixtureType fixtureType, Map<String, byte[]> resources, List<String> warnings) {
+	GdtfArchive(GdtfFixtureType fixtureType, ZipArchive zip, List<String> warnings) {
 		this.fixtureType = Objects.requireNonNull(fixtureType, "fixtureType");
-		this.resources = Map.copyOf(resources);
+		this.zip = zip;
 		this.warnings = List.copyOf(warnings);
 	}
 
@@ -46,26 +47,32 @@ public final class GdtfArchive {
 	 * @return Paths of all files in the archive except description.xml, e.g. "models/gltf/head.glb"
 	 */
 	public SortedSet<String> resourceNames() {
-		return new TreeSet<>(resources.keySet());
+		SortedSet<String> names = new TreeSet<>(zip.names());
+		names.remove(GdtfReader.DESCRIPTION);
+		return names;
 	}
 
 	public boolean hasResource(String name) {
-		return resources.containsKey(name);
+		return !GdtfReader.DESCRIPTION.equals(name) && zip.contains(name);
 	}
 
 	/**
 	 * @throws NoSuchFileException if the archive has no such file
+	 * @throws GdtfException       if the file is broken inside the archive
 	 */
-	public InputStream openResource(String name) throws NoSuchFileException {
-		return new ByteArrayInputStream(resource(name));
+	public InputStream openResource(String name) throws IOException {
+		return new ByteArrayInputStream(readResource(name));
 	}
 
 	/**
-	 * @return A copy of the file content
+	 * @return The file content, unpacked on every call
 	 * @throws NoSuchFileException if the archive has no such file
+	 * @throws GdtfException       if the file is broken inside the archive
 	 */
-	public byte[] readResource(String name) throws NoSuchFileException {
-		return resource(name).clone();
+	public byte[] readResource(String name) throws IOException {
+		if (!hasResource(name))
+			throw new NoSuchFileException(name);
+		return zip.read(name);
 	}
 
 	/**
@@ -73,10 +80,7 @@ public final class GdtfArchive {
 	 */
 	public List<String> thumbnailFiles() {
 		String thumbnail = fixtureType.thumbnail();
-		if (thumbnail == null)
-			return List.of();
-		return resources.keySet().stream().filter(name -> baseName(name).equals(thumbnail) && !name.contains("/"))
-				.sorted().toList();
+		return thumbnail == null ? List.of() : find(name -> !name.contains("/") && baseName(name).equals(thumbnail));
 	}
 
 	/**
@@ -84,10 +88,8 @@ public final class GdtfArchive {
 	 *         "models/3ds/head.3ds". Empty for primitives or missing files.
 	 */
 	public List<String> modelFiles(GdtfModel model) {
-		if (model.file() == null)
-			return List.of();
-		return resources.keySet().stream()
-				.filter(name -> name.startsWith("models/") && baseName(name).equals(model.file())).sorted().toList();
+		return model.file() == null ? List.of()
+				: find(name -> name.startsWith("models/") && baseName(name).equals(model.file()));
 	}
 
 	/**
@@ -97,17 +99,13 @@ public final class GdtfArchive {
 		String media = slot.mediaFileName();
 		if (media == null)
 			return Optional.empty();
-		if (resources.containsKey("wheels/" + media))
+		if (hasResource("wheels/" + media))
 			return Optional.of("wheels/" + media);
-		return resources.keySet().stream()
-				.filter(name -> name.startsWith("wheels/") && baseName(name).equals(media)).sorted().findFirst();
+		return find(name -> name.startsWith("wheels/") && baseName(name).equals(media)).stream().findFirst();
 	}
 
-	private byte[] resource(String name) throws NoSuchFileException {
-		byte[] data = resources.get(name);
-		if (data == null)
-			throw new NoSuchFileException(name);
-		return data;
+	private List<String> find(Predicate<String> filter) {
+		return resourceNames().stream().filter(filter).toList();
 	}
 
 	/**
@@ -121,8 +119,8 @@ public final class GdtfArchive {
 
 	@Override
 	public String toString() {
-		return "GdtfArchive[" + fixtureType.manufacturer() + " " + fixtureType.name() + ", " + resources.size()
-				+ " files]";
+		return "GdtfArchive[" + fixtureType.manufacturer() + " " + fixtureType.name() + ", "
+				+ resourceNames().size() + " files]";
 	}
 
 }

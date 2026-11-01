@@ -35,12 +35,15 @@ public record CieColor(double x, double y, double luminance) {
 	}
 
 	/**
-	 * @return The color as CIE XYZ, {@code {X, Y, Z}} with Y from 0 to 100
+	 * @return The color as CIE XYZ, {@code {X, Y, Z}} with Y from 0 to 100. Always finite and not negative:
+	 *         chromaticities outside the valid range (y near 0, x + y above 1) are clamped, a color with y near
+	 *         0 is black.
 	 */
 	public double[] toXyz() {
-		if (y == 0)
+		if (y < 1e-6)
 			return new double[] { 0, 0, 0 };
-		return new double[] { x * luminance / y, luminance, (1 - x - y) * luminance / y };
+		double scale = Math.max(0, luminance) / y;
+		return new double[] { Math.max(0, x * scale), Math.max(0, luminance), Math.max(0, (1 - x - y) * scale) };
 	}
 
 }

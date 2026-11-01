@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.IntPredicate;
 import java.util.function.Supplier;
 
 import de.verschwiegener.gdtf.model.CieColor;
@@ -23,6 +24,7 @@ import de.verschwiegener.gdtf.model.GdtfMatrix;
 import de.verschwiegener.gdtf.model.GdtfModel;
 import de.verschwiegener.gdtf.model.GdtfPhysical;
 import de.verschwiegener.gdtf.model.GdtfWheel;
+import de.verschwiegener.gdtf.xml.Attribute;
 import de.verschwiegener.gdtf.xml.BasicGeometryAttributes;
 import de.verschwiegener.gdtf.xml.BasicGeometryType;
 import de.verschwiegener.gdtf.xml.Beam;
@@ -129,7 +131,7 @@ final class Resolver {
 		return version.endsWith(".0") ? version.substring(0, version.length() - 2) : version;
 	}
 
-	private GdtfAttribute attribute(de.verschwiegener.gdtf.xml.Attribute attribute) {
+	private GdtfAttribute attribute(Attribute attribute) {
 		String featureGroup = null;
 		String feature = null;
 		String path = blankToNull(attribute.getFeature());
@@ -263,6 +265,16 @@ final class Resolver {
 		 */
 		private final Map<String, List<Integer>> templateBreaks = new HashMap<>();
 
+		/**
+		 * The parts of a DMXChannel that are needed before the channels are resolved, read once
+		 *
+		 * @param fileName Name of the channel in the file, used by ModeMaster and InitialFunction
+		 * @param dmxBreak Break of the channel, 1 for "Overwrite"
+		 */
+		private record ParsedChannel(DMXChannel xml, String fileName, String context, String geometry,
+				List<Integer> offsets, int bytes, int dmxBreak, boolean overwrite) {
+		}
+
 		ModeResolver(DMXMode mode, List<GdtfGeometry> geometries) throws GdtfException {
 			this.mode = mode;
 			this.context = "DMXMode " + mode.getName();
@@ -280,21 +292,23 @@ final class Resolver {
 		GdtfDmxMode resolve() throws GdtfException {
 			List<DMXChannel> xmlChannels = mode.getDMXChannels() != null ? mode.getDMXChannels().getDMXChannel()
 					: List.of();
+			// mode masters and references need all channels before any is resolved
+			List<ParsedChannel> parsed = new ArrayList<>();
 			for (DMXChannel channel : xmlChannels) {
-				bytesByChannel.put(fileName(channel), bytes(channel, offsets(channel)));
-				GdtfGeometry top = topLevel.get(text(channel.getGeometry(), ""));
-				String breakText = text(channel.getDMXBreak(), "1").strip();
-				if (top != null && !breakText.equalsIgnoreCase("Overwrite")) {
+				ParsedChannel channelInfo = parseChannel(channel);
+				parsed.add(channelInfo);
+				bytesByChannel.put(channelInfo.fileName(), channelInfo.bytes());
+				GdtfGeometry top = topLevel.get(channelInfo.geometry());
+				if (top != null && !channelInfo.overwrite()) {
 					List<Integer> breaks = templateBreaks.computeIfAbsent(top.name(), t -> new ArrayList<>());
-					int dmxBreak = integer(breakText, context + ", DMXChannel " + fileName(channel) + " DMXBreak");
-					if (!breaks.contains(dmxBreak))
-						breaks.add(dmxBreak);
+					if (!breaks.contains(channelInfo.dmxBreak()))
+						breaks.add(channelInfo.dmxBreak());
 				}
 			}
 			templateBreaks.values().forEach(breaks -> breaks.sort(null));
 
 			List<GdtfDmxChannel> channels = new ArrayList<>();
-			for (DMXChannel channel : xmlChannels)
+			for (ParsedChannel channel : parsed)
 				channels.addAll(channel(channel));
 
 			List<GdtfDmxMode.Relation> relations = new ArrayList<>();
@@ -311,20 +325,19 @@ final class Resolver {
 		/**
 		 * @return The channel, or one instance per reference if its geometry is referenced in this mode
 		 */
-		private List<GdtfDmxChannel> channel(DMXChannel xml) throws GdtfException {
-			String geometry = required(xml.getGeometry(), context + " DMXChannel Geometry");
-			String channelContext = context + ", DMXChannel " + fileName(xml);
-			List<Integer> offsets = offsets(xml);
-			int bytes = bytes(xml, offsets);
+		private List<GdtfDmxChannel> channel(ParsedChannel parsed) throws GdtfException {
+			DMXChannel xml = parsed.xml();
+			String geometry = parsed.geometry();
+			String channelContext = parsed.context();
+			List<Integer> offsets = parsed.offsets();
+			int bytes = parsed.bytes();
+			boolean overwrite = parsed.overwrite();
+			int dmxBreak = parsed.dmxBreak();
 			List<GdtfLogicalChannel> logicalChannels = logicalChannels(xml, bytes, channelContext);
 			if (logicalChannels.isEmpty())
 				throw new GdtfException(channelContext + " has no LogicalChannel");
 			GdtfChannelFunction initial = initialFunction(xml, logicalChannels, channelContext);
-			Long highlight = dmx(() -> DmxValue.parseOptional(xml.getHighlight(), bytes), channelContext + " Highlight");
-
-			String breakText = text(xml.getDMXBreak(), "1").strip();
-			boolean overwrite = breakText.equalsIgnoreCase("Overwrite");
-			int dmxBreak = overwrite ? 1 : integer(breakText, channelContext + " DMXBreak");
+			Long highlight = parse(() -> DmxValue.parseOptional(xml.getHighlight(), bytes), channelContext + " Highlight");
 
 			GdtfGeometry template = topLevel.get(geometry);
 			List<GdtfGeometry> instances = template != null && template != modeRoot
@@ -332,7 +345,7 @@ final class Resolver {
 					: List.of();
 			if (instances.isEmpty()) {
 				return List.of(new GdtfDmxChannel(name(geometry, logicalChannels), dmxBreak, offsets, bytes, geometry,
-						null, highlight, initial, logicalChannels));
+						null, geometry, highlight, initial, logicalChannels));
 			}
 
 			// the n-th Break of a reference applies to the n-th break the template uses, the last to "Overwrite"
@@ -355,7 +368,7 @@ final class Resolver {
 				String instanceName = geometry.equals(template.name()) ? instance.name()
 						: instance.name() + "." + geometry;
 				result.add(new GdtfDmxChannel(name(instanceName, logicalChannels), instanceBreak, instanceOffsets,
-						bytes, geometry, instance.name(), highlight, initial, logicalChannels));
+						bytes, geometry, instance.name(), instanceName, highlight, initial, logicalChannels));
 			}
 			return result;
 		}
@@ -374,7 +387,7 @@ final class Resolver {
 				for (int i = 0; i < xmlFunctions.size(); i++) {
 					ChannelFunction function = xmlFunctions.get(i);
 					String functionName = text(function.getName(), text(function.getAttribute(), "NoFeature") + " " + (i + 1));
-					starts.add(dmx(() -> DmxValue.parse(text(function.getDMXFrom(), "0/1"), bytes),
+					starts.add(parse(() -> DmxValue.parse(text(function.getDMXFrom(), "0/1"), bytes),
 							logicalContext + ", ChannelFunction " + functionName + " DMXFrom"));
 					modeKeys.add(text(function.getModeMaster(), "") + "|" + text(function.getModeFrom(), "") + "|"
 							+ text(function.getModeTo(), ""));
@@ -382,11 +395,8 @@ final class Resolver {
 
 				List<GdtfChannelFunction> functions = new ArrayList<>();
 				for (int i = 0; i < xmlFunctions.size(); i++) {
-					long end = DmxValue.max(bytes);
-					for (int j = 0; j < xmlFunctions.size(); j++) {
-						if (modeKeys.get(j).equals(modeKeys.get(i)) && starts.get(j) > starts.get(i))
-							end = Math.min(end, starts.get(j) - 1);
-					}
+					String modeKey = modeKeys.get(i);
+					long end = endBefore(starts, i, DmxValue.max(bytes), j -> modeKeys.get(j).equals(modeKey));
 					functions.add(function(xmlFunctions.get(i), i, attribute, starts.get(i), end, bytes,
 							logicalContext));
 				}
@@ -401,7 +411,7 @@ final class Resolver {
 			String attribute = text(xml.getAttribute(), "NoFeature");
 			String name = text(xml.getName(), attribute + " " + (index + 1));
 			String context = logicalContext + ", ChannelFunction " + name;
-			long defaultValue = dmx(() -> DmxValue.parse(text(xml.getDefault(), "0/1"), bytes), context + " Default");
+			long defaultValue = parse(() -> DmxValue.parse(text(xml.getDefault(), "0/1"), bytes), context + " Default");
 
 			// a broken set only loses its name for a range, the function still works, so it is skipped
 			List<GdtfChannelSet> sets = new ArrayList<>();
@@ -418,11 +428,7 @@ final class Resolver {
 				}
 			}
 			for (int i = 0; i < xmlSets.size(); i++) {
-				long end = to;
-				for (long start : setStarts) {
-					if (start > setStarts.get(i))
-						end = Math.min(end, start - 1);
-				}
+				long end = endBefore(setStarts, i, to, j -> true);
 				ChannelSet set = xmlSets.get(i);
 				sets.add(new GdtfChannelSet(text(set.getName(), ""), setStarts.get(i), Math.max(setStarts.get(i), end),
 						or(set.getPhysicalFrom(), Double.NaN), or(set.getPhysicalTo(), Double.NaN),
@@ -438,8 +444,8 @@ final class Resolver {
 				int masterBytes = bytesByChannel.getOrDefault(masterChannel, 1);
 				if (!bytesByChannel.containsKey(masterChannel))
 					warnings.add(context + " uses unknown ModeMaster " + modeMaster);
-				modeFrom = dmx(() -> DmxValue.parse(text(xml.getModeFrom(), "0/1"), masterBytes), context + " ModeFrom");
-				modeTo = dmx(() -> DmxValue.parse(text(xml.getModeTo(), "0/1"), masterBytes), context + " ModeTo");
+				modeFrom = parse(() -> DmxValue.parse(text(xml.getModeFrom(), "0/1"), masterBytes), context + " ModeFrom");
+				modeTo = parse(() -> DmxValue.parse(text(xml.getModeTo(), "0/1"), masterBytes), context + " ModeTo");
 			}
 
 			double physicalFrom = or(xml.getPhysicalFrom(), 0);
@@ -458,7 +464,7 @@ final class Resolver {
 		 * InitialFunction is a node like "Beam_Dimmer.Dimmer.Dimmer 1": channel, logical channel, function
 		 */
 		private GdtfChannelFunction initialFunction(DMXChannel xml, List<GdtfLogicalChannel> logicalChannels,
-				String channelContext) {
+				String channelContext) throws GdtfException {
 			GdtfChannelFunction first = logicalChannels.get(0).functions().isEmpty() ? null
 					: logicalChannels.get(0).functions().get(0);
 			String node = blankToNull(xml.getInitialFunction());
@@ -477,27 +483,38 @@ final class Resolver {
 				warnings.add(channelContext + " uses unknown InitialFunction " + node);
 			}
 			if (first == null)
-				throw new IllegalStateException(channelContext + " has no ChannelFunction");
+				throw new GdtfException(channelContext + " has no ChannelFunction");
 			return first;
 		}
 
-		private List<Integer> offsets(DMXChannel xml) throws GdtfException {
+		private ParsedChannel parseChannel(DMXChannel xml) throws GdtfException {
+			String fileName = fileName(xml);
+			String channelContext = context + ", DMXChannel " + fileName;
+			String geometry = required(xml.getGeometry(), context + " DMXChannel Geometry");
+			List<Integer> offsets = offsets(xml, channelContext);
+			String breakText = text(xml.getDMXBreak(), "1").strip();
+			boolean overwrite = breakText.equalsIgnoreCase("Overwrite");
+			int dmxBreak = overwrite ? 1 : integer(breakText, channelContext + " DMXBreak");
+			return new ParsedChannel(xml, fileName, channelContext, geometry, offsets, bytes(xml, offsets), dmxBreak,
+					overwrite);
+		}
+
+		private static List<Integer> offsets(DMXChannel xml, String channelContext) throws GdtfException {
 			String text = text(xml.getOffset(), "None").strip();
 			if (text.isEmpty() || text.equalsIgnoreCase("None"))
 				return List.of();
 			List<Integer> offsets = new ArrayList<>();
 			for (String part : text.split(","))
-				offsets.add(integer(part.strip(), context + ", DMXChannel " + fileName(xml) + " Offset"));
+				offsets.add(integer(part.strip(), channelContext + " Offset"));
 			if (offsets.size() > DmxValue.MAX_BYTES)
-				throw new GdtfException(context + ", DMXChannel " + fileName(xml) + " has more than "
-						+ DmxValue.MAX_BYTES + " bytes");
+				throw new GdtfException(channelContext + " has more than " + DmxValue.MAX_BYTES + " bytes");
 			return offsets;
 		}
 
 		/**
 		 * Virtual channels have no offsets, their resolution follows from the values they use
 		 */
-		private int bytes(DMXChannel xml, List<Integer> offsets) {
+		private static int bytes(DMXChannel xml, List<Integer> offsets) {
 			if (!offsets.isEmpty())
 				return offsets.size();
 			int bytes = 1;
@@ -554,26 +571,32 @@ final class Resolver {
 	}
 
 	private static GdtfMatrix matrix(String text, String context) throws GdtfException {
+		return parse(() -> GdtfMatrix.parse(text), context);
+	}
+
+	/**
+	 * Values of the model classes reject invalid text with IllegalArgumentException, here it becomes a
+	 * GdtfException naming the element
+	 */
+	private static <T> T parse(Supplier<T> value, String context) throws GdtfException {
 		try {
-			return GdtfMatrix.parse(text);
+			return value.get();
 		} catch (IllegalArgumentException e) {
 			throw new GdtfException(context + ": " + e.getMessage(), e);
 		}
 	}
 
-	@FunctionalInterface
-	private interface DmxParse<T> {
-
-		T parse();
-
-	}
-
-	private static <T> T dmx(DmxParse<T> parse, String context) throws GdtfException {
-		try {
-			return parse.parse();
-		} catch (IllegalArgumentException e) {
-			throw new GdtfException(context + ": " + e.getMessage(), e);
+	/**
+	 * GDTF only stores where a range starts. It ends before the next larger start among the ranges that count,
+	 * or at {@code max}.
+	 */
+	private static long endBefore(List<Long> starts, int index, long max, IntPredicate counts) {
+		long end = max;
+		for (int j = 0; j < starts.size(); j++) {
+			if (counts.test(j) && starts.get(j) > starts.get(index))
+				end = Math.min(end, starts.get(j) - 1);
 		}
+		return end;
 	}
 
 	private static int integer(String text, String context) throws GdtfException {

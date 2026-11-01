@@ -1,7 +1,6 @@
 package de.verschwiegener.gdtf;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -9,9 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
@@ -88,8 +85,10 @@ public final class GdtfReader {
 	}
 
 	public GdtfArchive read(Path file) throws IOException {
-		try (InputStream in = Files.newInputStream(file)) {
-			return read(in);
+		try {
+			if (Files.size(file) > maxSize)
+				throw new GdtfException("File is larger than " + maxSize + " bytes");
+			return read(Files.readAllBytes(file));
 		} catch (GdtfException e) {
 			throw new GdtfException(file.getFileName() + ": " + e.getMessage(), e);
 		}
@@ -101,24 +100,27 @@ public final class GdtfReader {
 	 * @throws GdtfException if the archive is no GDTF file or its description can not be read
 	 */
 	public GdtfArchive read(InputStream gdtf) throws IOException {
-		Map<String, byte[]> files = new LinkedHashMap<>();
-		for (Map.Entry<String, byte[]> file : ZipArchive.read(readAll(gdtf), maxSize).entrySet())
-			files.put(normalize(file.getKey()), file.getValue());
-		byte[] description = files.remove(DESCRIPTION);
-		if (description == null)
+		return read(readAll(gdtf));
+	}
+
+	private GdtfArchive read(byte[] gdtf) throws IOException {
+		ZipArchive zip = ZipArchive.open(gdtf, maxSize);
+		if (!zip.contains(DESCRIPTION))
 			throw new GdtfException("Not a GDTF file: " + DESCRIPTION + " is missing");
 		List<String> warnings = new ArrayList<>();
-		GdtfFixtureType type = resolve(unmarshal(new ByteArrayInputStream(trimEnd(description)), warnings),
-				warnings);
-		return new GdtfArchive(type, files, warnings);
+		GdtfFixtureType type = parse(zip.read(DESCRIPTION), warnings);
+		return new GdtfArchive(type, zip, warnings);
 	}
 
 	/**
 	 * Reads only a description.xml, without the other files of the archive
 	 */
 	public GdtfFixtureType readDescription(InputStream descriptionXml) throws IOException {
-		List<String> warnings = new ArrayList<>();
-		return resolve(unmarshal(new ByteArrayInputStream(trimEnd(readAll(descriptionXml))), warnings), warnings);
+		return parse(readAll(descriptionXml), new ArrayList<>());
+	}
+
+	private GdtfFixtureType parse(byte[] description, List<String> warnings) throws GdtfException {
+		return resolve(unmarshal(new ByteArrayInputStream(trimEnd(description)), warnings), warnings);
 	}
 
 	private static GdtfFixtureType resolve(GDTF root, List<String> warnings) throws GdtfException {
@@ -134,18 +136,15 @@ public final class GdtfReader {
 		}
 	}
 
+	/**
+	 * Reads one byte more than allowed, so a larger file is detected without reading it completely
+	 */
 	private byte[] readAll(InputStream in) throws IOException {
-		ByteArrayOutputStream data = new ByteArrayOutputStream();
-		byte[] buffer = new byte[64 * 1024];
-		long total = 0;
-		int read;
-		while ((read = in.read(buffer)) >= 0) {
-			total += read;
-			if (total > maxSize || total > Integer.MAX_VALUE - 8)
-				throw new GdtfException("File is larger than " + Math.min(maxSize, Integer.MAX_VALUE - 8) + " bytes");
-			data.write(buffer, 0, read);
-		}
-		return data.toByteArray();
+		int limit = (int) Math.min(maxSize, Integer.MAX_VALUE - 9);
+		byte[] data = in.readNBytes(limit + 1);
+		if (data.length > limit)
+			throw new GdtfException("File is larger than " + limit + " bytes");
+		return data;
 	}
 
 	/**
@@ -156,16 +155,6 @@ public final class GdtfReader {
 		while (end > 0 && (xml[end - 1] == 0 || Character.isWhitespace(xml[end - 1])))
 			end--;
 		return end == xml.length ? xml : Arrays.copyOf(xml, end);
-	}
-
-	/**
-	 * Archives from Windows may use backslashes or start with "./"
-	 */
-	private static String normalize(String name) {
-		String path = name.replace('\\', '/');
-		while (path.startsWith("./") || path.startsWith("/"))
-			path = path.substring(path.startsWith("./") ? 2 : 1);
-		return path;
 	}
 
 	private GDTF unmarshal(InputStream xml, List<String> warnings) throws GdtfException {

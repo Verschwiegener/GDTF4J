@@ -278,6 +278,30 @@ class GdtfReaderTest {
 	}
 
 	@Test
+	void brokenDirectoryOffsetIsAGdtfException() {
+		byte[] archive = TestGdtf.archive();
+		// the end of central directory record is the last 22 bytes, its offset field starts at byte 16
+		java.nio.ByteBuffer.wrap(archive).order(java.nio.ByteOrder.LITTLE_ENDIAN).putInt(archive.length - 22 + 16,
+				0x80000000);
+		assertThrows(GdtfException.class, () -> GdtfReader.create().read(new ByteArrayInputStream(archive)));
+	}
+
+	@Test
+	void entryNamesWithoutUtf8FlagAreReadAsCp437() throws Exception {
+		String description = TestGdtf.DESCRIPTION.replace("MediaFileName=\"dots\"", "MediaFileName=\"Rosé\"");
+		var out = new java.io.ByteArrayOutputStream();
+		try (var zip = new java.util.zip.ZipOutputStream(out, java.nio.charset.Charset.forName("IBM437"))) {
+			zip.putNextEntry(new java.util.zip.ZipEntry("description.xml"));
+			zip.write(description.getBytes(StandardCharsets.UTF_8));
+			zip.putNextEntry(new java.util.zip.ZipEntry("wheels/Rosé.png"));
+			zip.write(new byte[] { 7 });
+		}
+		GdtfArchive read = GdtfReader.create().read(new ByteArrayInputStream(out.toByteArray()));
+		GdtfWheel.Slot slot = read.fixtureType().wheel("Gobo1").orElseThrow().slot(2).orElseThrow();
+		assertEquals("wheels/Rosé.png", read.wheelImage(slot).orElseThrow());
+	}
+
+	@Test
 	void limitsUnpackedSize() {
 		assertThrows(GdtfException.class,
 				() -> GdtfReader.create().withMaxSize(100).read(new ByteArrayInputStream(TestGdtf.archive())));

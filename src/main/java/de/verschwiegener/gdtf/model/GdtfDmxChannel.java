@@ -16,11 +16,14 @@ import java.util.Objects;
  * @param geometry        Geometry the channel controls
  * @param reference       Name of the {@link GdtfGeometry.Reference} this channel was repeated for, null if it is
  *                        no instance of a referenced geometry
+ * @param instance        Name of the geometry instance the channel controls, tells the cells of a multi cell
+ *                        fixture apart: the reference name ("Pixel 1"), "reference.part" for a part of the
+ *                        referenced geometry ("Pixel 1.Motor"), or the geometry itself without reference
  * @param highlight       Value for highlight, null if the channel has none
  * @param initialFunction Function that is active by default, gives the default value
  */
 public record GdtfDmxChannel(String name, int dmxBreak, List<Integer> offsets, int bytes, String geometry,
-		String reference, Long highlight, GdtfChannelFunction initialFunction,
+		String reference, String instance, Long highlight, GdtfChannelFunction initialFunction,
 		List<GdtfLogicalChannel> logicalChannels) {
 
 	public GdtfDmxChannel {
@@ -34,6 +37,7 @@ public record GdtfDmxChannel(String name, int dmxBreak, List<Integer> offsets, i
 			throw new IllegalArgumentException("Channel " + name + " has " + offsets.size() + " offsets but "
 					+ bytes + " bytes");
 		Objects.requireNonNull(geometry, "geometry");
+		Objects.requireNonNull(instance, "instance");
 		Objects.requireNonNull(initialFunction, "initialFunction");
 		logicalChannels = List.copyOf(logicalChannels);
 		if (logicalChannels.isEmpty())
